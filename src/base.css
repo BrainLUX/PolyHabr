@@ -813,6 +813,10 @@ body {
   padding: 0;
   font-family: "Montserrat", sans-serif;
   background: #F0F0F0;
+  -webkit-font-smoothing: antialiased;
+  color: #333;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 * {
@@ -822,6 +826,7 @@ body {
 .container {
   margin: 0 auto;
   max-width: 1096px;
+  min-height: 16px;
 }
 
 img {
@@ -832,6 +837,15 @@ img {
 
 .link {
   cursor: pointer;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /*# sourceMappingURL=base.css.map */

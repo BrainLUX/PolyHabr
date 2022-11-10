@@ -1,0 +1,11 @@
+@use "src/base";
+
+.container {
+  background-color: base.$col-white;
+  margin-top: 12px;
+
+  .headline {
+    padding: 14px 20px;
+    box-shadow: inset 0 -1px 0 0 #d5dddf;
+  }
+}
