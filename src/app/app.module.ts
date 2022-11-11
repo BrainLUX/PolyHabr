@@ -6,6 +6,7 @@ import {RouterModule} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
 import {SharedModule} from "./shared/shared.module";
 import {FeedModule} from "./feed/feed.module";
+import {DataModule} from "../data/data.module";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {FeedModule} from "./feed/feed.module";
     RouterModule,
     AppRoutingModule,
     SharedModule,
-    FeedModule
+    FeedModule,
+    DataModule
   ],
   providers: [],
   bootstrap: [AppComponent]

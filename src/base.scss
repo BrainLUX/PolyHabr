@@ -41,13 +41,34 @@ img {
 
 .link {
   cursor: pointer;
+
+  &:hover {
+    color: $col-green-light !important;
+  }
 }
 
-h1{
+h1 {
   font-size: 20px;
   font-weight: 700;
   margin: 0;
   text-decoration: none;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+button {
+  background-color: $col-green-light;
+  color: #fff;
+  cursor: pointer;
+  -webkit-appearance: button;
+  height: 32px;
+  padding: 8px 14px;
+  border-radius: 3px;
+  transition: all .3s;
+  outline: none;
+  border: 1px solid $col-green-light;
+
+  &:hover {
+    background-color: $col-green;
+  }
 }

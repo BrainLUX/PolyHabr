@@ -838,6 +838,9 @@ img {
 .link {
   cursor: pointer;
 }
+.link:hover {
+  color: #21a649 !important;
+}
 
 h1 {
   font-size: 20px;
@@ -846,6 +849,22 @@ h1 {
   text-decoration: none;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+button {
+  background-color: #21a649;
+  color: #fff;
+  cursor: pointer;
+  -webkit-appearance: button;
+  height: 32px;
+  padding: 8px 14px;
+  border-radius: 3px;
+  transition: all 0.3s;
+  outline: none;
+  border: 1px solid #21a649;
+}
+button:hover {
+  background-color: #105d3b;
 }
 
 /*# sourceMappingURL=base.css.map */
