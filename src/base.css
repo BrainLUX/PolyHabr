@@ -835,14 +835,16 @@ img {
   object-fit: cover;
 }
 
-.link {
+a, .link {
+  text-decoration: none;
+  color: inherit;
   cursor: pointer;
 }
-.link:hover {
+a:hover, .link:hover {
   color: #21a649 !important;
 }
 
-h1 {
+h1, h2 {
   font-size: 20px;
   font-weight: 700;
   margin: 0;
@@ -865,6 +867,20 @@ button {
 }
 button:hover {
   background-color: #105d3b;
+}
+
+.chip {
+  width: fit-content;
+  border: 1px solid #21a649;
+  border-radius: 3px;
+  box-sizing: border-box;
+  margin-right: 8px;
+  padding: 8px 9px;
+  font-size: 12px;
+}
+.chip.selected, .chip.selectable:hover {
+  background-color: #21a649;
+  color: #fff !important;
 }
 
 /*# sourceMappingURL=base.css.map */

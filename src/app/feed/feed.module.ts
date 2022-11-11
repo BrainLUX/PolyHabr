@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FeedComponent } from './feed/feed.component';
 import {FeedRoutingModule} from "./feed-routing.module";
 import { SortBarComponent } from './feed/sort-bar/sort-bar.component';
+import {SharedModule} from "../shared/shared.module";
 
 
 
@@ -13,7 +14,8 @@ import { SortBarComponent } from './feed/sort-bar/sort-bar.component';
   ],
   imports: [
     CommonModule,
-    FeedRoutingModule
+    FeedRoutingModule,
+    SharedModule
   ]
 })
 export class FeedModule { }

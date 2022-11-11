@@ -1,6 +1,6 @@
 @use "src/base";
 
-.container {
+.bar {
   background-color: base.$col-white;
   margin-top: 12px;
 
@@ -58,20 +58,6 @@
 
     .items {
       display: flex;
-
-      .item {
-        border: 1px solid base.$col-green-light;
-        border-radius: 3px;
-        box-sizing: border-box;
-        margin-right: 8px;
-        padding: 8px 9px;
-        font-size: 12px;
-
-        &.selected, &:hover {
-          background-color: base.$col-green-light;
-          color: base.$col-white !important;
-        }
-      }
     }
 
     button {

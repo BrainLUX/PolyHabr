@@ -1,4 +1,4 @@
-<div class="container">
+<div class="bar">
   <h1 class="headline">Все публикации</h1>
   <div class="sort">
     <div class="item link" *ngFor="let type of sortTypes"
@@ -14,7 +14,7 @@
   <div class="options" [ngClass]="{active:getSelectedOption()}">
     <div class="label">Показывать только</div>
     <div class="items">
-      <div class="item link" *ngFor="let option of sortOptions"
+      <div class="chip selectable link" *ngFor="let option of sortOptions"
            (click)="selectOption(option)"
            [ngClass]="{selected:isOptionSelected(option)}">
         {{option.title}}

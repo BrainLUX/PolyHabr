@@ -1,0 +1,42 @@
+<article>
+  <div class="head">
+    <a href="#" class="name">{{article.creator.nickname}}</a>
+    <div class="date">{{article.date}}</div>
+  </div>
+  <a href="#">
+    <h2 class="title">{{article.title}}</h2>
+  </a>
+  <div class="tags">
+    <a href="#" *ngFor="let tag of article.tags">{{tag.title}}</a>
+  </div>
+  <div class="type chip">{{article.type}}</div>
+  <div class="body" [innerHtml]="article.shortBody"></div>
+  <div class="footer">
+    <a href="#" class="more chip selectable">
+      <span>Читать дальше →</span>
+    </a>
+    <div class="info">
+      <div class="rating">
+        <svg height="24" width="24">
+          <title>Рейтинг</title>
+          <use xlink:href="assets/images/icons/icon-set.svg#counter-rating"></use>
+        </svg>
+        <span>{{article.info.rating}}</span>
+      </div>
+      <div class="views">
+        <svg height="24" width="24">
+          <title>Просмотры</title>
+          <use xlink:href="assets/images/icons/icon-set.svg#counter-views"></use>
+        </svg>
+        <span>{{article.info.views}}</span>
+      </div>
+      <div class="favourite link">
+        <svg height="24" width="24">
+          <title>Добавить в закладки</title>
+          <use xlink:href="assets/images/icons/icon-set.svg#counter-favorite"></use>
+        </svg>
+        <span>{{article.info.favorite}}</span>
+      </div>
+    </div>
+  </div>
+</article>
