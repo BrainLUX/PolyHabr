@@ -13,7 +13,7 @@
       align-items: center;
       height: 100%;
       font-size: 24px;
-      color: base.$col-white;
+      color: base.$col-white !important;
       font-weight: 500;
     }
   }
@@ -43,10 +43,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-
-        &:hover {
-          color: base.$col-green-light;
-        }
 
         &:first-child {
           padding-left: 0;

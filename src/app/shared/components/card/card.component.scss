@@ -1,0 +1,85 @@
+@use "src/base";
+
+article {
+  background-color: base.$col-white;
+  margin-top: 12px;
+  padding: 16px 20px;
+
+  .head {
+    display: flex;
+    align-items: center;
+
+    .name {
+      font-weight: 600;
+      margin-right: 5px;
+    }
+
+    .date {
+      font-size: 12px;
+    }
+  }
+
+  .title {
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+
+  .tags {
+    font-size: 12px;
+
+    *:not(:last-child):after {
+      content: ", ";
+    }
+  }
+
+  .type {
+    margin-top: 8px;
+  }
+
+  .body {
+    padding-top: 16px;
+    font-size: 16px;
+
+    img {
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      width: 75%;
+    }
+  }
+
+  .footer {
+
+    .more {
+      margin-top: 18px;
+      color: base.$col-green-light;
+      height: 36px;
+      padding: 0 13px;
+      display: flex;
+      align-items: center;
+    }
+
+    .info {
+      display: flex;
+      margin-top: 24px;
+
+      & > * {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+
+        &:not(:first-child) {
+          margin-left: 32px;
+        }
+
+        span {
+          color: base.$col-green;
+        }
+
+        svg {
+          fill: base.$col-green;
+        }
+      }
+    }
+  }
+}
