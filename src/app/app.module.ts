@@ -10,12 +10,14 @@ import {SearchComponent} from './search/search.component';
 import {FeedComponent} from "./feed/feed.component";
 import {SortBarComponent} from "./shared/components/sort-bar/sort-bar.component";
 import {CoreModule} from "./core/core.module";
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FeedComponent,
-    SearchComponent
+    SearchComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

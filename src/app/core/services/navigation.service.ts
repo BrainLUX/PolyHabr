@@ -25,6 +25,7 @@ export class NavigationService {
 export class Destination {
   static readonly FEED = new Destination("");
   static readonly SEARCH = new Destination("search");
+  static readonly LOGIN = new Destination("login");
 
   private readonly path: string = "";
 
