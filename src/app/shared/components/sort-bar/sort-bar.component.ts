@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Sort} from "../../../../data/models/sort-type";
+import {SortBarState} from "../../../../data/models/sort-bar-state";
 
 @Component({
   selector: 'poly-sort-bar',
@@ -7,6 +8,14 @@ import {Sort} from "../../../../data/models/sort-type";
   styleUrls: ['./sort-bar.component.scss']
 })
 export class SortBarComponent implements OnInit {
+
+  readonly SortBarState = SortBarState;
+
+  @Input()
+  state: SortBarState = SortBarState.SORT;
+
+  @Output()
+  onSearch: EventEmitter<string> = new EventEmitter<string>();
 
   readonly sortTypes: Sort.Type[] = [
     new Sort.Type("По дате выпуска"),

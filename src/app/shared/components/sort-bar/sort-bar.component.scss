@@ -1,4 +1,4 @@
-@use "src/base";
+@use "../../../../base";
 
 .bar {
   background-color: base.$col-white;
@@ -7,6 +7,26 @@
   .headline {
     padding: 14px 20px;
     box-shadow: inset 0 -1px 0 0 #d5dddf;
+  }
+
+  .search {
+    margin-left: 16px;
+    margin-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    position: relative;
+
+    input {
+      padding-right: 36px;
+    }
+
+    svg {
+      fill: base.$col-gray-dark;
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
 
   .sort {
