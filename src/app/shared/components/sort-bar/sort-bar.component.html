@@ -1,6 +1,14 @@
 <div class="bar">
-  <h1 class="headline">Все публикации</h1>
-  <div class="sort">
+  <div class="search" *ngIf="state == SortBarState.SEARCH || state == SortBarState.SEARCH_SORT">
+    <input type="text" placeholder="Поиск" (keydown.enter)="onSearch.emit(search.value)" #search>
+    <svg class="link" height="24" width="24"
+         (click)="onSearch.emit(search.value)">
+      <title>Поиск</title>
+      <use xlink:href="assets/images/icons/icon-set.svg#input-search"></use>
+    </svg>
+  </div>
+  <h1 class="headline" *ngIf="state == SortBarState.SORT">Все публикации</h1>
+  <div class="sort" *ngIf="state == SortBarState.SORT || state == SortBarState.SEARCH_SORT">
     <div class="item link" *ngFor="let type of sortTypes"
          (click)="selectSort(type)" [ngClass]="{selected:isSelected(type)}">
       {{type.title}}

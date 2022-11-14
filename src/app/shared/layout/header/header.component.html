@@ -1,7 +1,8 @@
 <header>
   <div class="top">
     <div class="container">
-      <a href="#" class="logo">
+      <a href="/" class="logo"
+         (click)="toFeed($event)">
         ПолиХабр
       </a>
     </div>
@@ -12,12 +13,13 @@
         <a href="#">
           Мои публикации
         </a>
-        <a href="#">
+        <a href="/" (click)="toFeed($event)">
           Все публикации
         </a>
       </div>
       <div class="actions">
-        <a href="#" class="button-icon">
+        <a href="/search" class="button-icon"
+           (click)="toSearch($event)">
           <svg height="24" width="24">
             <title>Поиск</title>
             <use xlink:href="assets/images/icons/icon-set.svg#search"></use>

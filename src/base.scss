@@ -8,6 +8,7 @@ $col-green-dark: #00392a;
 $col-white: #fff;
 $col-gray: #F0F0F0;
 $col-gray-second: #dedede;
+$col-gray-dark: #929ca5;
 
 body {
   margin: 0;
@@ -73,6 +74,23 @@ button {
   &:hover {
     background-color: $col-green;
   }
+}
+
+input[type="text"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #d5dddf;
+  box-sizing: border-box;
+  color: #333;
+  display: block;
+  margin: 0;
+  outline: 0;
+  padding: 0 14px;
+  transition: border-color .2s linear, box-shadow .2s linear;
+  width: 100%;
+  min-height: 36px;
 }
 
 .chip {

@@ -1,14 +1,17 @@
 import {NgModule} from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
-import {FeedComponent} from "./feed/feed/feed.component";
+import {FeedComponent} from "./feed/feed.component";
+import {SearchComponent} from "./search/search.component";
+import {Destination} from "./core/services/navigation.service";
 
 const routes: Routes = [
   {
-    path: '',
-    component: FeedComponent,
-    data: {
-      requiredRoles: []
-    }
+    path: Destination.FEED.toPath(),
+    component: FeedComponent
+  },
+  {
+    path: Destination.SEARCH.toPath(),
+    component: SearchComponent
   }
 ];
 
