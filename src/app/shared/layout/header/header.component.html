@@ -31,9 +31,13 @@
             <use xlink:href="assets/images/icons/icon-set.svg#write"></use>
           </svg>
         </a>
-        <a href="#" class="profile">
-          <img src="https://hsto.org/getpro/habr/avatars/d5d/8a0/34b/d5d8a034b439c9e5937c6ba18a137252.png"/>
-        </a>
+        <div class="button-icon">
+          <svg height="24" width="24" (click)="menu.showMenu()">
+            <title>Профиль</title>
+            <use xlink:href="assets/images/icons/icon-set.svg#header-user"></use>
+          </svg>
+          <poly-menu #menu></poly-menu>
+        </div>
       </div>
     </div>
   </div>

@@ -23,5 +23,4 @@ export class HeaderComponent implements OnInit {
     e.preventDefault();
     this.navigationService.navigateTo(Destination.SEARCH);
   }
-
 }

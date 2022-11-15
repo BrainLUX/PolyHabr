@@ -2,7 +2,7 @@
   <div class="container">
     <a href="/" class="logo"
        (click)="toFeed($event)">
-    ПолиХабр
+      ПолиХабр
     </a>
   </div>
 </header>
@@ -24,6 +24,6 @@
   </div>
   <div class="layout no_account">
     <div>Еще нет аккаунта?</div>
-    <a>Зарегистрируйтесь</a>
+    <a href="/register" (click)="toRegister($event)">Зарегистрируйтесь</a>
   </div>
 </div>

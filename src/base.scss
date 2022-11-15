@@ -4,8 +4,10 @@ $font-montserrat: 'Montserrat', sans-serif;
 
 $col-green: #105d3b;
 $col-green-light: #21a649;
+$col-green-light-smooth: rgba(33, 166, 73, 0.3);
 $col-green-dark: #00392a;
 $col-white: #fff;
+$col-black: #333;
 $col-gray: #F0F0F0;
 $col-gray-second: #dedede;
 $col-gray-dark: #929ca5;
@@ -21,7 +23,7 @@ body {
   background: $col-gray;
 
   -webkit-font-smoothing: antialiased;
-  color: #333;
+  color: $col-black;
   font-size: 14px;
   font-weight: 400;
 }
