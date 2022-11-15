@@ -867,6 +867,7 @@ button {
 }
 button:hover {
   background-color: #105d3b;
+  border: 1px solid #105d3b;
 }
 
 input[type=text] {
