@@ -1,0 +1,36 @@
+<div class="menu" *ngIf="isShown()" (clickOutside)="hideMenu()">
+  <div class="unauthorized" *ngIf="false">
+    <div class="header">
+      <a href="/login" class="login chip selectable" (click)="toLogin($event)">Войти</a>
+      <a href="/register" (click)="toRegister($event)">
+        <button>Регистрация</button>
+      </a>
+    </div>
+  </div>
+  <div class="authorized" *ngIf="true">
+    <div class="header">
+      <div class="name">Студент</div>
+      <a href="/profile" class="nickname">@student</a>
+    </div>
+    <div class="body">
+      <a href="/profile" class="item">Профиль</a>
+      <a href="/profile#favourites" class="item">Избранное</a>
+    </div>
+    <div class="footer">
+      <a href="/settings" class="item">
+        <svg height="24" width="24">
+          <title>Настройки</title>
+          <use xlink:href="assets/images/icons/icon-set.svg#settings"></use>
+        </svg>
+        <span>Настройки профиля</span>
+      </a>
+      <a href="/exit" class="item">
+        <svg height="24" width="24">
+          <title>Выйти</title>
+          <use xlink:href="assets/images/icons/icon-set.svg#logout"></use>
+        </svg>
+        <span>Выход</span>
+      </a>
+    </div>
+  </div>
+</div>

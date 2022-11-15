@@ -59,14 +59,23 @@
         margin-left: 16px;
         display: flex;
         align-items: center;
+        position: relative;
 
         svg {
           color: base.$col-gray-dark;
           fill: base.$col-gray-dark;
+          cursor: pointer;
 
           &:hover {
             fill: base.$col-green-light;
           }
+        }
+
+        poly-menu {
+          position: absolute;
+          right: 0;
+          top: 35px;
+          z-index: 1;
         }
       }
 

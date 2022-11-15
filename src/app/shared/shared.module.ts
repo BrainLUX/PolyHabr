@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './layout/header/header.component';
 import { CardComponent } from './components/card/card.component';
 import {SortBarComponent} from "./components/sort-bar/sort-bar.component";
+import { MenuComponent } from './layout/menu/menu.component';
+import {ClickOutsideModule} from "ng-click-outside";
 
 
 
@@ -10,7 +12,8 @@ import {SortBarComponent} from "./components/sort-bar/sort-bar.component";
     declarations: [
         HeaderComponent,
         SortBarComponent,
-        CardComponent
+        CardComponent,
+        MenuComponent
     ],
     exports: [
         HeaderComponent,
@@ -18,7 +21,8 @@ import {SortBarComponent} from "./components/sort-bar/sort-bar.component";
         CardComponent
     ],
     imports: [
-        CommonModule
+        CommonModule,
+      ClickOutsideModule
     ]
 })
 export class SharedModule { }

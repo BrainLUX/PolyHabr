@@ -17,4 +17,9 @@ export class LoginComponent implements OnInit {
     e.preventDefault();
     this.navigationService.navigateTo(Destination.FEED);
   }
+
+  toRegister(e: Event): void {
+    e.preventDefault();
+    this.navigationService.navigateTo(Destination.REGISTER);
+  }
 }
