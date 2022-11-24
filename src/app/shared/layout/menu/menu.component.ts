@@ -38,9 +38,9 @@ export class MenuComponent implements OnInit {
     this.navigationService.navigateTo(Destination.LOGIN);
   }
 
-  toRegister(e: Event): void {
+  toRegistration(e: Event): void {
     e.preventDefault();
-    this.navigationService.navigateTo(Destination.REGISTER);
+    this.navigationService.navigateTo(Destination.REGISTRATION);
   }
 
 }

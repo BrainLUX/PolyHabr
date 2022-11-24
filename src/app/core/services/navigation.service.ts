@@ -26,7 +26,7 @@ export class Destination {
   static readonly FEED = new Destination("");
   static readonly SEARCH = new Destination("search");
   static readonly LOGIN = new Destination("login");
-  static readonly REGISTER = new Destination("register");
+  static readonly REGISTRATION = new Destination("registration");
 
   private readonly path: string = "";
 

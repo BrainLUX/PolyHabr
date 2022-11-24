@@ -11,13 +11,15 @@ import {FeedComponent} from "./feed/feed.component";
 import {SortBarComponent} from "./shared/components/sort-bar/sort-bar.component";
 import {CoreModule} from "./core/core.module";
 import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FeedComponent,
     SearchComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
