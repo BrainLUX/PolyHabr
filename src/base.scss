@@ -13,6 +13,9 @@ $col-gray-second: #dedede;
 $col-gray-dark: #929ca5;
 $col-green-pale: #d6dfd5;
 $col-gray-pale: #f4f4f4;
+$col-gray-pale-second: #f7f7f7;
+$col-gray-darker: #d5dddf;
+$col-gray-dark-second: #777;
 
 body {
   margin: 0;
@@ -86,7 +89,7 @@ input[type="text"] {
   -moz-appearance: none;
   appearance: none;
   background-color: #fff;
-  border: 1px solid #d5dddf;
+  border: 1px solid $col-gray-darker;
   box-sizing: border-box;
   color: #333;
   display: block;
@@ -110,5 +113,23 @@ input[type="text"] {
   &.selected, &.selectable:hover {
     background-color: $col-green-light;
     color: $col-white !important;
+  }
+}
+
+%head {
+  $card-padding: 20px;
+
+  display: flex;
+  margin-left: $card-padding;
+  margin-right: $card-padding;
+  align-items: center;
+
+  .name {
+    font-weight: 600;
+    margin-right: 5px;
+  }
+
+  .date {
+    font-size: 12px;
   }
 }
