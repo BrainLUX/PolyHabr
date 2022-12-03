@@ -1,30 +1,23 @@
 @use "src/base";
 
 article {
+  $card-padding: 20px;
+
   background-color: base.$col-white;
   margin-top: 12px;
-  padding: 16px 20px;
+  padding-top: 16px;
 
   .head {
-    display: flex;
-    align-items: center;
-
-    .name {
-      font-weight: 600;
-      margin-right: 5px;
-    }
-
-    .date {
-      font-size: 12px;
-    }
+    @extend %head;
   }
 
   .title {
-    margin-top: 8px;
-    margin-bottom: 4px;
+    margin: 8px $card-padding 4px;
   }
 
   .tags {
+    margin-left: $card-padding;
+    margin-right: $card-padding;
     font-size: 12px;
 
     *:not(:last-child):after {
@@ -33,10 +26,14 @@ article {
   }
 
   .type {
+    margin-left: $card-padding;
+    margin-right: $card-padding;
     margin-top: 8px;
   }
 
   .body {
+    margin-left: $card-padding;
+    margin-right: $card-padding;
     padding-top: 16px;
     font-size: 16px;
 
@@ -48,9 +45,44 @@ article {
     }
   }
 
+  &.full {
+    .info {
+      border-top: 1px solid base.$col-gray-darker;
+    }
+  }
+
+  &.short {
+    margin-top: 0;
+
+    .title {
+      font-size: 14px;
+    }
+
+    .footer {
+      .info {
+        margin-top: 0;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: $card-padding;
+        margin-right: $card-padding;
+        border-bottom: 1px solid base.$col-gray-darker;
+      }
+    }
+  }
+
+  &.last {
+    .footer {
+      .info {
+        border-bottom: none !important;
+      }
+    }
+  }
+
   .footer {
 
     .more {
+      margin-left: $card-padding;
+      margin-right: $card-padding;
       margin-top: 18px;
       color: base.$col-green-light;
       height: 36px;
@@ -60,7 +92,10 @@ article {
     }
 
     .info {
+      padding-left: $card-padding;
+      padding-right: $card-padding;
       display: flex;
+      height: 47px;
       margin-top: 24px;
 
       & > * {
