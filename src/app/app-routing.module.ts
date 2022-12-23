@@ -6,6 +6,7 @@ import {Destination} from "./core/services/navigation.service";
 import {LoginComponent} from "./login/login.component";
 import {RegistrationComponent} from "./registration/registration.component";
 import {ArticleComponent} from "./article/article.component";
+import {ProfileComponent} from "./profile/profile.component";
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: Destination.ARTICLE.toPath(),
     component: ArticleComponent
+  },
+  {
+    path: Destination.PROFILE.toPath(),
+    component: ProfileComponent
   }
 ];
 

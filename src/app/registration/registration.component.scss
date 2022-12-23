@@ -47,31 +47,7 @@
       }
 
       .form {
-        margin-top: 31px;
-
-        &:first-child {
-          margin-top: 57px;
-        }
-
-        .title {
-          font-size: 14px;
-          margin-bottom: 12px;
-          font-weight: 700;
-        }
-
-        input {
-          width: calc(100% - 15px * 2);
-          border: 1px solid base.$col-gray-second;
-          outline: none;
-          padding: 0 14px;
-          height: 40px;
-        }
-
-        &.nickname {
-          input {
-            width: 100%;
-          }
-        }
+        @extend %form;
       }
 
       .enter {
