@@ -8,11 +8,11 @@ import {SharedModule} from "./shared/shared.module";
 import {DataModule} from "../data/data.module";
 import {SearchComponent} from './search/search.component';
 import {FeedComponent} from "./feed/feed.component";
-import {SortBarComponent} from "./shared/components/sort-bar/sort-bar.component";
 import {CoreModule} from "./core/core.module";
 import { LoginComponent } from './login/login.component';
 import { ArticleComponent } from './article/article.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,8 @@ import { RegistrationComponent } from './registration/registration.component';
     LoginComponent,
     RegistrationComponent,
     LoginComponent,
-    ArticleComponent
+    ArticleComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
