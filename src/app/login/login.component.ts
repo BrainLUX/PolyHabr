@@ -20,6 +20,6 @@ export class LoginComponent implements OnInit {
 
   toRegistration(e: Event): void {
     e.preventDefault();
-    this.navigationService.navigateTo(Destination.REGISTRATION);
+    this.navigationService.navigateTo(Destination.REGISTER);
   }
 }

@@ -21,7 +21,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: Destination.REGISTRATION.toPath(),
+    path: Destination.REGISTER.toPath(),
     component: RegistrationComponent
   },
   {
