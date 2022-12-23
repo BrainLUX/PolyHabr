@@ -12,10 +12,18 @@
       <h1 class="title">Вход</h1>
       <div class="form login">
         <div class="title">E-mail</div>
-        <input type="login">
+        <input type="email">
+      </div>
+      <div class="form nickname">
+        <div class="title">Никнейм</div>
+        <input type="text">
       </div>
       <div class="form password">
         <div class="title">Пароль</div>
+        <input type="password">
+      </div>
+      <div class="form password again">
+        <div class="title">Пароль еще раз</div>
         <input type="password">
       </div>
       <button class="enter">Войти</button>
@@ -23,7 +31,7 @@
     </div>
   </div>
   <div class="layout no_account">
-    <div>Еще нет аккаунта?</div>
-    <a href="/registration" (click)="toRegistration($event)">Зарегистрируйтесь</a>
+    <div>Уже зарегестрированы?</div>
+    <a href="/login" (click)="toLogin($event)">Войдите</a>
   </div>
 </div>

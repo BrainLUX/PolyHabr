@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {Destination, NavigationService} from "../core/services/navigation.service";
 
 @Component({
-  selector: 'poly-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'poly-registration',
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class RegistrationComponent implements OnInit {
 
   constructor(private navigationService: NavigationService) { }
 
@@ -18,8 +18,9 @@ export class LoginComponent implements OnInit {
     this.navigationService.navigateTo(Destination.FEED);
   }
 
-  toRegistration(e: Event): void {
+  toLogin(e: Event): void {
     e.preventDefault();
-    this.navigationService.navigateTo(Destination.REGISTER);
+    this.navigationService.navigateTo(Destination.LOGIN);
   }
+
 }
