@@ -1,18 +1,19 @@
-<article>
+<article [ngClass]="{full:isFull(), short: isShort(), last: isLast}">
   <div class="head">
-    <a href="#" class="name">{{article.creator.nickname}}</a>
+    <a href="#" class="name" *ngIf="!isShort()">{{article.creator.nickname}}</a>
     <div class="date">{{article.date}}</div>
   </div>
-  <a href="#">
+  <a href="#" (click)="toArticle($event)">
     <h2 class="title">{{article.title}}</h2>
   </a>
-  <div class="tags">
+  <div class="tags" *ngIf="!isShort()">
     <a href="#" *ngFor="let tag of article.tags">{{tag.title}}</a>
   </div>
-  <div class="type chip">{{article.type}}</div>
-  <div class="body" [innerHtml]="article.shortBody"></div>
+  <div class="type chip" *ngIf="!isShort()">{{article.type}}</div>
+  <div class="body" *ngIf="!isShort()" [innerHtml]="article.body"></div>
   <div class="footer">
-    <a href="#" class="more chip selectable">
+    <a href="#" class="more chip selectable" *ngIf="isDefault()"
+       (click)="toArticle($event)">
       <span>Читать дальше →</span>
     </a>
     <div class="info">

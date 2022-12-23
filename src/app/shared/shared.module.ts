@@ -5,6 +5,7 @@ import { CardComponent } from './components/card/card.component';
 import {SortBarComponent} from "./components/sort-bar/sort-bar.component";
 import { MenuComponent } from './layout/menu/menu.component';
 import {ClickOutsideModule} from "ng-click-outside";
+import { CommentComponent } from './components/comment/comment.component';
 
 
 
@@ -13,12 +14,14 @@ import {ClickOutsideModule} from "ng-click-outside";
         HeaderComponent,
         SortBarComponent,
         CardComponent,
-        MenuComponent
+        MenuComponent,
+        CommentComponent
     ],
     exports: [
         HeaderComponent,
         SortBarComponent,
-        CardComponent
+        CardComponent,
+        CommentComponent
     ],
     imports: [
         CommonModule,

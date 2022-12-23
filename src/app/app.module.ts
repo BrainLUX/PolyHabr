@@ -11,6 +11,7 @@ import {FeedComponent} from "./feed/feed.component";
 import {SortBarComponent} from "./shared/components/sort-bar/sort-bar.component";
 import {CoreModule} from "./core/core.module";
 import { LoginComponent } from './login/login.component';
+import { ArticleComponent } from './article/article.component';
 import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
@@ -19,7 +20,9 @@ import { RegistrationComponent } from './registration/registration.component';
     FeedComponent,
     SearchComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    LoginComponent,
+    ArticleComponent
   ],
   imports: [
     BrowserModule,
