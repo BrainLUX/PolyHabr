@@ -2,11 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {Destination, NavigationService} from "../core/services/navigation.service";
 
 @Component({
-  selector: 'poly-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'poly-email-confirm',
+  templateUrl: './email-confirm.component.html',
+  styleUrls: ['./email-confirm.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class EmailConfirmComponent implements OnInit {
+
+  emailString: string = "kahode5724@keshitv.com";
+
   constructor(private navigationService: NavigationService) {
   }
 
@@ -18,8 +21,4 @@ export class LoginComponent implements OnInit {
     this.navigationService.navigateTo(Destination.FEED);
   }
 
-  toRegistration(e: Event): void {
-    e.preventDefault();
-    this.navigationService.navigateTo(Destination.REGISTER);
-  }
 }
