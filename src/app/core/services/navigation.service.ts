@@ -30,7 +30,8 @@ export class Destination {
   static readonly ARTICLE = new Destination("article");
   static readonly PROFILE = new Destination("profile");
   static readonly EMAIL_CONFIRM = new Destination("email-confirm")
-  static readonly UPLOAD = new Destination("upload")
+  static readonly UPLOAD = new Destination("upload");
+  static readonly PROFILE_SETTINGS = new Destination("profile-settings");
 
   private readonly path: string = "";
 

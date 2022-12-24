@@ -15,6 +15,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EmailConfirmComponent } from './email-confirm/email-confirm.component';
 import { UploadComponent } from './upload/upload.component';
+import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { UploadComponent } from './upload/upload.component';
     ArticleComponent,
     ProfileComponent,
     EmailConfirmComponent,
-    UploadComponent
+    UploadComponent,
+    ProfileSettingsComponent
   ],
   imports: [
     BrowserModule,

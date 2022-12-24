@@ -9,6 +9,7 @@ import {ArticleComponent} from "./article/article.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {EmailConfirmComponent} from "./email-confirm/email-confirm.component";
 import {UploadComponent} from "./upload/upload.component";
+import {ProfileSettingsComponent} from "./profile-settings/profile-settings.component";
 
 const routes: Routes = [
   {
@@ -38,6 +39,14 @@ const routes: Routes = [
   {
     path: Destination.UPLOAD.toPath(),
     component: UploadComponent
+  },
+  {
+    path: Destination.PROFILE_SETTINGS.toPath(),
+    component: ProfileSettingsComponent
+  },
+  {
+    path: Destination.EMAIL_CONFIRM.toPath(),
+    component: EmailConfirmComponent
   }
 ];
 
