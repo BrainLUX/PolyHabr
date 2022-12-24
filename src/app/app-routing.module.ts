@@ -8,6 +8,7 @@ import {RegistrationComponent} from "./registration/registration.component";
 import {ArticleComponent} from "./article/article.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {EmailConfirmComponent} from "./email-confirm/email-confirm.component";
+import {UploadComponent} from "./upload/upload.component";
 
 const routes: Routes = [
   {
@@ -35,8 +36,8 @@ const routes: Routes = [
     component: ProfileComponent
   },
   {
-    path: Destination.EMAIL_CONFIRM.toPath(),
-    component: EmailConfirmComponent
+    path: Destination.UPLOAD.toPath(),
+    component: UploadComponent
   }
 ];
 
