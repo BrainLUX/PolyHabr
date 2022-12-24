@@ -1,27 +1,19 @@
 <poly-header></poly-header>
 <div class="container">
-  <div class="sub-header">Настройки</div>
-  <div class="content">
-    <div class="form nickname">
-      <div class="title">Никнэйм</div>
-      <input type="text">
+  <div class="title">
+    <div class="headline">
+      <div class="name">{{name}}</div>
+      <a class="nickname" href="">@{{nickname}}</a>
     </div>
-    <div class="form email">
-      <div class="title">E-mail</div>
-      <input type="email">
+    <div class="tabs">
+      <div class="tab" (click)="onTabClick(ProfileSortState.PUBLISHED)"
+           [ngClass]="{'active': isTabActive(ProfileSortState.PUBLISHED)}">Публикации</div>
+      <div class="tab" (click)="onTabClick(ProfileSortState.FAVOURITES)"
+           [ngClass]="{'active': isTabActive(ProfileSortState.FAVOURITES)}">Закладки</div>
     </div>
-    <div class="form old-password">
-      <div class="title">Старый пароль</div>
-      <input type="password">
-    </div>
-    <div class="form new-password">
-      <div class="title">Новый пароль</div>
-      <input type="password">
-    </div>
-    <div class="form confirm-password">
-      <div class="title">Подвтерждение пароля</div>
-      <input type="password">
-    </div>
-    <button>Сохранить изменения</button>
+  </div>
+  <poly-card *ngFor="let article of articles" [article]="article"></poly-card>
+  <div class="no-cards" *ngIf="articles.length == 0">
+    <div class="text">К сожалению, здесь пока нет ни одной {{activeTab == ProfileSortState.PUBLISHED ? "публикации" : "закладки"}}</div>
   </div>
 </div>
