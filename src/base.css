@@ -867,6 +867,24 @@ button {
 }
 button:hover {
   background-color: #105d3b;
+  border: 1px solid #105d3b;
+}
+
+input[type=text] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #d5dddf;
+  box-sizing: border-box;
+  color: #333;
+  display: block;
+  margin: 0;
+  outline: 0;
+  padding: 0 14px;
+  transition: border-color 0.2s linear, box-shadow 0.2s linear;
+  width: 100%;
+  min-height: 36px;
 }
 
 .chip {

@@ -23,4 +23,9 @@ export class HeaderComponent implements OnInit {
     e.preventDefault();
     this.navigationService.navigateTo(Destination.SEARCH);
   }
+
+  toUpload(e: Event): void {
+    e.preventDefault();
+    this.navigationService.navigateTo(Destination.UPLOAD);
+  }
 }
