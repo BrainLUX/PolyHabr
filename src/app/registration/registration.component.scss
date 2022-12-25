@@ -48,6 +48,21 @@
 
       .form {
         @extend %form;
+        &.error {
+          input {
+            border: 1px solid base.$col-red;
+          }
+        }
+
+        .error-text {
+          display: none;
+
+          &.active {
+            display: flex;
+            color: red;
+            margin-top: 10px;
+          }
+        }
       }
 
       .enter {

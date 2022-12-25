@@ -45,14 +45,6 @@
         font-weight: 600;
       }
 
-      .login {
-        margin-top: 57px;
-      }
-
-      .password {
-        margin-top: 31px;
-      }
-
       .form {
         .title {
           font-size: 14px;
@@ -66,6 +58,29 @@
           outline: none;
           padding: 0 14px;
           height: 40px;
+        }
+        &.error {
+          input {
+            border: 1px solid base.$col-red;
+          }
+        }
+      }
+
+      .email {
+        margin-top: 57px;
+      }
+
+      .password {
+        margin-top: 31px;
+
+        .error-text {
+          display: none;
+
+          &.active {
+            display: flex;
+            color: red;
+            margin-top: 10px;
+          }
         }
       }
 
