@@ -1,6 +1,8 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Destination, NavigationService} from "../core/services/navigation.service";
 import {ErrorCodes} from "../../data/models/error-codes";
+import { RegexType } from 'src/data/models/regex-types';
+import { InputFieldsType } from 'src/data/models/input-field-types';
 
 @Component({
   selector: 'poly-registration',
@@ -57,7 +59,6 @@ export class RegistrationComponent implements OnInit {
     if (this.checkEnterValidation() && this.checkPasswordsIdentical()) {
       e.preventDefault();
       this.navigationService.navigateTo(Destination.PROFILE);
-    } else {
     }
   }
 
@@ -82,10 +83,6 @@ export class RegistrationComponent implements OnInit {
           case InputFieldsType.SURNAME:
             this.registerErrorConfig.surnameError = ErrorCodes.INCORRECT_SURNAME;
             break;
-          case InputFieldsType.PASSWORD:
-            break;
-          case InputFieldsType.PASSWORD_AGAIN:
-            break;
         }
       } else {
         switch (errorField) {
@@ -97,10 +94,6 @@ export class RegistrationComponent implements OnInit {
             break;
           case InputFieldsType.SURNAME:
             this.registerErrorConfig.surnameError = null;
-            break;
-          case InputFieldsType.PASSWORD:
-            break;
-          case InputFieldsType.PASSWORD_AGAIN:
             break;
         }
       }
@@ -114,10 +107,6 @@ export class RegistrationComponent implements OnInit {
           break;
         case InputFieldsType.SURNAME:
           this.registerErrorConfig.surnameError = null;
-          break;
-        case InputFieldsType.PASSWORD:
-          break;
-        case InputFieldsType.PASSWORD_AGAIN:
           break;
       }
     }
@@ -190,14 +179,4 @@ export interface RegisterErrorConfig {
   nicknameError: ErrorCodes | null,
   passwordError: ErrorCodes | null,
   passwordAgainError: ErrorCodes | null
-}
-
-export enum RegexType {
-  LOGIN = "^[A-Za-z0-9]+([A-Za-z0-9]*|[._-]?[A-Za-z0-9]+)*$",
-  SURNAME = "^[А-ЯЁ][а-яё]*$",
-  EMAIL = `^([a-zA-Z0-9\\_\\.\\-]+)@([a-zA-Z0-9\\_\\-]+)(\\.[a-zA-Z]{2,5}){1,2}$`
-}
-
-export enum InputFieldsType {
-  EMAIL, SURNAME, NICKNAME, PASSWORD, PASSWORD_AGAIN
 }
