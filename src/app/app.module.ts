@@ -16,6 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { EmailConfirmComponent } from './email-confirm/email-confirm.component';
 import { UploadComponent } from './upload/upload.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -31,14 +32,15 @@ import { ProfileSettingsComponent } from './profile-settings/profile-settings.co
     UploadComponent,
     ProfileSettingsComponent
   ],
-  imports: [
-    BrowserModule,
-    RouterModule,
-    AppRoutingModule,
-    SharedModule,
-    DataModule,
-    CoreModule
-  ],
+    imports: [
+        BrowserModule,
+        RouterModule,
+        AppRoutingModule,
+        SharedModule,
+        DataModule,
+        CoreModule,
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

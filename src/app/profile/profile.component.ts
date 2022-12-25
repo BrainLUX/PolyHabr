@@ -10,7 +10,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ProfileComponent implements OnInit {
   readonly ProfileSortState = ProfileSortState;
-  name: string = "Александр";
+  name: string = "Дмитриев";
   nickname: string = "Admin";
   activeTab: ProfileSortState = ProfileSortState.PUBLISHED;
   articles: Article.Item[] = [];
