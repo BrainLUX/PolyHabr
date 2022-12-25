@@ -2,26 +2,37 @@
 <div class="container">
   <div class="sub-header">Настройки</div>
   <div class="content">
-    <div class="form nickname">
-      <div class="title">Никнэйм</div>
-      <input type="text">
+    <div class="form nickname"
+         [ngClass]="{'error': profileSettingsErrorConfig.nicknameError}">
+      <div class="title">Никейм</div>
+      <input type="text"
+             [(ngModel)]="nicknameInputValue"
+             (ngModelChange)="checkFieldValidation(RegexType.LOGIN, $event, InputFieldsType.NICKNAME)"
+             #nicknameInputElement>
+      <div class="error-text" [ngClass]="{'active': profileSettingsErrorConfig.nicknameError}">{{profileSettingsErrorConfig.nicknameError}}</div>
     </div>
-    <div class="form email">
+    <div class="form email" [ngClass]="{'error': profileSettingsErrorConfig.emailError}">
       <div class="title">E-mail</div>
-      <input type="email">
+      <input type="email"
+             (change)="checkFieldValidation(RegexType.EMAIL, emailInputElement, InputFieldsType.EMAIL)"
+             #emailInputElement>
+      <div class="error-text" [ngClass]="{'active': profileSettingsErrorConfig.emailError}">{{profileSettingsErrorConfig.emailError}}</div>
     </div>
-    <div class="form old-password">
+    <div class="form old-password" [ngClass]="{'error': profileSettingsErrorConfig.passwordOldError}">
       <div class="title">Старый пароль</div>
-      <input type="password">
+      <input type="password" #passwordOldInputElement>
+      <div class="error-text" [ngClass]="{'active': profileSettingsErrorConfig.passwordOldError}">{{profileSettingsErrorConfig.passwordOldError}}</div>
     </div>
-    <div class="form new-password">
+    <div class="form new-password" [ngClass]="{'error': profileSettingsErrorConfig.passwordError}">
       <div class="title">Новый пароль</div>
-      <input type="password">
+      <input type="password" #passwordInputElement>
+      <div class="error-text" [ngClass]="{'active': profileSettingsErrorConfig.passwordError}">{{profileSettingsErrorConfig.passwordError}}</div>
     </div>
-    <div class="form confirm-password">
+    <div class="form confirm-password" [ngClass]="{'error': profileSettingsErrorConfig.passwordAgainError}">
       <div class="title">Подвтерждение пароля</div>
-      <input type="password">
+      <input type="password" #passwordAgainInputElement>
+      <div class="error-text" [ngClass]="{'active': profileSettingsErrorConfig.passwordAgainError}">{{profileSettingsErrorConfig.passwordAgainError}}</div>
     </div>
-    <button>Сохранить изменения</button>
+    <button (click)="onClickConfirmChanges($event)">Сохранить изменения</button>
   </div>
 </div>
