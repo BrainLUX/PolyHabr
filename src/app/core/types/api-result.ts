@@ -1,5 +1,5 @@
-export class ApiResult<T> {
-  contents: T | undefined = undefined;
+export abstract class ApiResult<T> {
+  abstract contents: T;
   totalElements: number = 0;
   totalPages: number = 0;
 }

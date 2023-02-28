@@ -20,11 +20,23 @@ export class ArticlesService {
     return this.apiService.get(`${this.base}?offset=${offset}&size=${size}`, new HttpParams(), onError);
   }
 
+  getUserArticles(onError: ApiError, userId: number = 0, offset: number = 0, size: number = 1): Observable<ApiResult<Array<Article.Item>>> {
+    return this.apiService.get(`${this.base}byUser?id=${userId}&offset=${offset}&size=${size}`, new HttpParams(), onError);
+  }
+
   getArticle(id: number = 0, onError: ApiError): Observable<Article.Item> {
     return this.apiService.get(`${this.base}byId?id=${id}`, new HttpParams(), onError);
   }
 
+  like(articleId: number = 0, onError: ApiError): Observable<void> {
+    return this.apiService.post(`${this.base}add_like?articleId=${articleId}`, new HttpParams(), onError);
+  }
+
+  disLike(articleId: number = 0, onError: ApiError): Observable<void> {
+    return this.apiService.post(`${this.base}decrease_like?articleId=${articleId}`, new HttpParams(), onError);
+  }
+
   search(onError: ApiError, prefix: string = "", offset: number = 0, size: number = 1): Observable<ApiResult<Array<Article.Item>>> {
-    return this.apiService.get(`${this.base}?prefix=${prefix}&offset=${offset}&size=${size}`, new HttpParams(), onError);
+    return this.apiService.get(`${this.base}searchByTittle?prefix=${prefix}&offset=${offset}&size=${size}`, new HttpParams(), onError);
   }
 }

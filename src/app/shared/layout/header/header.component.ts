@@ -19,6 +19,11 @@ export class HeaderComponent implements OnInit {
     this.navigationService.navigateTo(Destination.FEED);
   }
 
+  toProfile(e: Event): void {
+    e.preventDefault();
+    this.navigationService.navigateTo(Destination.PROFILE);
+  }
+
   toSearch(e: Event): void {
     e.preventDefault();
     this.navigationService.navigateTo(Destination.SEARCH);

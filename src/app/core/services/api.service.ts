@@ -13,7 +13,11 @@ export class ApiService {
   }
 
   get(path: string, params: HttpParams = new HttpParams(), onError: ApiError): Observable<any> {
-    return this.http.get(`${environment.api_url}${path}`, {params})
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3NzYxNDIzMiwiZXhwIjoxNjc3NzAwNjMyfQ.snkTMj5RE9IzGAwxycrjTLjsS3Vx_kfqxCSWWjNzgwLXwPvZQ_Wiw_5Uy9DwZo7pjsYGlMbnyKSpH_Pt7RbD6g');
+    headers = headers.append('Content-Type', 'application/json');
+
+    return this.http.get(`${environment.api_url}${path}`, {headers: headers})
       .pipe(catchError((response) => {
         onError(response.status);
         return EMPTY;
@@ -21,13 +25,14 @@ export class ApiService {
   }
 
   put(path: string, body: Object = {}, onError: ApiError): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3NzYxNDIzMiwiZXhwIjoxNjc3NzAwNjMyfQ.snkTMj5RE9IzGAwxycrjTLjsS3Vx_kfqxCSWWjNzgwLXwPvZQ_Wiw_5Uy9DwZo7pjsYGlMbnyKSpH_Pt7RbD6g');
+    headers = headers.append('Content-Type', 'application/json');
     return this.http.put(
       `${environment.api_url}${path}`,
       JSON.stringify(body),
       {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json'
-        })
+        headers: headers
       }
     ).pipe(catchError((response) => {
       onError(response.status);
@@ -36,13 +41,12 @@ export class ApiService {
   }
 
   post(path: string, body: Object = {}, onError: ApiError): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3NzYxNDIzMiwiZXhwIjoxNjc3NzAwNjMyfQ.snkTMj5RE9IzGAwxycrjTLjsS3Vx_kfqxCSWWjNzgwLXwPvZQ_Wiw_5Uy9DwZo7pjsYGlMbnyKSpH_Pt7RbD6g');
+    headers = headers.append('Content-Type', 'application/json');
     return this.http.post(
       `${environment.api_url}${path}`,
-      JSON.stringify(body), {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json'
-        })
-      }
+      JSON.stringify(body), {headers: headers}
     ).pipe(catchError((response) => {
       onError(response.status);
       return EMPTY;
@@ -50,8 +54,11 @@ export class ApiService {
   }
 
   delete(path: string, onError: ApiError): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3NzYxNDIzMiwiZXhwIjoxNjc3NzAwNjMyfQ.snkTMj5RE9IzGAwxycrjTLjsS3Vx_kfqxCSWWjNzgwLXwPvZQ_Wiw_5Uy9DwZo7pjsYGlMbnyKSpH_Pt7RbD6g');
+    headers = headers.append('Content-Type', 'application/json');
     return this.http.delete(
-      `${environment.api_url}${path}`
+      `${environment.api_url}${path}`, {headers: headers}
     ).pipe(catchError((response) => {
       onError(response.status);
       return EMPTY;
