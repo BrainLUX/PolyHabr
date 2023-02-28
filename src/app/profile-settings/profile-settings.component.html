@@ -33,6 +33,11 @@
       <input type="password" #passwordAgainInputElement>
       <div class="error-text" [ngClass]="{'active': profileSettingsErrorConfig.passwordAgainError}">{{profileSettingsErrorConfig.passwordAgainError}}</div>
     </div>
+    <div class="form confirm-password" [ngClass]="{'error': profileSettingsErrorConfig.passwordAgainError}">
+      <div class="title">Изменить предпочитаемые дисциплины</div>
+      <button (click)="toTypes($event)">Изменить</button>
+    </div>
+
     <button (click)="onClickConfirmChanges($event)">Сохранить изменения</button>
   </div>
 </div>

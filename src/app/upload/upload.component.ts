@@ -1,21 +1,27 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {ArticleTypesService} from "../core/services/article_types.service";
+import {Article} from "../../data/models/article";
 
 @Component({
   selector: 'poly-upload',
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss']
 })
-export class UploadComponent implements OnInit {
+export class UploadComponent {
 
-  constructor() {
+  types: Article.Type[] = [];
+
+  constructor(private articleTypesService: ArticleTypesService) {
+    articleTypesService.getTypes(() => {
+    }).subscribe(result => {
+      this.types = result.contents;
+      this.selectedType = this.types[0];
+    });
   }
 
   file: File | null = null;
   hasError: boolean = false;
-  selectedType: number = 0;
-
-  ngOnInit(): void {
-  }
+  selectedType!: Article.Type;
 
   onFileSelected(event: any): void {
     if (event.target.files.length > 0) {
@@ -28,5 +34,4 @@ export class UploadComponent implements OnInit {
       }
     }
   }
-
 }

@@ -10,6 +10,7 @@ import {ProfileComponent} from "./profile/profile.component";
 import {EmailConfirmComponent} from "./email-confirm/email-confirm.component";
 import {UploadComponent} from "./upload/upload.component";
 import {ProfileSettingsComponent} from "./profile-settings/profile-settings.component";
+import {TypeComponent} from "./type/type.component";
 
 const routes: Routes = [
   {
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: Destination.EMAIL_CONFIRM.toPath(),
     component: EmailConfirmComponent
+  },
+  {
+    path: Destination.TYPES.toPath(),
+    component: TypeComponent
   }
 ];
 

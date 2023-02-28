@@ -18,6 +18,7 @@ import { UploadComponent } from './upload/upload.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { TypeComponent } from './type/type.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {HttpClientModule} from "@angular/common/http";
     ProfileComponent,
     EmailConfirmComponent,
     UploadComponent,
-    ProfileSettingsComponent
+    ProfileSettingsComponent,
+    TypeComponent
   ],
     imports: [
         BrowserModule,

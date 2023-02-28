@@ -1,14 +1,15 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { InputFieldsType } from 'src/data/models/input-field-types';
-import { RegexType } from 'src/data/models/regex-types';
+import {Component, ElementRef, ViewChild} from '@angular/core';
+import {InputFieldsType} from 'src/data/models/input-field-types';
+import {RegexType} from 'src/data/models/regex-types';
 import {ErrorCodes} from "../../data/models/error-codes";
+import {Destination, NavigationService} from "../core/services/navigation.service";
 
 @Component({
   selector: 'poly-profile-settings',
   templateUrl: './profile-settings.component.html',
   styleUrls: ['./profile-settings.component.scss']
 })
-export class ProfileSettingsComponent implements OnInit {
+export class ProfileSettingsComponent {
 
   @ViewChild("emailInputElement")
   emailInputElement!: ElementRef;
@@ -40,9 +41,7 @@ export class ProfileSettingsComponent implements OnInit {
     passwordAgainError: null
   }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private navigationService: NavigationService) {
   }
 
   checkFieldValidation(regexType: RegexType, element: any, errorField: InputFieldsType): void {
@@ -90,6 +89,11 @@ export class ProfileSettingsComponent implements OnInit {
     if (this.checkEnterValidation() && this.checkPasswordsIdentical()) {
       e.preventDefault();
     }
+  }
+
+  toTypes(e: Event): void {
+    e.preventDefault();
+    this.navigationService.navigateTo(Destination.TYPES);
   }
 
   checkPasswordsIdentical(): boolean {

@@ -5,11 +5,8 @@
     <div class="form">
       <div class="input-title required">Тип публикации</div>
       <div class="select">
-        <div class="block" [ngClass]="{selected:selectedType == 0}" (click)="selectedType = 0">
-          Лабораторная работа
-        </div>
-        <div class="block" [ngClass]="{selected:selectedType == 1}" (click)="selectedType = 1">
-          Курсовая
+        <div class="block" *ngFor="let type of types" [ngClass]="{selected:selectedType == type}" (click)="selectedType = type">
+          {{type.name}}
         </div>
       </div>
       <div class="input-title required">Наименование работы</div>
@@ -38,6 +35,6 @@
       <div class="input-title required">Теги работы (через запятую)</div>
       <input type="text">
     </div>
-    <button>Отправить на модерацию</button>
+    <button>Отправить</button>
   </div>
 </div>
