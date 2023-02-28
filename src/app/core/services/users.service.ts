@@ -20,4 +20,8 @@ export class UsersService {
   getMe(onError: ApiError): Observable<User> {
     return this.apiService.get(`${this.base}me`, new HttpParams(), onError);
   }
+
+  update(onError: ApiError, body: {}): Observable<void> {
+    return this.apiService.put(`${this.base}update`, body, onError);
+  }
 }

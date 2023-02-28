@@ -33,11 +33,12 @@ export namespace Article {
 
   export class User {
     id: number = 0;
-    name: String = "Student";
-    surname: String = "Student";
-    login: String = "";
+    name: string = "Student";
+    surname: string = "Student";
+    login: string = "";
+    email: string = "";
 
-    constructor(nickname: String) {
+    constructor(nickname: string) {
       this.login = nickname;
     }
   }
@@ -45,11 +46,10 @@ export namespace Article {
   export class Comment {
     userId: User = new User("User");
     text: string = "";
-    date: String = "";
+    date: string = "";
 
-    constructor(text: string, date: String) {
+    constructor(text: string) {
       this.text = text;
-      this.date = date;
     }
   }
 }

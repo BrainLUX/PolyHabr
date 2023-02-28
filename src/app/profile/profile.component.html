@@ -1,6 +1,6 @@
 <poly-header></poly-header>
 <div class="container" #container>
-  <div class="title">
+  <div class="title" *ngIf="user">
     <div class="headline">
       <div class="surname">{{user.name}} {{user.surname}}</div>
       <a class="nickname" href="">@{{user.login}}</a>

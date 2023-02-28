@@ -7,6 +7,9 @@ import {RegexType} from "../../data/models/regex-types";
 import {InputFieldsType} from "../../data/models/input-field-types";
 import {Authorization} from "../../data/models/authorization";
 import {ApiService} from "../core/services/api.service";
+import {StorageHelper} from "../core/helpers/storage.helper";
+import {DataHelper} from "../core/helpers/data.helper";
+import {UsersService} from "../core/services/users.service";
 
 @Component({
   selector: 'poly-login',
@@ -32,8 +35,9 @@ export class LoginComponent implements OnInit {
     passwordError: null,
     passwordAgainError: null
   }
+
   constructor(private navigationService: NavigationService, private authorizationService: AuthorizationService,
-              private apiService: ApiService) {
+              private usersService: UsersService) {
   }
 
   ngOnInit(): void {
@@ -57,9 +61,13 @@ export class LoginComponent implements OnInit {
         password: this.passwordInputElement.nativeElement.value
       }
       this.authorizationService.signIn(() => {
-      }, data).subscribe(result => {
-        this.apiService.setAccessToken(result.accessToken);
-        this.navigationService.navigateTo(Destination.FEED);
+      }, data).subscribe(loginResult => {
+        StorageHelper.setCookie("accessToken", loginResult.accessToken);
+        this.usersService.getMe(() => {
+        }).subscribe(result => {
+          DataHelper.user = result;
+          this.navigationService.navigateTo(Destination.FEED);
+        });
       });
     }
   }

@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {catchError, EMPTY, Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {ApiError} from "../types/api-error";
+import {StorageHelper} from "../helpers/storage.helper";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ApiService {
 
   get(path: string, params: HttpParams = new HttpParams(), onError: ApiError): Observable<any> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', `Bearer ${this.getCookie("accessToken")}`);
+    headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
     headers = headers.append('Content-Type', 'application/json');
 
     return this.http.get(`${environment.api_url}${path}`, {headers: headers})
@@ -26,7 +27,7 @@ export class ApiService {
 
   put(path: string, body: Object = {}, onError: ApiError): Observable<any> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', `Bearer ${this.getCookie("accessToken")}`);
+    headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
     headers = headers.append('Content-Type', 'application/json');
     return this.http.put(
       `${environment.api_url}${path}`,
@@ -42,7 +43,7 @@ export class ApiService {
 
   post(path: string, body: Object = {}, onError: ApiError): Observable<any> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', `Bearer ${this.getCookie("accessToken")}`);
+    headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
     headers = headers.append('Content-Type', 'application/json');
     return this.http.post(
       `${environment.api_url}${path}`,
@@ -55,7 +56,7 @@ export class ApiService {
 
   delete(path: string, onError: ApiError): Observable<any> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', `Bearer ${this.getCookie("accessToken")}`);
+    headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
     headers = headers.append('Content-Type', 'application/json');
     return this.http.delete(
       `${environment.api_url}${path}`, {headers: headers}
@@ -73,18 +74,5 @@ export class ApiService {
       onError(response.status);
       return EMPTY;
     }));
-  }
-
-  setAccessToken(token: string) {
-    this.setCookie("accessToken", token);
-  }
-  setCookie(key: string, value: string, expiry: number = 86400*1000) {
-    let expires = new Date();
-    expires.setTime(expires.getTime() + (expiry));
-    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
-  }
-  getCookie(key: string) {
-    let keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
-    return keyValue ? keyValue[2] : null;
   }
 }
