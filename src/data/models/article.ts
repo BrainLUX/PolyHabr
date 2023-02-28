@@ -23,6 +23,14 @@ export namespace Article {
     }
   }
 
+  export class Type {
+    name: string = "";
+
+    constructor(title: string) {
+      this.name = title;
+    }
+  }
+
   export class User {
     id: number = 0;
     name: String = "Student";

@@ -20,6 +20,7 @@ import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { VerifyComponent } from './verify/verify.component';
+import { TypeComponent } from './type/type.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { VerifyComponent } from './verify/verify.component';
     UploadComponent,
     ProfileSettingsComponent,
     ForgotPasswordComponent,
-    VerifyComponent
+    VerifyComponent,
+    TypeComponent
   ],
     imports: [
         BrowserModule,

@@ -12,6 +12,7 @@ import {UploadComponent} from "./upload/upload.component";
 import {ProfileSettingsComponent} from "./profile-settings/profile-settings.component";
 import {ForgotPasswordComponent} from "./forgot-password/forgot-password.component";
 import {VerifyComponent} from "./verify/verify.component";
+import {TypeComponent} from "./type/type.component";
 
 const routes: Routes = [
   {
@@ -57,6 +58,10 @@ const routes: Routes = [
   {
     path: Destination.VERIFY.toPath(),
     component: VerifyComponent
+  },
+  {
+    path: Destination.TYPES.toPath(),
+    component: TypeComponent
   }
 ];
 
