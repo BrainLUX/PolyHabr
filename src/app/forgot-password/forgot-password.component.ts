@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Destination, NavigationService} from "../core/services/navigation.service";
 import {RegisterErrorConfig} from "../registration/registration.component";
 import {ErrorCodes} from "../../data/models/error-codes";
 import {InputFieldsType} from "../../data/models/input-field-types";
 import {RegexType} from "../../data/models/regex-types";
+import {AuthorizationService} from "../core/services/authorization.service";
 
 @Component({
   selector: 'poly-forgot-password',
@@ -11,6 +12,9 @@ import {RegexType} from "../../data/models/regex-types";
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent implements OnInit {
+
+  @ViewChild("emailInputElement")
+  emailInputElement!: ElementRef;
 
   readonly RegexType = RegexType;
   readonly InputFieldsType = InputFieldsType;
@@ -24,7 +28,7 @@ export class ForgotPasswordComponent implements OnInit {
     passwordAgainError: null
   }
 
-  constructor(private navigationService: NavigationService) { }
+  constructor(private navigationService: NavigationService, private authorizationService: AuthorizationService) { }
 
   ngOnInit(): void {
   }
@@ -62,7 +66,13 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   sendEmail(e: Event): void {
-    e.preventDefault();
+    if (this.registerErrorConfig.emailError == null) {
+      e.preventDefault();
+      this.authorizationService.forgotPassword(() => {
+      }, this.emailInputElement.nativeElement.value).subscribe(result => {
+        console.log(result);
+      });
+    }
   }
 
   toFeed(e: Event): void {

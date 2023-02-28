@@ -6,6 +6,7 @@ import {RegisterErrorConfig} from "../registration/registration.component";
 import {RegexType} from "../../data/models/regex-types";
 import {InputFieldsType} from "../../data/models/input-field-types";
 import {Authorization} from "../../data/models/authorization";
+import {ApiService} from "../core/services/api.service";
 
 @Component({
   selector: 'poly-login',
@@ -21,7 +22,6 @@ export class LoginComponent implements OnInit {
   passwordInputElement!: ElementRef;
   readonly RegexType = RegexType;
   readonly InputFieldsType = InputFieldsType;
-  loginError: boolean = false;
   nicknameInputValue: string | null = null;
 
   registerErrorConfig: RegisterErrorConfig = {
@@ -32,7 +32,8 @@ export class LoginComponent implements OnInit {
     passwordError: null,
     passwordAgainError: null
   }
-  constructor(private navigationService: NavigationService, private authorizationService: AuthorizationService) {
+  constructor(private navigationService: NavigationService, private authorizationService: AuthorizationService,
+              private apiService: ApiService) {
   }
 
   ngOnInit(): void {
@@ -57,7 +58,7 @@ export class LoginComponent implements OnInit {
       }
       this.authorizationService.signIn(() => {
       }, data).subscribe(result => {
-        console.log(result);
+        this.apiService.setAccessToken(result.accessToken);
         this.navigationService.navigateTo(Destination.FEED);
       });
     }

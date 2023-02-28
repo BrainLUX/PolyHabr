@@ -11,4 +11,10 @@ export namespace Authorization {
     username: string,
     password: string
   }
+
+  export interface Login {
+    accessToken: string,
+    type: string,
+    username: string
+  }
 }

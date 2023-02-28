@@ -21,7 +21,7 @@ export class AuthorizationService {
     return this.apiService.post(`${this.base}signup`, data, onError);
   }
 
-  signIn(onError: ApiError, data: Authorization.SignIn): Observable<ApiResult<any>> {
+  signIn(onError: ApiError, data: Authorization.SignIn): Observable<Authorization.Login> {
     return this.apiService.post(`${this.base}signin`, data, onError);
   }
 
@@ -47,5 +47,13 @@ export class AuthorizationService {
       configUrl += `${key}=${value}&`;
     });
     return this.apiService.get(`${this.base}verify?${configUrl}`, new HttpParams(), onError);
+  }
+
+  forgotPassword(onError: ApiError, email: string): Observable<ApiResult<any>> {
+    let configUrl = "";
+    Object.entries({email: email}).map(([key, value]) => {
+      configUrl += `${key}=${value}&`;
+    });
+    return this.apiService.post(`${this.base}forgotPassword?${configUrl}`, new HttpParams(), onError);
   }
 }
