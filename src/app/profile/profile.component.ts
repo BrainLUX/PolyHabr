@@ -25,13 +25,7 @@ export class ProfileComponent implements OnInit {
         this.articles = [];
       } else if (this.route.snapshot.fragment == ProfileSortState.FAVOURITES) {
         this.activeTab = ProfileSortState.FAVOURITES;
-        this.articles = [
-          Article.Item.createTemporary(),
-          Article.Item.createTemporary(),
-          Article.Item.createTemporary(),
-          Article.Item.createTemporary(),
-          Article.Item.createTemporary()
-        ];
+        this.articles = [];
       }
     });
   }
@@ -45,13 +39,7 @@ export class ProfileComponent implements OnInit {
         break;
       case ProfileSortState.FAVOURITES:
         window.location.href = "/profile#favourites";
-        this.articles = [
-          Article.Item.createTemporary(),
-          Article.Item.createTemporary(),
-          Article.Item.createTemporary(),
-          Article.Item.createTemporary(),
-          Article.Item.createTemporary()
-        ];
+        this.articles = [ ];
         break;
     }
   }

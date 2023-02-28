@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {SortBarState} from "../../data/models/sort-bar-state";
 import {Article} from "../../data/models/article";
 import {SortBarComponent} from "../shared/components/sort-bar/sort-bar.component";
+import {ArticlesService} from "../core/services/articles.service";
 
 @Component({
   selector: 'poly-search',
@@ -15,17 +16,9 @@ export class SearchComponent implements OnInit {
 
   readonly SortBarState = SortBarState;
 
-  readonly fullArticles: Article.Item[] = [
-    Article.Item.createTemporary(),
-    Article.Item.createTemporary(),
-    Article.Item.createTemporary(),
-    Article.Item.createTemporary(),
-    Article.Item.createTemporary()
-  ];
-
   articles: Article.Item[] = [];
 
-  constructor() {
+  constructor(private articlesService: ArticlesService) {
   }
 
   ngOnInit(): void {
@@ -35,7 +28,11 @@ export class SearchComponent implements OnInit {
     if (text.trim().length < 3) {
       this.articles = [];
     } else {
-      this.articles = this.fullArticles.filter((item) => item.title.toLowerCase().includes(text.toLowerCase()));
+      this.articlesService.search(() => {
+      }, text).subscribe(result => {
+        console.log(result.contents!!)
+        this.articles = result.contents!!;
+      });
     }
 
     this.sortBarComponent.state = this.articles.length > 0 ? SortBarState.SEARCH_SORT : SortBarState.SEARCH;

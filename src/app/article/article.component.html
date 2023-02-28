@@ -1,15 +1,15 @@
 <poly-header></poly-header>
-<div class="container">
+<div class="container" *ngIf="article">
   <poly-card [article]="article" [type]="CardType.FULL"></poly-card>
   <div class="author">
     <div class="head">
-      <div class="karma">
+      <div class="karma" *ngIf="false">
         <div>40</div>
         <div>Карма</div>
       </div>
       <div class="body">
-        <div>{{article.creator.name}} {{article.creator.surname}}</div>
-        <a href="#">@{{article.creator.nickname}}</a>
+        <div>{{article.user.name}} {{article.user.surname}}</div>
+        <a href="#">@{{article.user.login}}</a>
       </div>
     </div>
     <div class="footer">Автор работы</div>

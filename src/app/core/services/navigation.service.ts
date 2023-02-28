@@ -27,7 +27,7 @@ export class Destination {
   static readonly SEARCH = new Destination("search");
   static readonly LOGIN = new Destination("login");
   static readonly REGISTER = new Destination("register");
-  static readonly ARTICLE = new Destination("article");
+  static readonly ARTICLE = new Destination("article/:actor");
   static readonly PROFILE = new Destination("profile");
   static readonly EMAIL_CONFIRM = new Destination("email-confirm")
   static readonly UPLOAD = new Destination("upload");

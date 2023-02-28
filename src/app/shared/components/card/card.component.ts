@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {Article} from "../../../../data/models/article";
 import {Destination, NavigationService} from "../../../core/services/navigation.service";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'poly-card',
@@ -27,7 +28,12 @@ export class CardComponent implements OnInit {
 
   toArticle(e: Event): void {
     e.preventDefault();
-    this.navigationService.navigateTo(Destination.ARTICLE);
+    this.navigationService.navigateTo(Destination.ARTICLE, new Map([["actor", this.article.id.toString()]]));
+  }
+
+  toFile(e: Event): void {
+    e.preventDefault();
+    window.open(`${environment.api_url}/files/${this.article.fileId}`);
   }
 
   isFull(): boolean {

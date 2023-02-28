@@ -1,17 +1,25 @@
 <article [ngClass]="{full:isFull(), short: isShort(), last: isLast}">
   <div class="head">
-    <a href="#" class="name" *ngIf="!isShort()">{{article.creator.nickname}}</a>
+    <a href="#" class="name" *ngIf="!isShort()">{{article.user.login}}</a>
     <div class="date">{{article.date}}</div>
   </div>
   <a href="#" (click)="toArticle($event)">
     <h2 class="title">{{article.title}}</h2>
   </a>
   <div class="tags" *ngIf="!isShort()">
-    <a href="#" *ngFor="let tag of article.tags">{{tag.title}}</a>
+    <a href="#" *ngFor="let tag of article.listDisciplineName">{{tag}}</a>
   </div>
-  <div class="type chip" *ngIf="!isShort()">{{article.type}}</div>
-  <div class="body" *ngIf="!isShort()" [innerHtml]="article.body"></div>
+  <div class="type chip" *ngIf="!isShort()">{{article.typeId.name}}</div>
+  <div class="body" *ngIf="!isShort() && !isFull()" [innerHtml]="article.previewText"></div>
+  <div class="body" *ngIf="isFull()" [innerHtml]="article.text"></div>
+  <iframe *ngIf="isFull()" src="http://docs.google.com/viewer?url=https://firebasestorage.googleapis.com/v0/b/guideapp-6de55.appspot.com/o/HLD_1_1%20(2).docx?alt=media&token=a5529fb0-4828-4307-85d8-4b3b6a6def3b&embedded=true" width="700" height="500"
+          style="border: none;"></iframe>
+
   <div class="footer">
+    <a href="#" class="more chip selectable" *ngIf="isFull()"
+       (click)="toFile($event)">
+      <span>Скачать работу</span>
+    </a>
     <a href="#" class="more chip selectable" *ngIf="isDefault()"
        (click)="toArticle($event)">
       <span>Читать дальше →</span>
@@ -22,21 +30,21 @@
           <title>Рейтинг</title>
           <use xlink:href="assets/images/icons/icon-set.svg#counter-rating"></use>
         </svg>
-        <span>{{article.info.rating}}</span>
+        <span>{{article.likes}}</span>
       </div>
-      <div class="views">
+      <div class="views" *ngIf="false">
         <svg height="24" width="24">
           <title>Просмотры</title>
           <use xlink:href="assets/images/icons/icon-set.svg#counter-views"></use>
         </svg>
-        <span>{{article.info.views}}</span>
+        <span>{{article.likes}}</span>
       </div>
-      <div class="favourite link">
+      <div class="favourite link" *ngIf="false">
         <svg height="24" width="24">
           <title>Добавить в закладки</title>
           <use xlink:href="assets/images/icons/icon-set.svg#counter-favorite"></use>
         </svg>
-        <span>{{article.info.favorite}}</span>
+        <span>{{article.likes}}</span>
       </div>
     </div>
   </div>
