@@ -1,5 +1,5 @@
 <poly-header></poly-header>
-<div class="container">
+<div class="container" #container>
   <poly-sort-bar [state]="SortBarState.SORT"></poly-sort-bar>
-  <poly-card *ngFor="let article of articles" [article]="article"></poly-card>
+  <poly-card *ngFor="let article of articles" [article]="article" #cardComponent></poly-card>
 </div>
