@@ -32,6 +32,8 @@ export class Destination {
   static readonly EMAIL_CONFIRM = new Destination("email-confirm")
   static readonly UPLOAD = new Destination("upload");
   static readonly PROFILE_SETTINGS = new Destination("profile-settings");
+  static readonly FORGOT_PASSWORD = new Destination("forgot-password");
+  static readonly VERIFY = new Destination("api/auth/verify");
   static readonly TYPES = new Destination("types");
 
   private readonly path: string = "";

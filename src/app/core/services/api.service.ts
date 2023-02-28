@@ -14,20 +14,19 @@ export class ApiService {
 
   get(path: string, params: HttpParams = new HttpParams(), onError: ApiError): Observable<any> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3NzYxNDIzMiwiZXhwIjoxNjc3NzAwNjMyfQ.snkTMj5RE9IzGAwxycrjTLjsS3Vx_kfqxCSWWjNzgwLXwPvZQ_Wiw_5Uy9DwZo7pjsYGlMbnyKSpH_Pt7RbD6g');
+    headers = headers.append('Authorization', `Bearer ${this.getCookie("accessToken")}`);
     headers = headers.append('Content-Type', 'application/json');
 
     return this.http.get(`${environment.api_url}${path}`, {headers: headers})
       .pipe(catchError((response) => {
         onError(response.status);
-        console.log(response);
         return EMPTY;
       }));
   }
 
   put(path: string, body: Object = {}, onError: ApiError): Observable<any> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3NzYxNDIzMiwiZXhwIjoxNjc3NzAwNjMyfQ.snkTMj5RE9IzGAwxycrjTLjsS3Vx_kfqxCSWWjNzgwLXwPvZQ_Wiw_5Uy9DwZo7pjsYGlMbnyKSpH_Pt7RbD6g');
+    headers = headers.append('Authorization', `Bearer ${this.getCookie("accessToken")}`);
     headers = headers.append('Content-Type', 'application/json');
     return this.http.put(
       `${environment.api_url}${path}`,
@@ -43,13 +42,12 @@ export class ApiService {
 
   post(path: string, body: Object = {}, onError: ApiError): Observable<any> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3NzYxNDIzMiwiZXhwIjoxNjc3NzAwNjMyfQ.snkTMj5RE9IzGAwxycrjTLjsS3Vx_kfqxCSWWjNzgwLXwPvZQ_Wiw_5Uy9DwZo7pjsYGlMbnyKSpH_Pt7RbD6g');
+    headers = headers.append('Authorization', `Bearer ${this.getCookie("accessToken")}`);
     headers = headers.append('Content-Type', 'application/json');
     return this.http.post(
       `${environment.api_url}${path}`,
       JSON.stringify(body), {headers: headers}
     ).pipe(catchError((response) => {
-      console.log(response)
       onError(response.status);
       return EMPTY;
     }));
@@ -57,7 +55,7 @@ export class ApiService {
 
   delete(path: string, onError: ApiError): Observable<any> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3NzYxNDIzMiwiZXhwIjoxNjc3NzAwNjMyfQ.snkTMj5RE9IzGAwxycrjTLjsS3Vx_kfqxCSWWjNzgwLXwPvZQ_Wiw_5Uy9DwZo7pjsYGlMbnyKSpH_Pt7RbD6g');
+    headers = headers.append('Authorization', `Bearer ${this.getCookie("accessToken")}`);
     headers = headers.append('Content-Type', 'application/json');
     return this.http.delete(
       `${environment.api_url}${path}`, {headers: headers}
@@ -75,5 +73,18 @@ export class ApiService {
       onError(response.status);
       return EMPTY;
     }));
+  }
+
+  setAccessToken(token: string) {
+    this.setCookie("accessToken", token);
+  }
+  setCookie(key: string, value: string, expiry: number = 86400*1000) {
+    let expires = new Date();
+    expires.setTime(expires.getTime() + (expiry));
+    document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+  }
+  getCookie(key: string) {
+    let keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
   }
 }
