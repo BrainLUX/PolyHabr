@@ -16,7 +16,6 @@ export class ApiService {
     return this.http.get(`${environment.api_url}${path}`, {params})
       .pipe(catchError((response) => {
         onError(response.status);
-        console.log(response);
         return EMPTY;
       }));
   }
@@ -39,9 +38,12 @@ export class ApiService {
   post(path: string, body: Object = {}, onError: ApiError): Observable<any> {
     return this.http.post(
       `${environment.api_url}${path}`,
-      JSON.stringify(body)
+      JSON.stringify(body), {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+      }
     ).pipe(catchError((response) => {
-      console.log(response)
       onError(response.status);
       return EMPTY;
     }));

@@ -18,6 +18,8 @@ import { UploadComponent } from './upload/upload.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { VerifyComponent } from './verify/verify.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import {HttpClientModule} from "@angular/common/http";
     ProfileComponent,
     EmailConfirmComponent,
     UploadComponent,
-    ProfileSettingsComponent
+    ProfileSettingsComponent,
+    ForgotPasswordComponent,
+    VerifyComponent
   ],
     imports: [
         BrowserModule,

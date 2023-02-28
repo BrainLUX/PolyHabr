@@ -10,6 +10,8 @@ import {ProfileComponent} from "./profile/profile.component";
 import {EmailConfirmComponent} from "./email-confirm/email-confirm.component";
 import {UploadComponent} from "./upload/upload.component";
 import {ProfileSettingsComponent} from "./profile-settings/profile-settings.component";
+import {ForgotPasswordComponent} from "./forgot-password/forgot-password.component";
+import {VerifyComponent} from "./verify/verify.component";
 
 const routes: Routes = [
   {
@@ -47,6 +49,14 @@ const routes: Routes = [
   {
     path: Destination.EMAIL_CONFIRM.toPath(),
     component: EmailConfirmComponent
+  },
+  {
+    path: Destination.FORGOT_PASSWORD.toPath(),
+    component: ForgotPasswordComponent
+  },
+  {
+    path: Destination.VERIFY.toPath(),
+    component: VerifyComponent
   }
 ];
 
