@@ -12,7 +12,9 @@
   <div class="type chip" *ngIf="!isShort()">{{article.typeId.name}}</div>
   <div class="body" *ngIf="!isShort() && !isFull()" [innerHtml]="article.previewText"></div>
   <div class="body" *ngIf="isFull()" [innerHtml]="article.text"></div>
-  <iframe *ngIf="isFull()" src="http://docs.google.com/viewer?url=https://firebasestorage.googleapis.com/v0/b/guideapp-6de55.appspot.com/o/HLD_1_1%20(2).docx?alt=media&token=a5529fb0-4828-4307-85d8-4b3b6a6def3b&embedded=true" width="700" height="500"
+  <iframe *ngIf="isFull()"
+          src="http://docs.google.com/viewer?url=https://firebasestorage.googleapis.com/v0/b/guideapp-6de55.appspot.com/o/HLD_1_1%20(2).docx?alt=media&token=a5529fb0-4828-4307-85d8-4b3b6a6def3b&embedded=true"
+          width="700" height="500"
           style="border: none;"></iframe>
 
   <div class="footer">
@@ -32,19 +34,18 @@
         </svg>
         <span>{{article.likes}}</span>
       </div>
-      <div class="views" *ngIf="false">
+      <div class="views">
         <svg height="24" width="24">
           <title>Просмотры</title>
           <use xlink:href="assets/images/icons/icon-set.svg#counter-views"></use>
         </svg>
-        <span>{{article.likes}}</span>
+        <span>{{article.viewCount}}</span>
       </div>
-      <div class="favourite link" *ngIf="false">
-        <svg height="24" width="24">
+      <div class="favourite link"  (click)="addRemoveFav()">
+        <svg height="24" width="24" [ngClass]="{selected:article.isSaveToFavourite}">
           <title>Добавить в закладки</title>
           <use xlink:href="assets/images/icons/icon-set.svg#counter-favorite"></use>
         </svg>
-        <span>{{article.likes}}</span>
       </div>
     </div>
   </div>

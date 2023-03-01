@@ -113,7 +113,19 @@ export class ProfileComponent implements OnInit {
           }
         });
       } else {
-
+        this.articlesService.getFavArticles(() => {
+        }, this.offset, this.count).subscribe(result => {
+          if (this.queryCount == tmpQuery) {
+            if (isScroll) {
+              this.articles.push(...result.contents);
+            } else {
+              this.articles = result.contents;
+            }
+          }
+          if (result.contents.length > 0) {
+            this.isItemsLoading = false;
+          }
+        });
       }
     }
   }

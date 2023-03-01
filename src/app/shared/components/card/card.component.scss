@@ -118,11 +118,15 @@ article {
         }
 
         span {
-          color: base.$col-green;
+          color: base.$col-green-light;
         }
 
         svg {
-          fill: base.$col-green;
+          fill: base.$col-green-light-smooth;
+
+          &.selected {
+            fill: base.$col-green;
+          }
         }
       }
     }

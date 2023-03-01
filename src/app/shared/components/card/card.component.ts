@@ -34,6 +34,16 @@ export class CardComponent {
     }).subscribe(() => this.article.likes++);
   }
 
+  addRemoveFav(): void {
+    if (!this.article.isSaveToFavourite) {
+      this.articleService.addFav(this.article.id, () => {
+      }).subscribe(() => this.article.isSaveToFavourite = true);
+    } else {
+      this.articleService.removeFav(this.article.id, () => {
+      }).subscribe(() => this.article.isSaveToFavourite = false);
+    }
+  }
+
   toArticle(e: Event): void {
     e.preventDefault();
     this.navigationService.navigateTo(Destination.ARTICLE, new Map([["actor", this.article.id.toString()]]));

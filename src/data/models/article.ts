@@ -12,6 +12,8 @@ export namespace Article {
     text: string = "";
     fileId: number = 0;
     likes: number = 0;
+    viewCount: number = 0;
+    isSaveToFavourite: boolean = false;
   }
 
   export class Tag {
