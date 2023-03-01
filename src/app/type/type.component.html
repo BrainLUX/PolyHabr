@@ -15,6 +15,7 @@
           {{type.name}}
         </div>
       </div>
+      <div class="error-text" *ngIf="errorText">{{errorText}}</div>
       <button (click)="chooseDisciplines($event)">Выбрать</button>
     </div>
   </div>
