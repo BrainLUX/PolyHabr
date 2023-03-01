@@ -15,6 +15,7 @@
         <div class="title">Никнейм</div>
         <input type="text"
                [(ngModel)]="nicknameInputValue"
+               name="login"
                (ngModelChange)="checkFieldValidation(RegexType.LOGIN, $event, InputFieldsType.NICKNAME)"
                #nicknameInputElement>
         <div class="error-text" [ngClass]="{'active': registerErrorConfig.nicknameError}">{{registerErrorConfig.nicknameError}}</div>
