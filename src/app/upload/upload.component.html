@@ -36,10 +36,8 @@
           </svg>
           <b *ngIf="!preview">Прикрепите файл</b>
           <b *ngIf="preview">Файл {{preview.name}} прикреплен</b>
-          <p *ngIf="hasPreviewError" class="error">Размер изображения слишком большой. Максимальный размер изображения
-            не
-            должен превышать 20 Мб</p>
-          <p *ngIf="!preview">Прикрепите сюда файл (.docx, .doc, .pdf) размером до 20 мб</p>
+          <p *ngIf="hasPreviewError" class="error">Размер изображения слишком большой.</p>
+          <p *ngIf="!preview">Прикрепите сюда файл (.png, .jpg, .jpeg)</p>
           <button *ngIf="!preview" (click)="previewInput.click()">Загрузить файл</button>
           <button *ngIf="preview" (click)="previewInput.value = ''; preview = null;">Открепить файл</button>
         </div>
@@ -69,6 +67,6 @@
       <div class="input-title required">Теги работы (через запятую)</div>
       <input type="text" #tagInputComponent>
     </div>
-    <button (click)="add()">Отправить</button>
+    <button (click)="add($event)">Отправить</button>
   </div>
 </div>

@@ -11,7 +11,7 @@ import {DisciplineTypesService} from "../core/services/discipline_types.service"
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss']
 })
-export class UploadComponent {
+export class UploadComponent implements OnInit {
 
   @ViewChild("titleInputComponent")
   titleInputComponent!: ElementRef;
@@ -27,27 +27,42 @@ export class UploadComponent {
 
   types: Article.Type[] = [];
   disciplines: Article.Type[] = [];
-
-  constructor(private articleTypesService: ArticleTypesService, private articlesService: ArticlesService,
-              private navigationService: NavigationService, private disciplineTypesService: DisciplineTypesService) {
-    articleTypesService.getTypes(() => {
-    }).subscribe(result => {
-      this.types = result.contents;
-      this.selectedType = this.types[0];
-    });
-    disciplineTypesService.getTypes(() => {
-    }).subscribe(result => {
-      this.disciplines = result.contents;
-      this.selectedDiscipline = this.disciplines[0];
-    });
-  }
-
   file: File | null = null;
   preview: File | null = null;
   hasError: boolean = false;
   hasPreviewError: boolean = false;
   selectedType!: Article.Type;
   selectedDiscipline!: Article.Type;
+
+  constructor(private articleTypesService: ArticleTypesService, private articlesService: ArticlesService,
+              private navigationService: NavigationService, private disciplineTypesService: DisciplineTypesService) {
+  }
+
+  ngOnInit() {
+    this.articleTypesService.getTypes(() => {
+    }).subscribe(result => {
+      this.types = result.contents;
+      this.selectedType = this.types[0];
+    });
+    this.disciplineTypesService.getTypes(() => {
+    }).subscribe(result => {
+      this.disciplines = result.contents;
+      this.selectedDiscipline = this.disciplines[0];
+    });
+    const id: number | undefined = Number(window.location.pathname.split("/")[2]);
+    if (!isNaN(id)) {
+      this.articlesService.getArticle(id,()=>{
+      }).subscribe(result => {
+        console.log(result);
+        this.titleInputComponent.nativeElement.value = result.title;
+        this.selectedType.name = result.typeId.name
+        this.selectedDiscipline.name = result.listDisciplineName[0];
+        this.previewTextInputComponent.nativeElement.value = result.previewText;
+        this.textInputComponent.nativeElement.value = result.text;
+        this.tagInputComponent.nativeElement.value = result.listTag.join(" ,");
+      })
+    }
+  }
 
   onFileSelected(event: any): void {
     if (event.target.files.length > 0) {
@@ -77,42 +92,33 @@ export class UploadComponent {
     this.navigationService.navigateTo(Destination.ARTICLE, new Map([["article", id]]));
   }
 
-  add(): void {
-    let body: Data = {
-      title: this.titleInputComponent.nativeElement.value,
-      text: this.textInputComponent.nativeElement.value,
-      previewText: this.previewTextInputComponent.nativeElement.value,
-      listTag: this.tagInputComponent.nativeElement.value.toString().trim().split(","),
-      listDisciplineName: [this.selectedDiscipline.name],
-      articleType: this.selectedType.name
-    };
-    this.articlesService.add(() => {
-    }, body).subscribe((result) => this.toArticle(result["id"] as string));
-  }
-
-  upload(e: Event): void {
+  add(e: Event): void {
     e.preventDefault();
     const id: number | undefined = Number(window.location.pathname.split("/")[2]);
-    if (id != undefined) {
-      this.articleService.update(()=>{
-      }, id).subscribe(() => {})
-    } else {
-      const tagsString: string = this.inputTagsElement.nativeElement.value;
-      const tagsList: string[] = tagsString.split(", ");
-      const data: Article.ItemCreate = {
-        title: this.inputTitleElement.nativeElement.value,
-        text: this.inputDescriptionElement.nativeElement.value,
-        previewText: "",
-        filePdf: null,
-        likes: 0,
-        articleType: this.selectedType.name,
-        listDisciplineName: this.inputDisciplineElement.nativeElement.value,
-        listTag: tagsList
+    if (isNaN(id)) {
+      let body: Data = {
+        title: this.titleInputComponent.nativeElement.value,
+        text: this.textInputComponent.nativeElement.value,
+        previewText: this.previewTextInputComponent.nativeElement.value,
+        listTag: this.tagInputComponent.nativeElement.value.toString().trim().split(","),
+        listDisciplineName: [this.selectedDiscipline.name],
+        articleType: this.selectedType.name
       };
-      this.articleService.create(()=>{
-      }, data).subscribe(result => {
-        console.log(result)
-      })
+      this.articlesService.add(() => {
+      }, body).subscribe((result) => this.toArticle(result["id"] as string));
+    } else {
+      let body: Data = {
+        title: this.titleInputComponent.nativeElement.value,
+        text: this.textInputComponent.nativeElement.value,
+        previewText: this.previewTextInputComponent.nativeElement.value,
+        filePdf: "",
+        likes: 0,
+        typeName: this.selectedType.name
+      }
+      this.articlesService.update(() => {
+      }, body, id).subscribe(result => {
+        console.log(result);
+      });
     }
   }
 }
