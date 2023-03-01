@@ -13,6 +13,8 @@ import {ProfileSettingsComponent} from "./profile-settings/profile-settings.comp
 import {ForgotPasswordComponent} from "./forgot-password/forgot-password.component";
 import {VerifyComponent} from "./verify/verify.component";
 import {TypeComponent} from "./type/type.component";
+import {InterChangePasswordComponent} from "./inter-change-password/inter-change-password.component";
+import {ChangePasswordComponent} from "./change-password/change-password.component";
 
 const routes: Routes = [
   {
@@ -54,6 +56,14 @@ const routes: Routes = [
   {
     path: Destination.FORGOT_PASSWORD.toPath(),
     component: ForgotPasswordComponent
+  },
+  {
+    path: Destination.INTER_CHANGE_PASSWORD.toPath(),
+    component: InterChangePasswordComponent
+  },
+  {
+    path: Destination.CHANGE_PASSWORD.toPath(),
+    component: ChangePasswordComponent
   },
   {
     path: Destination.VERIFY.toPath(),

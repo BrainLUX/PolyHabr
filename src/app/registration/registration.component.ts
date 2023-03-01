@@ -5,6 +5,7 @@ import {RegexType} from 'src/data/models/regex-types';
 import {InputFieldsType} from 'src/data/models/input-field-types';
 import {AuthorizationService} from "../core/services/authorization.service";
 import {Authorization} from "../../data/models/authorization";
+import {StorageHelper} from "../core/helpers/storage.helper";
 
 @Component({
   selector: 'poly-registration',
@@ -36,6 +37,7 @@ export class RegistrationComponent implements OnInit {
   nameInputValue: string | null = null;
   surnameInputValue: string | null = null;
   nicknameInputValue: string | null = null;
+  emailInputValue: string | null = null;
 
   registerErrorConfig: RegisterErrorConfig = {
     emailError: null,
@@ -62,6 +64,11 @@ export class RegistrationComponent implements OnInit {
     this.navigationService.navigateTo(Destination.LOGIN);
   }
 
+  toForgotPassword(e: Event): void {
+    e.preventDefault();
+    this.navigationService.navigateTo(Destination.FORGOT_PASSWORD);
+  }
+
   onEnterButtonClicked(e: Event): void {
     if (this.checkEnterValidation() && this.checkPasswordsIdentical()) {
       e.preventDefault();
@@ -74,8 +81,9 @@ export class RegistrationComponent implements OnInit {
       };
       console.log(data);
       this.authorizationService.signUp(() => {
-      }, data).subscribe(result => {
-        console.log(result);
+      }, data).subscribe(() => {
+        StorageHelper.setCookie("email", data.email);
+        this.navigationService.navigateTo(Destination.EMAIL_CONFIRM);
       });
     }
   }
@@ -143,10 +151,10 @@ export class RegistrationComponent implements OnInit {
       }
     }, this.nicknameInputElement.nativeElement.value).subscribe(() => {});
     this.authorizationService.checkFreeEmail((result) => {
-      if (this.nicknameInputElement.nativeElement.value.length >= 4 && result == 400) {
+      if (this.emailInputElement.nativeElement.value.length >= 4 && result == 400) {
         this.registerErrorConfig.emailError = ErrorCodes.TAKEN_EMAIL;
       }
-    }, this.nicknameInputElement.nativeElement.value).subscribe(() => {});
+    }, this.emailInputElement.nativeElement.value).subscribe(() => {});
   }
 
   checkPasswordsIdentical(): boolean {
