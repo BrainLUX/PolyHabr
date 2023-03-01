@@ -21,6 +21,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { VerifyComponent } from './verify/verify.component';
 import { TypeComponent } from './type/type.component';
+import { InterChangePasswordComponent } from './inter-change-password/inter-change-password.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { TypeComponent } from './type/type.component';
     ProfileSettingsComponent,
     ForgotPasswordComponent,
     VerifyComponent,
-    TypeComponent
+    TypeComponent,
+    InterChangePasswordComponent,
+    ChangePasswordComponent
   ],
     imports: [
         BrowserModule,

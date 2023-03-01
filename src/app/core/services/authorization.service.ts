@@ -56,4 +56,16 @@ export class AuthorizationService {
     });
     return this.apiService.post(`${this.base}forgotPassword?${configUrl}`, new HttpParams(), onError);
   }
+
+  changePassword(onError: ApiError, token: string): Observable<any> {
+    let configUrl = "";
+    Object.entries({token: token}).map(([key, value]) => {
+      configUrl += `${key}=${value}&`;
+    });
+    return this.apiService.get(`${this.base}changePassword?${configUrl}`, new HttpParams(), onError);
+  }
+
+  savePassword(onError: ApiError, data: Authorization.SavePassword): Observable<any> {
+    return this.apiService.put(`${this.base}savePassword`, data, onError);
+  }
 }

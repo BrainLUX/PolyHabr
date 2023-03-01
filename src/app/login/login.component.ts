@@ -50,13 +50,14 @@ export class LoginComponent implements OnInit {
   }
 
   onEnterButtonClicked(e: Event): void {
-    if (this.registerErrorConfig.nicknameError == null && this.registerErrorConfig.passwordError == null) {
+    if (this.registerErrorConfig.nicknameError == null) {
       e.preventDefault();
       const data: Authorization.SignIn = {
         username: this.nicknameInputElement.nativeElement.value,
         password: this.passwordInputElement.nativeElement.value
       }
       this.authorizationService.signIn(() => {
+        this.registerErrorConfig.passwordError = ErrorCodes.LOGIN_ERROR;
       }, data).subscribe(result => {
         this.apiService.setAccessToken(result.accessToken);
         this.navigationService.navigateTo(Destination.FEED);
