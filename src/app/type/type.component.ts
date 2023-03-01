@@ -22,4 +22,9 @@ export class TypeComponent {
     e.preventDefault();
     this.navigationService.navigateTo(Destination.FEED);
   }
+
+  chooseDisciplines(e: Event): void {
+    e.preventDefault();
+    this.navigationService.navigateTo(Destination.FEED);
+  }
 }

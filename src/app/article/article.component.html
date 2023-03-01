@@ -1,6 +1,6 @@
 <poly-header></poly-header>
 <div class="container" *ngIf="article">
-  <poly-card [article]="article" [type]="CardType.FULL"></poly-card>
+  <poly-card [article]="article" [type]="CardType.FULL" [isEditable]="isArticleEditable"></poly-card>
   <div class="author">
     <div class="head">
       <div class="karma" *ngIf="false">

@@ -10,9 +10,9 @@
         </div>
       </div>
       <div class="input-title required">Наименование работы</div>
-      <input type="text" placeholder="Введите название">
+      <input type="text" placeholder="Введите название" #inputTitleElement>
       <div class="input-title required">Дисциплина работы</div>
-      <input type="text">
+      <input type="text" #inputDisciplineElement>
       <div class="title">Файл</div>
       <div class="file">
         <div class="preview">
@@ -31,9 +31,9 @@
         <input style="display: none" accept=".docx, .doc, .pdf" type="file" (change)="onFileSelected($event)"
                #fileInput>
       </div>
-      <textarea placeholder="Введите текст"></textarea>
+      <textarea placeholder="Введите текст" #inputDescriptionElement></textarea>
       <div class="input-title required">Теги работы (через запятую)</div>
-      <input type="text">
+      <input type="text" #inputTagsElement>
     </div>
     <button>Отправить</button>
   </div>

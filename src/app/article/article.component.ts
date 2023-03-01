@@ -4,6 +4,7 @@ import {CardType} from "../shared/components/card/card.component";
 import {ArticlesService} from "../core/services/articles.service";
 import {ActivatedRoute} from "@angular/router";
 import {CommentsService} from "../core/services/comments.service";
+import {DataHelper} from "../core/helpers/data.helper";
 
 @Component({
   selector: 'poly-article',
@@ -19,6 +20,8 @@ export class ArticleComponent implements OnInit {
 
   others: Article.Item[] = [];
 
+  isArticleEditable: boolean = false;
+
   constructor(private articlesService: ArticlesService, private route: ActivatedRoute,
               private commentsService: CommentsService) {
   }
@@ -27,11 +30,12 @@ export class ArticleComponent implements OnInit {
     this.route.params.subscribe(param => {
       if (param["actor"]) {
         this.articlesService.getArticle(Number(param["actor"]), () => {
-        }).subscribe(result => {
-          this.article = result;
+        }).subscribe(articleResult => {
+          this.article = articleResult;
           this.articlesService.search(() => {
           }, this.article.listDisciplineName[0]).subscribe(result => {
             this.others = result.contents;
+            this.isArticleEditable = this.isOwnedArticle(articleResult.user.id);
           });
           this.getComments();
         });
@@ -52,5 +56,9 @@ export class ArticleComponent implements OnInit {
       this.getComments();
       input.value = "";
     })
+  }
+
+  isOwnedArticle(userTaskId: number) {
+    return DataHelper.user?.id != undefined && DataHelper.user.id == userTaskId;
   }
 }

@@ -24,6 +24,9 @@ export class CardComponent {
   @Input()
   isLast: boolean = false;
 
+  @Input()
+  isEditable: boolean = false;
+
   constructor(private navigationService: NavigationService, private articleService: ArticlesService) {
   }
 
@@ -52,6 +55,11 @@ export class CardComponent {
   toFile(e: Event): void {
     e.preventDefault();
     window.open(`${environment.api_url}/files/${this.article.fileId}`);
+  }
+
+  toUpload(e: Event): void {
+    e.preventDefault();
+    this.navigationService.navigateTo(Destination.UPLOAD_EDIT, new Map([["id", this.article.id.toString()]]));
   }
 
   isFull(): boolean {

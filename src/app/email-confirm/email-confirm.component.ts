@@ -27,6 +27,7 @@ export class EmailConfirmComponent implements OnInit {
     const email = StorageHelper.getCookie("email");
     if (email != undefined) {
       this.emailString = email;
+      StorageHelper.deleteCookie("email");
     }
   }
 

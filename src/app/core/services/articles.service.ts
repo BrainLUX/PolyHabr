@@ -51,4 +51,10 @@ export class ArticlesService {
   search(onError: ApiError, prefix: string = "", offset: number = 0, size: number = 1): Observable<ApiResult<Array<Article.Item>>> {
     return this.apiService.get(`${this.base}searchByTittle?prefix=${prefix}&offset=${offset}&size=${size}`, new HttpParams(), onError);
   }
+  update(onError: ApiError, id: number): Observable<any> {
+    return this.apiService.put(`${this.base}update?id=${id}`, new HttpParams(), onError);
+  }
+  create(onError: ApiError, data: Article.ItemCreate): Observable<any> {
+    return this.apiService.post(`${this.base}create`, data, onError);
+  }
 }

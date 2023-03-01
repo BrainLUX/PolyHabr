@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
         this.usersService.getMe(() => {
         }).subscribe(result => {
           DataHelper.user = result;
-          this.navigationService.navigateTo(Destination.FEED);
+          this.navigationService.navigateTo(Destination.TYPES);
         });
       });
     }
