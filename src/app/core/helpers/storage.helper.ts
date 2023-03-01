@@ -25,7 +25,6 @@ export class StorageHelper {
         updatedCookie += "=" + optionValue;
       }
     }
-    console.log(updatedCookie);
 
     document.cookie = updatedCookie;
   }

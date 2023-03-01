@@ -41,6 +41,12 @@
       flex-direction: column;
       padding: 40px;
 
+      .error-text {
+        display: flex;
+        color: red;
+        margin-top: 10px;
+      }
+
       .title {
         text-align: center;
         font-weight: 600;

@@ -15,7 +15,8 @@ export namespace Authorization {
   export interface Login {
     accessToken: string,
     type: string,
-    username: string
+    username: string,
+    isFirst: false
   }
 
   export interface SavePassword {
