@@ -3,6 +3,7 @@ import {Article} from "../../../../data/models/article";
 import {Destination, NavigationService} from "../../../core/services/navigation.service";
 import {environment} from "../../../../environments/environment";
 import {ArticlesService} from "../../../core/services/articles.service";
+import {DataHelper} from "../../../core/helpers/data.helper";
 
 @Component({
   selector: 'poly-card',
@@ -11,6 +12,8 @@ import {ArticlesService} from "../../../core/services/articles.service";
   encapsulation: ViewEncapsulation.None
 })
 export class CardComponent {
+
+  readonly DataHelper = DataHelper;
 
   @ViewChild("root")
   root!: ElementRef;
@@ -46,7 +49,7 @@ export class CardComponent {
 
   toArticle(e: Event): void {
     e.preventDefault();
-    this.navigationService.navigateTo(Destination.ARTICLE, new Map([["actor", this.article.id.toString()]]));
+    this.navigationService.navigateTo(Destination.ARTICLE, new Map([["article", this.article.id.toString()]]));
   }
 
   toFile(e: Event): void {

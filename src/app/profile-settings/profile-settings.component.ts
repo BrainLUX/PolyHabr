@@ -113,7 +113,7 @@ export class ProfileSettingsComponent {
         email: this.emailInputElement.nativeElement.value,
       } as Data;
       if (this.passwordInputElement.nativeElement.value.length > 0) {
-        body["passwordNew"] = this.passwordInputElement.nativeElement.value;
+        body["newPassword"] = this.passwordInputElement.nativeElement.value;
         body["password"] = this.passwordOldInputElement.nativeElement.value;
       }
       this.usersService.update(() => {

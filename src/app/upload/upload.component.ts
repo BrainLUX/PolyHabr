@@ -1,6 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, ElementRef, ViewChild} from '@angular/core';
 import {ArticleTypesService} from "../core/services/article_types.service";
 import {Article} from "../../data/models/article";
+import {ArticlesService} from "../core/services/articles.service";
+import {Destination, NavigationService} from "../core/services/navigation.service";
+import {Data} from "../core/types/Data";
 
 @Component({
   selector: 'poly-upload',
@@ -9,9 +12,25 @@ import {Article} from "../../data/models/article";
 })
 export class UploadComponent {
 
+  @ViewChild("titleInputComponent")
+  titleInputComponent!: ElementRef;
+
+  @ViewChild("disciplineInputComponent")
+  disciplineInputComponent!: ElementRef;
+
+  @ViewChild("tagInputComponent")
+  tagInputComponent!: ElementRef;
+
+  @ViewChild("textInputComponent")
+  textInputComponent!: ElementRef;
+
+  @ViewChild("previewTextInputComponent")
+  previewTextInputComponent!: ElementRef;
+
   types: Article.Type[] = [];
 
-  constructor(private articleTypesService: ArticleTypesService) {
+  constructor(private articleTypesService: ArticleTypesService, private articlesService: ArticlesService,
+              private navigationService: NavigationService) {
     articleTypesService.getTypes(() => {
     }).subscribe(result => {
       this.types = result.contents;
@@ -20,7 +39,9 @@ export class UploadComponent {
   }
 
   file: File | null = null;
+  preview: File | null = null;
   hasError: boolean = false;
+  hasPreviewError: boolean = false;
   selectedType!: Article.Type;
 
   onFileSelected(event: any): void {
@@ -33,5 +54,35 @@ export class UploadComponent {
         event.target.value = "";
       }
     }
+  }
+
+  onPreviewSelected(event: any): void {
+    if (event.target.files.length > 0) {
+      this.hasPreviewError = false;
+      if (event.target.files[0].size < 15 * 1024 * 1024) {
+        this.preview = event.target.files[0];
+      } else {
+        this.hasPreviewError = true;
+        event.target.value = "";
+      }
+    }
+  }
+
+  toArticle(id: string): void {
+    this.navigationService.navigateTo(Destination.ARTICLE, new Map([["article", id]]));
+  }
+
+  add(): void {
+    let body: Data = {
+      title: this.titleInputComponent.nativeElement.value,
+      text: this.titleInputComponent.nativeElement.value,
+      previewText: this.previewTextInputComponent.nativeElement.value,
+      listTag: this.titleInputComponent.nativeElement.value,
+      listDisciplineName: this.disciplineInputComponent.nativeElement.value,
+      articleType: this.selectedType.name,
+      likes: 0,
+    };
+    this.articlesService.add(() => {
+    }, body).subscribe((result) => this.toArticle(result["id"] as string));
   }
 }

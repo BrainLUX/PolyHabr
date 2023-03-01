@@ -46,9 +46,13 @@ export class ProfileComponent implements OnInit {
     });
     this.route.url.subscribe(_ => {
       if (this.route.snapshot.fragment == ProfileSortState.PUBLISHED) {
+        this.offset = -1;
+        this.count = 5;
         this.activeTab = ProfileSortState.PUBLISHED;
         this.articles = [];
       } else if (this.route.snapshot.fragment == ProfileSortState.FAVOURITES) {
+        this.offset = -1;
+        this.count = 5;
         this.activeTab = ProfileSortState.FAVOURITES;
         this.articles = [];
       }

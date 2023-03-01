@@ -41,7 +41,7 @@
         </svg>
         <span>{{article.viewCount}}</span>
       </div>
-      <div class="favourite link"  (click)="addRemoveFav()">
+      <div class="favourite link" *ngIf="DataHelper.user" (click)="addRemoveFav()">
         <svg height="24" width="24" [ngClass]="{selected:article.isSaveToFavourite}">
           <title>Добавить в закладки</title>
           <use xlink:href="assets/images/icons/icon-set.svg#counter-favorite"></use>

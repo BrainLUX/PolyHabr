@@ -25,8 +25,8 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(param => {
-      if (param["actor"]) {
-        this.articlesService.getArticle(Number(param["actor"]), () => {
+      if (param["article"]) {
+        this.articlesService.getArticle(Number(param["article"]), () => {
         }).subscribe(result => {
           this.article = result;
           this.articlesService.search(() => {

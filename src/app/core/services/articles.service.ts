@@ -5,6 +5,7 @@ import {HttpParams} from "@angular/common/http";
 import {ApiError} from "../types/api-error";
 import {Article} from "../../../data/models/article";
 import {ApiResult} from "../types/api-result";
+import {Data} from "../types/Data";
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +17,28 @@ export class ArticlesService {
   constructor(private apiService: ApiService) {
   }
 
-  getArticles(onError: ApiError, offset: number = 0, size: number = 1): Observable<ApiResult<Array<Article.Item>>> {
-    return this.apiService.get(`${this.base}?offset=${offset}&size=${size}`, new HttpParams(), onError);
+  getArticles(onError: ApiError,
+              offset: number = 0,
+              size: number = 1,
+              fieldView: boolean | null = null,
+              fieldRating: boolean | null = null,
+              datRange: String | null = null): Observable<ApiResult<Array<Article.Item>>> {
+    let result = `${this.base}?offset=${offset}&size=${size}`;
+    if (fieldView) {
+      result += `&fieldView=${fieldView}`;
+      result += `&datRange=${datRange}`;
+    } else if (fieldRating) {
+      result += `&fieldRating=${fieldRating}`;
+      result += `&datRange=${datRange}`;
+    }
+    return this.apiService.get(result, new HttpParams(), onError);
   }
 
   getUserArticles(onError: ApiError, userId: number = 0, offset: number = 0, size: number = 1): Observable<ApiResult<Array<Article.Item>>> {
     return this.apiService.get(`${this.base}byUser?id=${userId}&offset=${offset}&size=${size}`, new HttpParams(), onError);
   }
 
-  getFavArticles(onError: ApiError, userId: number = 0, offset: number = 0, size: number = 1): Observable<ApiResult<Array<Article.Item>>> {
+  getFavArticles(onError: ApiError, offset: number = 0, size: number = 1): Observable<ApiResult<Array<Article.Item>>> {
     return this.apiService.get(`${this.base}getFavArticles?offset=${offset}&size=${size}`, new HttpParams(), onError);
   }
 
@@ -50,5 +64,9 @@ export class ArticlesService {
 
   search(onError: ApiError, prefix: string = "", offset: number = 0, size: number = 1): Observable<ApiResult<Array<Article.Item>>> {
     return this.apiService.get(`${this.base}searchByTittle?prefix=${prefix}&offset=${offset}&size=${size}`, new HttpParams(), onError);
+  }
+
+  add(onError: ApiError, body: Data): Observable<Data> {
+    return this.apiService.post(`${this.base}create`, body, onError);
   }
 }
