@@ -4,6 +4,7 @@ import {Article} from "../../data/models/article";
 import {ArticlesService} from "../core/services/articles.service";
 import {Destination, NavigationService} from "../core/services/navigation.service";
 import {Data} from "../core/types/Data";
+import {DisciplineTypesService} from "../core/services/discipline_types.service";
 
 @Component({
   selector: 'poly-upload',
@@ -15,9 +16,6 @@ export class UploadComponent {
   @ViewChild("titleInputComponent")
   titleInputComponent!: ElementRef;
 
-  @ViewChild("disciplineInputComponent")
-  disciplineInputComponent!: ElementRef;
-
   @ViewChild("tagInputComponent")
   tagInputComponent!: ElementRef;
 
@@ -28,13 +26,19 @@ export class UploadComponent {
   previewTextInputComponent!: ElementRef;
 
   types: Article.Type[] = [];
+  disciplines: Article.Type[] = [];
 
   constructor(private articleTypesService: ArticleTypesService, private articlesService: ArticlesService,
-              private navigationService: NavigationService) {
+              private navigationService: NavigationService, private disciplineTypesService: DisciplineTypesService) {
     articleTypesService.getTypes(() => {
     }).subscribe(result => {
       this.types = result.contents;
       this.selectedType = this.types[0];
+    });
+    disciplineTypesService.getTypes(() => {
+    }).subscribe(result => {
+      this.disciplines = result.contents;
+      this.selectedDiscipline = this.disciplines[0];
     });
   }
 
@@ -43,6 +47,7 @@ export class UploadComponent {
   hasError: boolean = false;
   hasPreviewError: boolean = false;
   selectedType!: Article.Type;
+  selectedDiscipline!: Article.Type;
 
   onFileSelected(event: any): void {
     if (event.target.files.length > 0) {
@@ -75,12 +80,11 @@ export class UploadComponent {
   add(): void {
     let body: Data = {
       title: this.titleInputComponent.nativeElement.value,
-      text: this.titleInputComponent.nativeElement.value,
+      text: this.textInputComponent.nativeElement.value,
       previewText: this.previewTextInputComponent.nativeElement.value,
-      listTag: this.titleInputComponent.nativeElement.value,
-      listDisciplineName: this.disciplineInputComponent.nativeElement.value,
-      articleType: this.selectedType.name,
-      likes: 0,
+      listTag: this.tagInputComponent.nativeElement.value.toString().trim().split(","),
+      listDisciplineName: [this.selectedDiscipline.name],
+      articleType: this.selectedType.name
     };
     this.articlesService.add(() => {
     }, body).subscribe((result) => this.toArticle(result["id"] as string));
