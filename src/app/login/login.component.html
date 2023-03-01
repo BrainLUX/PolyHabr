@@ -26,7 +26,7 @@
         <div class="error-text" [ngClass]="{'active': registerErrorConfig.passwordError}">{{registerErrorConfig.passwordError}}</div>
       </div>
       <button class="enter" (click)="onEnterButtonClicked($event)">Войти</button>
-      <a class="forgot_password">Забыли пароль?</a>
+      <a class="forgot_password" (click)="toForgotPassword($event)">Забыли пароль?</a>
     </div>
   </div>
   <div class="layout no_account">

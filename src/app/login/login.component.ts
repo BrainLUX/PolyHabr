@@ -6,7 +6,6 @@ import {RegisterErrorConfig} from "../registration/registration.component";
 import {RegexType} from "../../data/models/regex-types";
 import {InputFieldsType} from "../../data/models/input-field-types";
 import {Authorization} from "../../data/models/authorization";
-import {ApiService} from "../core/services/api.service";
 import {StorageHelper} from "../core/helpers/storage.helper";
 import {DataHelper} from "../core/helpers/data.helper";
 import {UsersService} from "../core/services/users.service";
@@ -53,14 +52,20 @@ export class LoginComponent implements OnInit {
     this.navigationService.navigateTo(Destination.REGISTER);
   }
 
+  toForgotPassword(e: Event): void {
+    e.preventDefault();
+    this.navigationService.navigateTo(Destination.FORGOT_PASSWORD);
+  }
+
   onEnterButtonClicked(e: Event): void {
-    if (this.registerErrorConfig.nicknameError == null && this.registerErrorConfig.passwordError == null) {
+    if (this.registerErrorConfig.nicknameError == null) {
       e.preventDefault();
       const data: Authorization.SignIn = {
         username: this.nicknameInputElement.nativeElement.value,
         password: this.passwordInputElement.nativeElement.value
       }
       this.authorizationService.signIn(() => {
+        this.registerErrorConfig.passwordError = ErrorCodes.LOGIN_ERROR;
       }, data).subscribe(loginResult => {
         StorageHelper.setCookie("accessToken", loginResult.accessToken);
         this.usersService.getMe(() => {

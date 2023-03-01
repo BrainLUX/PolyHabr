@@ -17,4 +17,9 @@ export namespace Authorization {
     type: string,
     username: string
   }
+
+  export interface SavePassword {
+    token: string,
+    newPassword: string
+  }
 }

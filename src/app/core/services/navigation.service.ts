@@ -33,6 +33,8 @@ export class Destination {
   static readonly UPLOAD = new Destination("upload");
   static readonly PROFILE_SETTINGS = new Destination("profile-settings");
   static readonly FORGOT_PASSWORD = new Destination("forgot-password");
+  static readonly INTER_CHANGE_PASSWORD = new Destination("api/auth/changePassword");
+  static readonly CHANGE_PASSWORD = new Destination("change-password");
   static readonly VERIFY = new Destination("api/auth/verify");
   static readonly TYPES = new Destination("types");
 
