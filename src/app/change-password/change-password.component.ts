@@ -2,9 +2,9 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Destination, NavigationService} from "../core/services/navigation.service";
 import {RegisterErrorConfig} from "../registration/registration.component";
 import {AuthorizationService} from "../core/services/authorization.service";
-import {ApiService} from "../core/services/api.service";
 import {Authorization} from "../../data/models/authorization";
 import {ErrorCodes} from "../../data/models/error-codes";
+import {StorageHelper} from "../core/helpers/storage.helper";
 
 @Component({
   selector: 'poly-change-password',
@@ -28,10 +28,15 @@ export class ChangePasswordComponent implements OnInit {
     passwordAgainError: null
   }
 
-  constructor(private navigationService: NavigationService, private authorizationService: AuthorizationService,
-              private apiService: ApiService) { }
+  constructor(private navigationService: NavigationService, private authorizationService: AuthorizationService) { }
 
   ngOnInit(): void {
+    if (!localStorage.getItem('canReload')) {
+      localStorage.setItem('canReload', 'no reload');
+      window.location.reload();
+    } else {
+      localStorage.removeItem('canReload');
+    }
   }
 
   toFeed(e: Event): void {
@@ -49,18 +54,42 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
 
+  checkEnterValidation(): boolean {
+    let legal = true;
+    if (this.passwordInputElement.nativeElement.value.length > 72) {
+      this.registerErrorConfig.passwordError = ErrorCodes.PASSWORD_BIGGER;
+      legal = false;
+    }
+    if (this.passwordInputElement.nativeElement.value.length < 8) {
+      this.registerErrorConfig.passwordError = ErrorCodes.PASSWORD_LESS;
+      legal = false;
+    }
+    if (this.passwordInputElement.nativeElement.value.length == 0) {
+      this.registerErrorConfig.passwordError = ErrorCodes.NON_FILLED_FIELD;
+      legal = false;
+    }
+    if (this.passwordAgainInputElement.nativeElement.value.length == 0) {
+      this.registerErrorConfig.passwordAgainError = ErrorCodes.NON_FILLED_FIELD;
+      legal = false;
+    }
+    return legal;
+  }
+
   confirmPassword(e: Event): void {
-    if (this.checkPasswordsIdentical()) {
+    if (this.checkPasswordsIdentical() && this.checkEnterValidation()) {
       e.preventDefault();
-      const passwordToken: string | null = this.apiService.getCookie("password-token");
+      const passwordToken: string | undefined = StorageHelper.getCookie("password-token");
       console.log(passwordToken);
-      if (passwordToken != null) {
+      if (passwordToken != undefined) {
         const data: Authorization.SavePassword = {
           token: passwordToken,
           newPassword: this.passwordInputElement.nativeElement.value
         }
         this.authorizationService.savePassword(() => {
-        }, data).subscribe();
+        }, data).subscribe(() => {
+          StorageHelper.deleteCookie("password-token");
+          this.navigationService.navigateTo(Destination.LOGIN);
+        });
       }
     }
   }
