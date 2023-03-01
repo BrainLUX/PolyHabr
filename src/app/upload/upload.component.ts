@@ -45,25 +45,32 @@ export class UploadComponent implements OnInit {
     }).subscribe(result => {
       this.types = result.contents;
       this.selectedType = this.types[0];
-    });
-    this.disciplineTypesService.getTypes(() => {
-    }).subscribe(result => {
-      this.disciplines = result.contents;
-      this.selectedDiscipline = this.disciplines[0];
-    });
-    const id: number | undefined = Number(window.location.pathname.split("/")[2]);
-    if (!isNaN(id)) {
-      this.articlesService.getArticle(id, () => {
+
+      this.disciplineTypesService.getTypes(() => {
       }).subscribe(result => {
-        console.log(result);
-        this.titleInputComponent.nativeElement.value = result.title;
-        this.selectedType.name = result.typeId.name
-        this.selectedDiscipline.name = result.listDisciplineName[0];
-        this.previewTextInputComponent.nativeElement.value = result.previewText;
-        this.textInputComponent.nativeElement.value = result.text;
-        this.tagInputComponent.nativeElement.value = result.listTag.join(" ,");
-      })
-    }
+        this.disciplines = result.contents;
+        this.selectedDiscipline = this.disciplines[0];
+      });
+
+      const id: number | undefined = Number(window.location.pathname.split("/")[2]);
+      if (!isNaN(id)) {
+        this.articlesService.getArticle(id, () => {
+        }).subscribe(result => {
+          this.titleInputComponent.nativeElement.value = result.title;
+          this.selectedType.name = result.typeId.name
+          this.selectedDiscipline.name = result.listDisciplineName[0];
+          this.previewTextInputComponent.nativeElement.value = result.previewText;
+          this.textInputComponent.nativeElement.value = result.text;
+          this.tagInputComponent.nativeElement.value = result.listTag.join(",");
+          if (result.fileId) {
+            this.file = new File([""], "");
+          }
+          if (result.previewImgId) {
+            this.preview = new File([""], "");
+          }
+        })
+      }
+    });
   }
 
   onFileSelected(event: any): void {
@@ -106,29 +113,80 @@ export class UploadComponent implements OnInit {
         listDisciplineName: [this.selectedDiscipline.name],
         articleType: this.selectedType.name
       };
-
+      let uploadFile = (id: string, onComplete: () => void) => {
+        this.filesService.sendFile(() => {
+        }, this.file!!, id).subscribe(() => {
+          onComplete();
+        });
+      };
+      let uploadImage = (id: string, onComplete: () => void) => {
+        this.filesService.sendImage(() => {
+        }, this.preview!!, id).subscribe(() => {
+          onComplete();
+        });
+      };
       this.articlesService.add(() => {
       }, body).subscribe((result) => {
-        this.filesService.sendFile(() => {
-        }, this.file!!, result["id"] as string).subscribe(() => {
-          this.filesService.sendImage(() => {
-          }, this.preview!!, result["id"] as string).subscribe(() => {
-            this.toArticle(result["id"] as string)
+        if (this.file && this.file.name.length > 0) {
+          uploadFile(result["id"] as string, () => {
+            if (this.preview && this.preview.name.length > 0) {
+              uploadImage(result["id"] as string, () => {
+                this.toArticle(result["id"] as string);
+              });
+            } else {
+              this.toArticle(result["id"] as string);
+            }
           });
-        });
+        } else {
+          if (this.preview && this.preview.name.length > 0) {
+            uploadImage(result["id"] as string, () => {
+              this.toArticle(result["id"] as string);
+            });
+          } else {
+            this.toArticle(result["id"] as string);
+          }
+        }
       });
     } else {
       let body: Data = {
         title: this.titleInputComponent.nativeElement.value,
         text: this.textInputComponent.nativeElement.value,
         previewText: this.previewTextInputComponent.nativeElement.value,
-        filePdf: "",
-        likes: 0,
         typeName: this.selectedType.name
       }
+      let uploadFile = (id: string, onComplete: () => void) => {
+        this.filesService.sendFile(() => {
+        }, this.file!!, id).subscribe(() => {
+          onComplete();
+        });
+      };
+      let uploadImage = (id: string, onComplete: () => void) => {
+        this.filesService.sendImage(() => {
+        }, this.preview!!, id).subscribe(() => {
+          onComplete();
+        });
+      };
       this.articlesService.update(() => {
       }, body, id).subscribe(result => {
-        console.log(result);
+        if (this.file && this.file.name.length > 0) {
+          uploadFile(result["id"] as string, () => {
+            if (this.preview && this.preview.name.length > 0) {
+              uploadImage(result["id"] as string, () => {
+                this.toArticle(result["id"] as string);
+              });
+            } else {
+              this.toArticle(result["id"] as string);
+            }
+          });
+        } else {
+          if (this.preview && this.preview.name.length > 0) {
+            uploadImage(result["id"] as string, () => {
+              this.toArticle(result["id"] as string);
+            });
+          } else {
+            this.toArticle(result["id"] as string);
+          }
+        }
       });
     }
   }

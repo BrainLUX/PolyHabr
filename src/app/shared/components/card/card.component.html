@@ -13,13 +13,13 @@
   <img *ngIf="!isShort() && article.previewImgId && article.previewImgId.length > 0" [src]="getImageUrl()"/>
   <div class="body" *ngIf="!isShort() && !isFull()" [innerHtml]="getPreview()"></div>
   <div class="body" *ngIf="isFull()" [innerHtml]="getText()"></div>
-  <iframe *ngIf="isFull()"
+  <iframe *ngIf="isFull() && this.article.fileId"
           [src]="getPreviewUrl()| safe"
           width="700" height="500"
           style="border: none;"></iframe>
 
   <div class="footer">
-    <a href="#" class="more chip selectable" *ngIf="isFull()"
+    <a href="#" class="more chip selectable" *ngIf="isFull() && this.article.fileId"
        (click)="toFile($event)">
       <span>Скачать работу</span>
     </a>
