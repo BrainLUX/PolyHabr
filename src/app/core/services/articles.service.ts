@@ -24,14 +24,15 @@ export class ArticlesService {
               fieldRating: boolean | null = null,
               datRange: String | null = null): Observable<ApiResult<Array<Article.Item>>> {
     let result = `${this.base}?offset=${offset}&size=${size}`;
+    let body: Data = {}
     if (fieldView) {
-      result += `&fieldView=${fieldView}`;
-      result += `&datRange=${datRange}`;
+      body['fieldView'] = false;
+      body['datRange'] = datRange;
     } else if (fieldRating) {
-      result += `&fieldRating=${fieldRating}`;
-      result += `&datRange=${datRange}`;
+      body['fieldRating'] = false;
+      body['datRange'] = datRange;
     }
-    return this.apiService.get(result, new HttpParams(), onError);
+    return this.apiService.post(result, body, onError);
   }
 
   getUserArticles(onError: ApiError, userId: number = 0, offset: number = 0, size: number = 1): Observable<ApiResult<Array<Article.Item>>> {
