@@ -28,8 +28,8 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(param => {
-      if (param["actor"]) {
-        this.articlesService.getArticle(Number(param["actor"]), () => {
+      if (param["article"]) {
+        this.articlesService.getArticle(Number(param["article"]), () => {
         }).subscribe(articleResult => {
           this.article = articleResult;
           this.articlesService.search(() => {

@@ -25,7 +25,7 @@
             <use xlink:href="assets/images/icons/icon-set.svg#search"></use>
           </svg>
         </a>
-        <a href="/upload" class="button-icon"
+        <a href="/upload" class="button-icon" *ngIf="DataHelper.user"
            (click)="toUpload($event)">
           <svg height="24" width="24">
             <title>Новая публикация</title>

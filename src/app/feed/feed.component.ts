@@ -3,6 +3,8 @@ import {Article} from "../../data/models/article";
 import {SortBarState} from "../../data/models/sort-bar-state";
 import {ArticlesService} from "../core/services/articles.service";
 import {CardComponent} from "../shared/components/card/card.component";
+import {Sort} from "../../data/models/sort-type";
+import {SortBarComponent} from "../shared/components/sort-bar/sort-bar.component";
 
 @Component({
   selector: 'poly-feed',
@@ -31,6 +33,9 @@ export class FeedComponent {
   private scrollDelta = -1;
   private lastVerticalOffset = -1;
 
+  private selectedSort: Sort.Type = SortBarComponent.DATE_SORT;
+  private selectedOption: String | null = null;
+
   constructor(private articlesService: ArticlesService) {
     this.getArticles();
   }
@@ -46,6 +51,12 @@ export class FeedComponent {
     this.lastVerticalOffset = verticalOffset;
   }
 
+  selectSort(data: { type: Sort.Type, data: String | null }): void {
+    this.selectedSort = data.type;
+    this.selectedOption = data.data;
+    this.getArticles(false);
+  }
+
   getArticles(isScroll: boolean = false): void {
     if ((!this.isItemsLoading && isScroll) || !isScroll) {
       let tmpQuery = ++this.queryCount;
@@ -56,18 +67,22 @@ export class FeedComponent {
         this.offset = 0;
       }
       this.articlesService.getArticles(() => {
-      }, this.offset, this.count).subscribe(result => {
-        if (this.queryCount == tmpQuery) {
-          if (isScroll) {
-            this.articles.push(...result.contents);
-          } else {
-            this.articles = result.contents;
+        }, this.offset, this.count,
+        this.selectedSort == SortBarComponent.VIEW_SORT,
+        this.selectedSort == SortBarComponent.RATING_SORT,
+        this.selectedOption)
+        .subscribe(result => {
+          if (this.queryCount == tmpQuery) {
+            if (isScroll) {
+              this.articles.push(...result.contents);
+            } else {
+              this.articles = result.contents;
+            }
           }
-        }
-        if (result.contents.length > 0) {
-          this.isItemsLoading = false;
-        }
-      });
+          if (result.contents.length > 0) {
+            this.isItemsLoading = false;
+          }
+        });
     }
   }
 }

@@ -16,6 +16,14 @@
     padding-bottom: 48px;
     border-bottom: 1px solid base.$col-gray-second;
 
+    .row {
+      display: flex;
+
+      > div {
+        margin-right: 32px;
+      }
+    }
+
     .input-title {
       font-weight: 600;
       margin: 24px 0 12px;
