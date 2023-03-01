@@ -65,7 +65,7 @@ export class CardComponent {
 
   toFile(e: Event): void {
     e.preventDefault();
-    window.open(`${environment.api_url}/files/${this.article.fileId}`);
+    window.open(this.getFileUrl());
   }
 
   toUpload(e: Event): void {
@@ -83,6 +83,18 @@ export class CardComponent {
 
   isDefault(): boolean {
     return this.type == CardType.DEFAULT;
+  }
+
+  getFileUrl(): string {
+    return `${environment.api_url}/files/${this.article.fileId}/download`;
+  }
+
+  getImageUrl(): string {
+    return `${environment.api_url}/files/${this.article.previewImgId}/download`;
+  }
+
+  getPreviewUrl(): string {
+    return `http://docs.google.com/viewer?url=${this.getFileUrl()}&embedded=true`;
   }
 }
 

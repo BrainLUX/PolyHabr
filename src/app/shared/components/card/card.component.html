@@ -10,10 +10,11 @@
     <a href="#" *ngFor="let tag of article.listDisciplineName">{{tag}}</a>
   </div>
   <div class="type chip" *ngIf="!isShort()">{{article.typeId.name}}</div>
+  <img *ngIf="!isShort() && article.previewImgId && article.previewImgId.length > 0" [src]="getImageUrl()"/>
   <div class="body" *ngIf="!isShort() && !isFull()" [innerHtml]="getPreview()"></div>
   <div class="body" *ngIf="isFull()" [innerHtml]="getText()"></div>
   <iframe *ngIf="isFull()"
-          src="http://docs.google.com/viewer?url=https://firebasestorage.googleapis.com/v0/b/guideapp-6de55.appspot.com/o/HLD_1_1%20(2).docx?alt=media&token=a5529fb0-4828-4307-85d8-4b3b6a6def3b&embedded=true"
+          [src]="getPreviewUrl()| safe"
           width="700" height="500"
           style="border: none;"></iframe>
 

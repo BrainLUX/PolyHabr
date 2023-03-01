@@ -5,6 +5,7 @@ import {ArticlesService} from "../core/services/articles.service";
 import {Destination, NavigationService} from "../core/services/navigation.service";
 import {Data} from "../core/types/Data";
 import {DisciplineTypesService} from "../core/services/discipline_types.service";
+import {FilesService} from "../core/services/files.service";
 
 @Component({
   selector: 'poly-upload',
@@ -35,7 +36,8 @@ export class UploadComponent implements OnInit {
   selectedDiscipline!: Article.Type;
 
   constructor(private articleTypesService: ArticleTypesService, private articlesService: ArticlesService,
-              private navigationService: NavigationService, private disciplineTypesService: DisciplineTypesService) {
+              private navigationService: NavigationService, private disciplineTypesService: DisciplineTypesService,
+              private filesService: FilesService) {
   }
 
   ngOnInit() {
@@ -51,7 +53,7 @@ export class UploadComponent implements OnInit {
     });
     const id: number | undefined = Number(window.location.pathname.split("/")[2]);
     if (!isNaN(id)) {
-      this.articlesService.getArticle(id,()=>{
+      this.articlesService.getArticle(id, () => {
       }).subscribe(result => {
         console.log(result);
         this.titleInputComponent.nativeElement.value = result.title;
@@ -104,8 +106,17 @@ export class UploadComponent implements OnInit {
         listDisciplineName: [this.selectedDiscipline.name],
         articleType: this.selectedType.name
       };
+
       this.articlesService.add(() => {
-      }, body).subscribe((result) => this.toArticle(result["id"] as string));
+      }, body).subscribe((result) => {
+        this.filesService.sendFile(() => {
+        }, this.file!!, result["id"] as string).subscribe(() => {
+          this.filesService.sendImage(() => {
+          }, this.preview!!, result["id"] as string).subscribe(() => {
+            this.toArticle(result["id"] as string)
+          });
+        });
+      });
     } else {
       let body: Data = {
         title: this.titleInputComponent.nativeElement.value,

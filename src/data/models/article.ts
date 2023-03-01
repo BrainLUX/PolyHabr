@@ -29,6 +29,7 @@ export namespace Article {
     typeId: Tag = new Tag("");
     date: string = "";
     previewText: string = "";
+    previewImgId: string = "";
     text: string = "";
     fileId: number = 0;
     likes: number = 0;
@@ -47,6 +48,7 @@ export namespace Article {
 
   export class Type {
     name: string = "";
+
     constructor(title: string) {
       this.name = title;
     }

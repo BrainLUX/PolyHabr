@@ -54,6 +54,19 @@ export class ApiService {
     }));
   }
 
+  postForm(path: string, body: Object = {}, onError: ApiError): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
+
+    return this.http.post(
+      `${environment.api_url}${path}`,
+      body, {headers: headers}
+    ).pipe(catchError((response) => {
+      onError(response.status);
+      return EMPTY;
+    }));
+  }
+
   delete(path: string, onError: ApiError): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
