@@ -47,6 +47,14 @@ export class CardComponent {
     }
   }
 
+  getPreview(): string {
+    return this.article.previewText.split('\n').join('<br/>');
+  }
+
+  getText(): string {
+    return this.article.text.split('\n').join('<br/>');
+  }
+
   toArticle(e: Event): void {
     e.preventDefault();
     this.navigationService.navigateTo(Destination.ARTICLE, new Map([["article", this.article.id.toString()]]));
