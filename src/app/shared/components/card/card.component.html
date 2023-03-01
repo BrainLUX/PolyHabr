@@ -26,6 +26,10 @@
        (click)="toArticle($event)">
       <span>Читать дальше →</span>
     </a>
+    <a href="#" class="more chip selectable" *ngIf="isEditable"
+       (click)="toUpload($event)">
+      <span>Редактировать работу</span>
+    </a>
     <div class="info">
       <div class="rating" (click)="likeDislike()">
         <svg height="24" width="24">

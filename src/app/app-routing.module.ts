@@ -46,6 +46,10 @@ const routes: Routes = [
     component: UploadComponent
   },
   {
+    path: Destination.UPLOAD_EDIT.toPath(),
+    component: UploadComponent
+  },
+  {
     path: Destination.PROFILE_SETTINGS.toPath(),
     component: ProfileSettingsComponent
   },
