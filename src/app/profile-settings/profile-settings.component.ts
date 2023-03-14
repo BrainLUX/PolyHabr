@@ -118,8 +118,7 @@ export class ProfileSettingsComponent {
       }
       this.usersService.update(() => {
       }, body).subscribe(() => {
-        this.usersService.getMe(() => {
-        }).subscribe(result => DataHelper.user = result);
+        this.usersService.getMe().subscribe(result => DataHelper.user = result);
         this.toProfile();
       });
     }
