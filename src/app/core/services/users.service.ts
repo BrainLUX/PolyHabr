@@ -4,7 +4,6 @@ import {Observable} from "rxjs";
 import {HttpParams} from "@angular/common/http";
 import {ApiError} from "../types/api-error";
 import {Article} from "../../../data/models/article";
-import {ApiResult} from "../types/api-result";
 import User = Article.User;
 
 @Injectable({
@@ -17,8 +16,8 @@ export class UsersService {
   constructor(private apiService: ApiService) {
   }
 
-  getMe(onError: ApiError): Observable<User> {
-    return this.apiService.get(`${this.base}me`, new HttpParams(), onError);
+  getMe(): Observable<User> {
+    return this.apiService.get(`${this.base}me`, new HttpParams());
   }
 
   update(onError: ApiError, body: {}): Observable<void> {
