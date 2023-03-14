@@ -60,7 +60,7 @@ export class ApiService {
     }));
   }
 
-  postForm(path: string, body: Object = {}, onError: ApiError): Observable<any> {
+  postForm(path: string, body: Object = {}, onError?: ApiError): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
 
@@ -68,7 +68,9 @@ export class ApiService {
       `${environment.api_url}${path}`,
       body, {headers: headers}
     ).pipe(catchError((response) => {
-      onError(response.status);
+      if (onError) {
+        onError(response.status);
+      }
       return EMPTY;
     }));
   }
@@ -87,12 +89,14 @@ export class ApiService {
     }));
   }
 
-  uploadFile(path: string, file: File, onError: ApiError, reportProgress: boolean = false): Observable<any> {
+  uploadFile(path: string, file: File, onError?: ApiError, reportProgress: boolean = false): Observable<any> {
     // const formData = new FormData();
     // formData.append('file', file);
     // const headers = new HttpHeaders({'enctype': 'multipart/form-data'});
     return this.http.put(path, file, {reportProgress: reportProgress,}).pipe(catchError((response) => {
-      onError(response.status);
+      if (onError) {
+        onError(response.status);
+      }
       return EMPTY;
     }));
   }

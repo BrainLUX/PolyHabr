@@ -4,7 +4,6 @@ import {Observable} from "rxjs";
 import {HttpParams} from "@angular/common/http";
 import {ApiError} from "../types/api-error";
 import {Article} from "../../../data/models/article";
-import {ApiResult} from "../types/api-result";
 import User = Article.User;
 
 @Injectable({
