@@ -16,10 +16,6 @@ export namespace Sort {
     clearOption() {
       this.selectOption(undefined);
     }
-
-    isOptionSelected(option: Option): boolean {
-      return this.selectedOption == option;
-    }
   }
 
   export class Option {

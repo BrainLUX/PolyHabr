@@ -1,4 +1,4 @@
-<article [ngClass]="{full:isFull(), short: isShort(), last: isLast}" #root>
+<article [ngClass]="{full:isFull(), short: isShort(), last: isLast}" *ngIf="article" #root>
   <div class="head">
     <a href="#" class="name" *ngIf="!isShort()">{{article.user.login}}</a>
     <div class="date">{{article.date}}</div>

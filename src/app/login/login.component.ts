@@ -68,8 +68,7 @@ export class LoginComponent implements OnInit {
         this.registerErrorConfig.passwordError = ErrorCodes.LOGIN_ERROR;
       }, data).subscribe(loginResult => {
         StorageHelper.setCookie("accessToken", loginResult.accessToken);
-        this.usersService.getMe(() => {
-        }).subscribe(result => {
+        this.usersService.getMe().subscribe(result => {
           DataHelper.user = result;
           if (loginResult.isFirst) {
           this.navigationService.navigateTo(Destination.TYPES);

@@ -46,8 +46,7 @@ export class SearchComponent {
     if (text.trim().length < 3) {
       this.articles = [];
     } else {
-      this.articlesService.search(() => {
-      }, text, this.offset, this.count).subscribe(result => {
+      this.articlesService.search(text, this.offset, this.count).subscribe(result => {
         if (this.queryCount == tmpQuery) {
           if (isScroll) {
             this.articles.push(...result.contents);

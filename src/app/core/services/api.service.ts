@@ -13,19 +13,21 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  get(path: string, params: HttpParams = new HttpParams(), onError: ApiError): Observable<any> {
+  get(path: string, params: HttpParams = new HttpParams(), onError?: ApiError): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
     headers = headers.append('Content-Type', 'application/json');
 
     return this.http.get(`${environment.api_url}${path}`, {headers: headers})
       .pipe(catchError((response) => {
-        onError(response.status);
+        if (onError) {
+          onError(response.status);
+        }
         return EMPTY;
       }));
   }
 
-  put(path: string, body: Object = {}, onError: ApiError): Observable<any> {
+  put(path: string, body: Object = {}, onError?: ApiError): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
     headers = headers.append('Content-Type', 'application/json');
@@ -36,12 +38,14 @@ export class ApiService {
         headers: headers
       }
     ).pipe(catchError((response) => {
-      onError(response.status);
+      if (onError) {
+        onError(response.status);
+      }
       return EMPTY;
     }));
   }
 
-  post(path: string, body: Object = {}, onError: ApiError): Observable<any> {
+  post(path: string, body: Object = {}, onError?: ApiError): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
     headers = headers.append('Content-Type', 'application/json');
@@ -49,7 +53,9 @@ export class ApiService {
       `${environment.api_url}${path}`,
       JSON.stringify(body), {headers: headers}
     ).pipe(catchError((response) => {
-      onError(response.status);
+      if (onError) {
+        onError(response.status);
+      }
       return EMPTY;
     }));
   }
@@ -67,14 +73,16 @@ export class ApiService {
     }));
   }
 
-  delete(path: string, onError: ApiError): Observable<any> {
+  delete(path: string, onError?: ApiError): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
     headers = headers.append('Content-Type', 'application/json');
     return this.http.delete(
       `${environment.api_url}${path}`, {headers: headers}
     ).pipe(catchError((response) => {
-      onError(response.status);
+      if (onError) {
+        onError(response.status);
+      }
       return EMPTY;
     }));
   }

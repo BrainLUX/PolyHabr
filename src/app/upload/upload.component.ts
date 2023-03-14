@@ -54,8 +54,7 @@ export class UploadComponent implements OnInit {
 
       const id: number | undefined = Number(window.location.pathname.split("/")[2]);
       if (!isNaN(id)) {
-        this.articlesService.getArticle(id, () => {
-        }).subscribe(result => {
+        this.articlesService.getArticle(id).subscribe(result => {
           this.titleInputComponent.nativeElement.value = result.title;
           this.selectedType.name = result.typeId.name
           this.selectedDiscipline.name = result.listDisciplineName[0];
@@ -125,8 +124,7 @@ export class UploadComponent implements OnInit {
           onComplete();
         });
       };
-      this.articlesService.add(() => {
-      }, body).subscribe((result) => {
+      this.articlesService.add(body).subscribe((result) => {
         if (this.file && this.file.name.length > 0) {
           uploadFile(result["id"] as string, () => {
             if (this.preview && this.preview.name.length > 0) {
@@ -166,8 +164,7 @@ export class UploadComponent implements OnInit {
           onComplete();
         });
       };
-      this.articlesService.update(() => {
-      }, body, id).subscribe(result => {
+      this.articlesService.update(body, id).subscribe(result => {
         if (this.file && this.file.name.length > 0) {
           uploadFile(result["id"] as string, () => {
             if (this.preview && this.preview.name.length > 0) {

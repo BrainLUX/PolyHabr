@@ -35,18 +35,15 @@ export class CardComponent {
 
   likeDislike(): void {
     this.articleService.like(this.article.id, () => {
-      this.articleService.disLike(this.article.id, () => {
-      }).subscribe(() => this.article.likes--);
+      this.articleService.disLike(this.article.id).subscribe(() => this.article.likes--);
     }).subscribe(() => this.article.likes++);
   }
 
   addRemoveFav(): void {
     if (!this.article.isSaveToFavourite) {
-      this.articleService.addFav(this.article.id, () => {
-      }).subscribe(() => this.article.isSaveToFavourite = true);
+      this.articleService.addFav(this.article.id).subscribe(() => this.article.isSaveToFavourite = true);
     } else {
-      this.articleService.removeFav(this.article.id, () => {
-      }).subscribe(() => this.article.isSaveToFavourite = false);
+      this.articleService.removeFav(this.article.id).subscribe(() => this.article.isSaveToFavourite = false);
     }
   }
 
