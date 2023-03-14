@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Destination, NavigationService} from "../core/services/navigation.service";
+import {StorageHelper} from "../core/helpers/storage.helper";
 
 @Component({
   selector: 'poly-email-confirm',
@@ -8,17 +9,26 @@ import {Destination, NavigationService} from "../core/services/navigation.servic
 })
 export class EmailConfirmComponent implements OnInit {
 
-  emailString: string = "kahode5724@keshitv.com";
+  emailString: string = "";
 
   constructor(private navigationService: NavigationService) {
   }
 
   ngOnInit(): void {
+    this.getEmail();
   }
 
   toFeed(e: Event): void {
     e.preventDefault();
     this.navigationService.navigateTo(Destination.FEED);
+  }
+
+  getEmail(): void {
+    const email = StorageHelper.getCookie("email");
+    if (email != undefined) {
+      this.emailString = email;
+      StorageHelper.deleteCookie("email");
+    }
   }
 
 }

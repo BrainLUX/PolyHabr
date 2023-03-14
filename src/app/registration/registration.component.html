@@ -13,9 +13,18 @@
       <div class="form email" [ngClass]="{'error': registerErrorConfig.emailError}">
         <div class="title">E-mail</div>
         <input type="email"
-               (change)="checkFieldValidation(RegexType.EMAIL, emailInputElement, InputFieldsType.EMAIL)"
+               [(ngModel)]="emailInputValue"
+               (ngModelChange)="checkFieldValidation(RegexType.EMAIL, $event, InputFieldsType.EMAIL)"
                 #emailInputElement>
         <div class="error-text" [ngClass]="{'active': registerErrorConfig.emailError}">{{registerErrorConfig.emailError}}</div>
+      </div>
+      <div class="form name" [ngClass]="{'error': registerErrorConfig.nameError}">
+        <div class="title">Имя</div>
+        <input type="text"
+               [(ngModel)]="nameInputValue"
+               (ngModelChange)="checkFieldValidation(RegexType.NAME, $event, InputFieldsType.NAME)"
+               #nameInputElement>
+        <div class="error-text" [ngClass]="{'active': registerErrorConfig.nameError}">{{registerErrorConfig.nameError}}</div>
       </div>
       <div class="form surname" [ngClass]="{'error': registerErrorConfig.surnameError}">
         <div class="title">Фамилия</div>
@@ -44,8 +53,8 @@
         <input type="password" #passwordAgainInputElement>
         <div class="error-text" [ngClass]="{'active': registerErrorConfig.passwordAgainError}">{{registerErrorConfig.passwordAgainError}}</div>
       </div>
-      <button class="enter" (click)="onEnterButtonClicked($event)">Войти</button>
-      <a class="forgot_password">Забыли пароль?</a>
+      <button class="enter" (click)="onEnterButtonClicked($event)">Зарегистрироваться</button>
+      <a class="forgot_password" (click)="toForgotPassword($event)">Забыли пароль?</a>
     </div>
   </div>
   <div class="layout no_account">

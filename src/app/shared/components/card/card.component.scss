@@ -25,10 +25,25 @@ article {
     }
   }
 
+  img {
+    width: 50%;
+    height: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover;
+  }
+
   .type {
     margin-left: $card-padding;
     margin-right: $card-padding;
     margin-top: 8px;
+  }
+
+  iframe {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
   }
 
   .body {
@@ -98,6 +113,10 @@ article {
       height: 47px;
       margin-top: 24px;
 
+      div {
+        cursor: pointer;
+      }
+
       & > * {
         display: flex;
         align-items: center;
@@ -108,11 +127,15 @@ article {
         }
 
         span {
-          color: base.$col-green;
+          color: base.$col-green-light;
         }
 
         svg {
-          fill: base.$col-green;
+          fill: base.$col-green-light-smooth;
+
+          &.selected {
+            fill: base.$col-green;
+          }
         }
       }
     }

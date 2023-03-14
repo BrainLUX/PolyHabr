@@ -6,6 +6,7 @@ import {SortBarComponent} from "./components/sort-bar/sort-bar.component";
 import { MenuComponent } from './layout/menu/menu.component';
 import {ClickOutsideModule} from "ng-click-outside";
 import { CommentComponent } from './components/comment/comment.component';
+import {CoreModule} from "../core/core.module";
 
 
 
@@ -25,7 +26,8 @@ import { CommentComponent } from './components/comment/comment.component';
     ],
     imports: [
         CommonModule,
-      ClickOutsideModule
+        ClickOutsideModule,
+        CoreModule
     ]
 })
 export class SharedModule { }

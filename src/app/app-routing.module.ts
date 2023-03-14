@@ -10,6 +10,11 @@ import {ProfileComponent} from "./profile/profile.component";
 import {EmailConfirmComponent} from "./email-confirm/email-confirm.component";
 import {UploadComponent} from "./upload/upload.component";
 import {ProfileSettingsComponent} from "./profile-settings/profile-settings.component";
+import {ForgotPasswordComponent} from "./forgot-password/forgot-password.component";
+import {VerifyComponent} from "./verify/verify.component";
+import {TypeComponent} from "./type/type.component";
+import {InterChangePasswordComponent} from "./inter-change-password/inter-change-password.component";
+import {ChangePasswordComponent} from "./change-password/change-password.component";
 
 const routes: Routes = [
   {
@@ -41,12 +46,36 @@ const routes: Routes = [
     component: UploadComponent
   },
   {
+    path: Destination.UPLOAD_EDIT.toPath(),
+    component: UploadComponent
+  },
+  {
     path: Destination.PROFILE_SETTINGS.toPath(),
     component: ProfileSettingsComponent
   },
   {
     path: Destination.EMAIL_CONFIRM.toPath(),
     component: EmailConfirmComponent
+  },
+  {
+    path: Destination.FORGOT_PASSWORD.toPath(),
+    component: ForgotPasswordComponent
+  },
+  {
+    path: Destination.INTER_CHANGE_PASSWORD.toPath(),
+    component: InterChangePasswordComponent
+  },
+  {
+    path: Destination.CHANGE_PASSWORD.toPath(),
+    component: ChangePasswordComponent
+  },
+  {
+    path: Destination.VERIFY.toPath(),
+    component: VerifyComponent
+  },
+  {
+    path: Destination.TYPES.toPath(),
+    component: TypeComponent
   }
 ];
 

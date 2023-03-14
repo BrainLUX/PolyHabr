@@ -16,7 +16,13 @@ import { ProfileComponent } from './profile/profile.component';
 import { EmailConfirmComponent } from './email-confirm/email-confirm.component';
 import { UploadComponent } from './upload/upload.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { VerifyComponent } from './verify/verify.component';
+import { TypeComponent } from './type/type.component';
+import { InterChangePasswordComponent } from './inter-change-password/inter-change-password.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +36,12 @@ import {FormsModule} from "@angular/forms";
     ProfileComponent,
     EmailConfirmComponent,
     UploadComponent,
-    ProfileSettingsComponent
+    ProfileSettingsComponent,
+    ForgotPasswordComponent,
+    VerifyComponent,
+    TypeComponent,
+    InterChangePasswordComponent,
+    ChangePasswordComponent
   ],
     imports: [
         BrowserModule,
@@ -39,7 +50,9 @@ import {FormsModule} from "@angular/forms";
         SharedModule,
         DataModule,
         CoreModule,
-        FormsModule
+        FormsModule,
+        HttpClientModule,
+        ReactiveFormsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

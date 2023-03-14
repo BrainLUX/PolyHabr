@@ -24,9 +24,11 @@ export namespace Sort {
 
   export class Option {
     title: String = "";
+    data: String | null = "";
 
-    constructor(title: String) {
+    constructor(title: String, data: String | null) {
       this.title = title;
+      this.data = data;
     }
   }
 }

@@ -1,8 +1,11 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Destination, NavigationService} from "../core/services/navigation.service";
 import {ErrorCodes} from "../../data/models/error-codes";
-import { RegexType } from 'src/data/models/regex-types';
-import { InputFieldsType } from 'src/data/models/input-field-types';
+import {RegexType} from 'src/data/models/regex-types';
+import {InputFieldsType} from 'src/data/models/input-field-types';
+import {AuthorizationService} from "../core/services/authorization.service";
+import {Authorization} from "../../data/models/authorization";
+import {StorageHelper} from "../core/helpers/storage.helper";
 
 @Component({
   selector: 'poly-registration',
@@ -13,6 +16,9 @@ export class RegistrationComponent implements OnInit {
 
   @ViewChild("emailInputElement")
   emailInputElement!: ElementRef;
+
+  @ViewChild("nameInputElement")
+  nameInputElement!: ElementRef;
 
   @ViewChild("surnameInputElement")
   surnameInputElement!: ElementRef;
@@ -28,18 +34,21 @@ export class RegistrationComponent implements OnInit {
 
   readonly RegexType = RegexType;
   readonly InputFieldsType = InputFieldsType;
+  nameInputValue: string | null = null;
   surnameInputValue: string | null = null;
   nicknameInputValue: string | null = null;
+  emailInputValue: string | null = null;
 
   registerErrorConfig: RegisterErrorConfig = {
     emailError: null,
     nicknameError: null,
+    nameError: null,
     surnameError: null,
     passwordError: null,
     passwordAgainError: null
   }
 
-  constructor(private navigationService: NavigationService) {
+  constructor(private navigationService: NavigationService, private authorizationService: AuthorizationService) {
   }
 
   ngOnInit(): void {
@@ -55,10 +64,27 @@ export class RegistrationComponent implements OnInit {
     this.navigationService.navigateTo(Destination.LOGIN);
   }
 
+  toForgotPassword(e: Event): void {
+    e.preventDefault();
+    this.navigationService.navigateTo(Destination.FORGOT_PASSWORD);
+  }
+
   onEnterButtonClicked(e: Event): void {
     if (this.checkEnterValidation() && this.checkPasswordsIdentical()) {
       e.preventDefault();
-      this.navigationService.navigateTo(Destination.PROFILE);
+      const data: Authorization.SignUp = {
+        username: this.nicknameInputElement.nativeElement.value,
+        firstName: this.nameInputElement.nativeElement.value,
+        lastName: this.surnameInputElement.nativeElement.value,
+        email: this.emailInputElement.nativeElement.value,
+        password: this.passwordInputElement.nativeElement.value
+      };
+      console.log(data);
+      this.authorizationService.signUp(() => {
+      }, data).subscribe(() => {
+        StorageHelper.setCookie("email", data.email);
+        this.navigationService.navigateTo(Destination.EMAIL_CONFIRM);
+      });
     }
   }
 
@@ -80,6 +106,9 @@ export class RegistrationComponent implements OnInit {
           case InputFieldsType.NICKNAME:
             this.registerErrorConfig.nicknameError = ErrorCodes.NICKNAME_LOGIN;
             break;
+          case InputFieldsType.NAME:
+            this.registerErrorConfig.nameError = ErrorCodes.INCORRECT_NAME;
+            break;
           case InputFieldsType.SURNAME:
             this.registerErrorConfig.surnameError = ErrorCodes.INCORRECT_SURNAME;
             break;
@@ -91,6 +120,9 @@ export class RegistrationComponent implements OnInit {
             break;
           case InputFieldsType.NICKNAME:
             this.registerErrorConfig.nicknameError = null;
+            break;
+          case InputFieldsType.NAME:
+            this.registerErrorConfig.nameError = null;
             break;
           case InputFieldsType.SURNAME:
             this.registerErrorConfig.surnameError = null;
@@ -105,11 +137,24 @@ export class RegistrationComponent implements OnInit {
         case InputFieldsType.NICKNAME:
           this.registerErrorConfig.nicknameError = null;
           break;
+        case InputFieldsType.NAME:
+          this.registerErrorConfig.nameError = null;
+          break;
         case InputFieldsType.SURNAME:
           this.registerErrorConfig.surnameError = null;
           break;
       }
     }
+    this.authorizationService.checkFreeLogin((result) => {
+      if (this.nicknameInputElement.nativeElement.value.length >= 4 && result == 400) {
+        this.registerErrorConfig.nicknameError = ErrorCodes.TAKEN_NICKNAME;
+      }
+    }, this.nicknameInputElement.nativeElement.value).subscribe(() => {});
+    this.authorizationService.checkFreeEmail((result) => {
+      if (this.emailInputElement.nativeElement.value.length >= 4 && result == 400) {
+        this.registerErrorConfig.emailError = ErrorCodes.TAKEN_EMAIL;
+      }
+    }, this.emailInputElement.nativeElement.value).subscribe(() => {});
   }
 
   checkPasswordsIdentical(): boolean {
@@ -126,6 +171,10 @@ export class RegistrationComponent implements OnInit {
     let legal = true;
     if (this.emailInputElement.nativeElement.value.length > 256) {
       this.registerErrorConfig.emailError = ErrorCodes.EMAIL_BIGGER;
+      legal = false;
+    }
+    if (this.nameInputElement.nativeElement.value.length > 70) {
+      this.registerErrorConfig.nameError = ErrorCodes.NAME_BIGGER;
       legal = false;
     }
     if (this.surnameInputElement.nativeElement.value.length > 70) {
@@ -156,6 +205,10 @@ export class RegistrationComponent implements OnInit {
       this.registerErrorConfig.nicknameError = ErrorCodes.NON_FILLED_FIELD;
       legal = false;
     }
+    if (this.nameInputElement.nativeElement.value.length == 0) {
+      this.registerErrorConfig.nameError = ErrorCodes.NON_FILLED_FIELD;
+      legal = false;
+    }
     if (this.surnameInputElement.nativeElement.value.length == 0) {
       this.registerErrorConfig.surnameError = ErrorCodes.NON_FILLED_FIELD;
       legal = false;
@@ -175,6 +228,7 @@ export class RegistrationComponent implements OnInit {
 
 export interface RegisterErrorConfig {
   emailError: ErrorCodes | null,
+  nameError: ErrorCodes | null,
   surnameError: ErrorCodes | null,
   nicknameError: ErrorCodes | null,
   passwordError: ErrorCodes | null,

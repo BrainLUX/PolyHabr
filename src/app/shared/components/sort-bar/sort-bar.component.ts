@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Sort} from "../../../../data/models/sort-type";
 import {SortBarState} from "../../../../data/models/sort-bar-state";
 
@@ -7,7 +7,7 @@ import {SortBarState} from "../../../../data/models/sort-bar-state";
   templateUrl: './sort-bar.component.html',
   styleUrls: ['./sort-bar.component.scss']
 })
-export class SortBarComponent implements OnInit {
+export class SortBarComponent {
 
   readonly SortBarState = SortBarState;
 
@@ -17,26 +17,30 @@ export class SortBarComponent implements OnInit {
   @Output()
   onSearch: EventEmitter<string> = new EventEmitter<string>();
 
+  @Output()
+  onOptionSelected: EventEmitter<{ type: Sort.Type, data: String | null }> = new EventEmitter<{ type: Sort.Type, data: String | null }>();
+
+  static readonly DATE_SORT = new Sort.Type("По дате выпуска");
+  static readonly VIEW_SORT = new Sort.Type("По просмотрам", true);
+  static readonly RATING_SORT = new Sort.Type("По рейтингу", true);
+
   readonly sortTypes: Sort.Type[] = [
-    new Sort.Type("По дате выпуска"),
-    new Sort.Type("По просмотрам", true),
-    new Sort.Type("По рейтингу", true)
+    SortBarComponent.DATE_SORT,
+    SortBarComponent.VIEW_SORT,
+    SortBarComponent.RATING_SORT
   ];
 
   readonly sortOptions: Sort.Option[] = [
-    new Sort.Option("За неделю"),
-    new Sort.Option("За месяц"),
-    new Sort.Option("За год"),
-    new Sort.Option("За всё время"),
+    new Sort.Option("За неделю", "1w"),
+    new Sort.Option("За месяц", "1m"),
+    new Sort.Option("За год", "1y"),
+    new Sort.Option("За всё время", null),
   ];
 
   private selectedSort: Sort.Type = this.sortTypes[0];
   private selectedOption: Sort.Option | undefined = undefined;
 
   constructor() {
-  }
-
-  ngOnInit(): void {
   }
 
   selectSort(sortType: Sort.Type): void {
@@ -73,6 +77,7 @@ export class SortBarComponent implements OnInit {
 
   confirmSelect(): void {
     this.selectedSort.selectOption(this.selectedOption);
+    this.onOptionSelected.emit({type: this.selectedSort, data: this.selectedOption!!.data});
     this.selectedOption = undefined;
   }
 }
