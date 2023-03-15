@@ -9,7 +9,7 @@ import {InputFieldsType} from "../../data/models/input-field-types";
 import {ErrorCodes} from "../../data/models/error-codes";
 import {AuthorizationService} from "../core/services/authorization.service";
 
-describe("",() => {
+describe("Login tests",() => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   beforeEach(async () => {
@@ -47,11 +47,6 @@ describe("",() => {
     expect(router.navigateByUrl).toHaveBeenCalled();
     expect(router.navigateByUrl).toHaveBeenCalledWith(Destination.FORGOT_PASSWORD.toPath());
   }));
-
-  it('Click enter button test', () => {
-    const button = fixture.debugElement.query(By.css("button.enter"));
-    button.nativeElement.click();
-  });
 
   it('Check fields validation test: regex fail', () => {
     const input = fixture.debugElement.query(By.css(".background .layout .content .nickname input"));

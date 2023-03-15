@@ -17,8 +17,8 @@ export class AuthorizationService {
 
   }
 
-  signUp(onError: ApiError, data: Authorization.SignUp): Observable<ApiResult<any>> {
-    return this.apiService.post(`${this.base}signup`, data, onError);
+  signUp(data: Authorization.SignUp): Observable<ApiResult<any>> {
+    return this.apiService.post(`${this.base}signup`, data);
   }
 
   signIn(onError: ApiError, data: Authorization.SignIn): Observable<Authorization.Login> {
