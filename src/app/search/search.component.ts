@@ -35,16 +35,17 @@ export class SearchComponent {
   private scrollDelta = -1;
   private lastVerticalOffset = -1;
 
-  private filter: string = "";
+  private _filter: string = "";
 
   constructor(private articlesService: ArticlesService) {
     this.getArticles();
   }
 
-  onSearch(text: string = this.filter, tmpQuery: number = this.queryCount, isScroll: boolean = true): void {
-    this.filter = text;
+  onSearch(text: string = this._filter, tmpQuery: number = this.queryCount, isScroll: boolean = false): void {
+    this._filter = text;
     if (text.trim().length < 3) {
       this.articles = [];
+      this.isItemsLoading = false;
     } else {
       this.articlesService.search(text, this.offset, this.count).subscribe(result => {
         if (this.queryCount == tmpQuery) {
@@ -82,7 +83,12 @@ export class SearchComponent {
       } else {
         this.offset = 0;
       }
-      this.onSearch(this.filter, tmpQuery, isScroll);
+      this.onSearch(this._filter, tmpQuery, isScroll);
     }
+  }
+
+
+  set filter(value: string) {
+    this._filter = value;
   }
 }

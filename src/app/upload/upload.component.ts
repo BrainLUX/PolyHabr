@@ -46,8 +46,7 @@ export class UploadComponent implements OnInit {
       this.types = result.contents;
       this.selectedType = this.types[0];
 
-      this.disciplineTypesService.getTypes(() => {
-      }).subscribe(result => {
+      this.disciplineTypesService.getTypes().subscribe(result => {
         this.disciplines = result.contents;
         this.selectedDiscipline = this.disciplines[0];
       });
