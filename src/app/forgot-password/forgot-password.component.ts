@@ -68,8 +68,7 @@ export class ForgotPasswordComponent implements OnInit {
   sendEmail(e: Event): void {
     if (this.registerErrorConfig.emailError == null) {
       e.preventDefault();
-      this.authorizationService.forgotPassword(() => {
-      }, this.emailInputElement.nativeElement.value).subscribe(result => {
+      this.authorizationService.forgotPassword(this.emailInputElement.nativeElement.value).subscribe(result => {
         console.log(result);
       });
     }

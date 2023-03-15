@@ -49,20 +49,20 @@ export class AuthorizationService {
     return this.apiService.get(`${this.base}verify?${configUrl}`, new HttpParams(), onError);
   }
 
-  forgotPassword(onError: ApiError, email: string): Observable<ApiResult<any>> {
+  forgotPassword(email: string): Observable<ApiResult<any>> {
     let configUrl = "";
     Object.entries({email: email}).map(([key, value]) => {
       configUrl += `${key}=${value}&`;
     });
-    return this.apiService.post(`${this.base}forgotPassword?${configUrl}`, new HttpParams(), onError);
+    return this.apiService.post(`${this.base}forgotPassword?${configUrl}`, new HttpParams());
   }
 
-  changePassword(onError: ApiError, token: string): Observable<any> {
+  changePassword(token: string): Observable<any> {
     let configUrl = "";
     Object.entries({token: token}).map(([key, value]) => {
       configUrl += `${key}=${value}&`;
     });
-    return this.apiService.get(`${this.base}changePassword?${configUrl}`, new HttpParams(), onError);
+    return this.apiService.get(`${this.base}changePassword?${configUrl}`, new HttpParams());
   }
 
   savePassword(onError: ApiError, data: Authorization.SavePassword): Observable<any> {
