@@ -17,8 +17,7 @@ export class InterChangePasswordComponent implements OnInit {
   ngOnInit(): void {
     const passwordToken: string = window.location.search.replace("?token=", "");
     StorageHelper.setCookie("password-token", passwordToken);
-    this.authorizationService.changePassword(() => {
-    }, passwordToken).subscribe(() => {
+    this.authorizationService.changePassword(passwordToken).subscribe(() => {
       this.navigationService.navigateTo(Destination.CHANGE_PASSWORD);
     })
   }

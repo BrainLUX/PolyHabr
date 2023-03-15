@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 import {Destination} from "../core/services/navigation.service";
 import {AuthorizationService} from "../core/services/authorization.service";
 
-describe("Forgot password password tests",() => {
+describe("Forgot password tests",() => {
   let component: ForgotPasswordComponent;
   let fixture: ComponentFixture<ForgotPasswordComponent>;
   beforeEach(async () => {
