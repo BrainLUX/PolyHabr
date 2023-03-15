@@ -16,7 +16,7 @@ export class ArticleTypesService {
   constructor(private apiService: ApiService) {
   }
 
-  getTypes(onError: ApiError): Observable<ApiResult<Array<Article.Type>>> {
-    return this.apiService.get(`${this.base}?offset=0&size=100`, new HttpParams(), onError);
+  getTypes(): Observable<ApiResult<Array<Article.Type>>> {
+    return this.apiService.get(`${this.base}?offset=0&size=100`, new HttpParams());
   }
 }

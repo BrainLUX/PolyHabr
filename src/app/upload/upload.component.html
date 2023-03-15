@@ -41,7 +41,8 @@
           <button *ngIf="!preview" (click)="previewInput.click()">Загрузить файл</button>
           <button *ngIf="preview" (click)="previewInput.value = ''; preview = null;">Открепить файл</button>
         </div>
-        <input style="display: none" accept=".png, .jpg, .jpeg" type="file" (change)="onPreviewSelected($event)"
+        <input style="display: none" accept=".png, .jpg, .jpeg" type="file"
+               (change)="onPreviewSelected($any($event.target).files)"
                #previewInput>
       </div>
       <textarea placeholder="Введите текст" #previewTextInputComponent></textarea>
@@ -60,7 +61,8 @@
           <button *ngIf="!file" (click)="fileInput.click()">Загрузить файл</button>
           <button *ngIf="file" (click)="fileInput.value = ''; file = null;">Открепить файл</button>
         </div>
-        <input style="display: none" accept=".docx, .doc, .pdf" type="file" (change)="onFileSelected($event)"
+        <input style="display: none" accept=".docx, .doc, .pdf" type="file"
+               (change)="onFileSelected($any($event.target).files)"
                #fileInput>
       </div>
       <textarea placeholder="Введите текст" #textInputComponent></textarea>

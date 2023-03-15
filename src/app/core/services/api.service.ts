@@ -13,7 +13,7 @@ export class ApiService {
   constructor(private http: HttpClient) {
   }
 
-  get(path: string, params: HttpParams = new HttpParams(), onError?: ApiError): Observable<any> {
+  get(path: string, params: HttpParams, onError?: ApiError): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
     headers = headers.append('Content-Type', 'application/json');
@@ -27,7 +27,7 @@ export class ApiService {
       }));
   }
 
-  put(path: string, body: Object = {}, onError?: ApiError): Observable<any> {
+  put(path: string, body: Object, onError?: ApiError): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
     headers = headers.append('Content-Type', 'application/json');
@@ -45,7 +45,7 @@ export class ApiService {
     }));
   }
 
-  post(path: string, body: Object = {}, onError?: ApiError): Observable<any> {
+  post(path: string, body: Object, onError?: ApiError): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
     headers = headers.append('Content-Type', 'application/json');
@@ -82,18 +82,6 @@ export class ApiService {
     return this.http.delete(
       `${environment.api_url}${path}`, {headers: headers}
     ).pipe(catchError((response) => {
-      if (onError) {
-        onError(response.status);
-      }
-      return EMPTY;
-    }));
-  }
-
-  uploadFile(path: string, file: File, onError?: ApiError, reportProgress: boolean = false): Observable<any> {
-    // const formData = new FormData();
-    // formData.append('file', file);
-    // const headers = new HttpHeaders({'enctype': 'multipart/form-data'});
-    return this.http.put(path, file, {reportProgress: reportProgress,}).pipe(catchError((response) => {
       if (onError) {
         onError(response.status);
       }

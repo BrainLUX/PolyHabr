@@ -37,12 +37,14 @@ export namespace Article {
     isSaveToFavourite: boolean = false;
 
 
-    constructor(title: string, listTag: string[], listDisciplineName: string[], date: string, previewText: string) {
+    constructor(title: string, listTag: string[], listDisciplineName: string[], date: string, previewText: string, fileId: number, previewId: string) {
       this.title = title;
       this.listTag = listTag;
       this.listDisciplineName = listDisciplineName;
       this.date = date;
       this.previewText = previewText;
+      this.fileId = fileId;
+      this.previewImgId = previewId;
     }
 
     static createTemporary(): Article.Item {
@@ -57,7 +59,7 @@ export namespace Article {
         "    </a>\n" +
         "    <br>\n" +
         "    В этом посте расскажу о том, какой вред может нанести межсервисная коммуникация по HTTP в микросервисной архитектуре\n" +
-        "    и предложу альтернативный способ совместного использования данных в распределенной системе.")
+        "    и предложу альтернативный способ совместного использования данных в распределенной системе.", 1, "1")
     }
   }
 

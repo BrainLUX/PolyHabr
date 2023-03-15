@@ -14,22 +14,22 @@ export class FilesService {
 
   private readonly base: string = "/files/";
 
-  constructor(private apiService: ApiService, private formBuilder: FormBuilder) {
+  constructor(private apiService: ApiService) {
   }
 
-  sendFile(onError: ApiError, file: File, articleId: string): Observable<void> {
+  sendFile(file: File, articleId: string): Observable<void> {
     const formData = new FormData();
     formData.append('file', file, "file.pdf");
     formData.append('articleId', articleId);
 
-    return this.apiService.postForm(`${this.base}`, formData, onError);
+    return this.apiService.postForm(`${this.base}`, formData);
   }
 
-  sendImage(onError: ApiError, file: File, articleId: string): Observable<void> {
+  sendImage(file: File, articleId: string): Observable<void> {
     const formData = new FormData();
     formData.append('file', file, "file.pdf");
     formData.append('articleId', articleId);
 
-    return this.apiService.postForm(`${this.base}savePreviewPic`, formData, onError);
+    return this.apiService.postForm(`${this.base}savePreviewPic`, formData);
   }
 }
