@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {ApiService} from "./api.service";
 import {Observable} from "rxjs";
 import {HttpParams} from "@angular/common/http";
-import {ApiError} from "../types/api-error";
 import {Article} from "../../../data/models/article";
 import User = Article.User;
 
@@ -20,7 +19,7 @@ export class UsersService {
     return this.apiService.get(`${this.base}me`, new HttpParams());
   }
 
-  update(onError: ApiError, body: {}): Observable<void> {
-    return this.apiService.put(`${this.base}update`, body, onError);
+  update(body: {}): Observable<void> {
+    return this.apiService.put(`${this.base}update`, body);
   }
 }
