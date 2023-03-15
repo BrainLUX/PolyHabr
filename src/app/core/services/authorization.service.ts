@@ -41,12 +41,12 @@ export class AuthorizationService {
     return this.apiService.get(`${this.base}checkFreeEmail?${configUrl}`, new HttpParams(), onError);
   }
 
-  verify(onError: ApiError, token: string): Observable<ApiResult<any>> {
+  verify(token: string): Observable<ApiResult<any>> {
     let configUrl = "";
     Object.entries({code: token}).map(([key, value]) => {
       configUrl += `${key}=${value}&`;
     });
-    return this.apiService.get(`${this.base}verify?${configUrl}`, new HttpParams(), onError);
+    return this.apiService.get(`${this.base}verify?${configUrl}`, new HttpParams());
   }
 
   forgotPassword(email: string): Observable<ApiResult<any>> {
