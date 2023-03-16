@@ -55,7 +55,7 @@ export class ApiService {
     }));
   }
 
-  postForm(path: string, body: Object = {}): Observable<any> {
+  postForm(path: string, body: Object): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
 

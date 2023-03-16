@@ -41,7 +41,7 @@ export class Destination {
 
   private readonly path: string = "";
 
-  constructor(path: string = "") {
+  constructor(path: string) {
     this.path = path;
   }
 
