@@ -31,12 +31,6 @@ export class ChangePasswordComponent implements OnInit {
   constructor(private navigationService: NavigationService, private authorizationService: AuthorizationService) { }
 
   ngOnInit(): void {
-    if (!localStorage.getItem('canReload')) {
-      localStorage.setItem('canReload', 'no reload');
-      window.location.reload();
-    } else {
-      localStorage.removeItem('canReload');
-    }
   }
 
   toFeed(e: Event): void {
