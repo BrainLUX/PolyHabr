@@ -65,7 +65,7 @@ export class AuthorizationService {
     return this.apiService.get(`${this.base}changePassword?${configUrl}`, new HttpParams());
   }
 
-  savePassword(onError: ApiError, data: Authorization.SavePassword): Observable<any> {
-    return this.apiService.put(`${this.base}savePassword`, data, onError);
+  savePassword(data: Authorization.SavePassword): Observable<any> {
+    return this.apiService.put(`${this.base}savePassword`, data);
   }
 }

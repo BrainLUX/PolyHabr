@@ -1,25 +1,4 @@
 export namespace Article {
-
-  export class ItemCreate {
-    title: string = ""
-    text: string = ""
-    previewText: string = ""
-    filePdf: string | null = ""
-    likes: number = 0
-    articleType: string = ""
-    listDisciplineName: string = ""
-    listTag: string[] = [""]
-  }
-
-  export class ItemUpdate {
-    title: string = ""
-    text: string = ""
-    previewText: string = ""
-    filePdf: string | null = ""
-    likes: number = 0
-    typeName: string = ""
-  }
-
   export class Item {
     id: number = 0;
     title: string = "";

@@ -27,7 +27,7 @@ export class ApiService {
       }));
   }
 
-  put(path: string, body: Object, onError?: ApiError): Observable<any> {
+  put(path: string, body: Object): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
     headers = headers.append('Content-Type', 'application/json');
@@ -37,12 +37,7 @@ export class ApiService {
       {
         headers: headers
       }
-    ).pipe(catchError((response) => {
-      if (onError) {
-        onError(response.status);
-      }
-      return EMPTY;
-    }));
+    ).pipe();
   }
 
   post(path: string, body: Object, onError?: ApiError): Observable<any> {
@@ -60,32 +55,13 @@ export class ApiService {
     }));
   }
 
-  postForm(path: string, body: Object = {}, onError?: ApiError): Observable<any> {
+  postForm(path: string, body: Object = {}): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
 
     return this.http.post(
       `${environment.api_url}${path}`,
       body, {headers: headers}
-    ).pipe(catchError((response) => {
-      if (onError) {
-        onError(response.status);
-      }
-      return EMPTY;
-    }));
-  }
-
-  delete(path: string, onError?: ApiError): Observable<any> {
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', `Bearer ${StorageHelper.getCookie("accessToken")}`);
-    headers = headers.append('Content-Type', 'application/json');
-    return this.http.delete(
-      `${environment.api_url}${path}`, {headers: headers}
-    ).pipe(catchError((response) => {
-      if (onError) {
-        onError(response.status);
-      }
-      return EMPTY;
-    }));
+    ).pipe();
   }
 }
