@@ -9,7 +9,7 @@
   <div class="tags" *ngIf="!isShort()">
     <a href="#" *ngFor="let tag of article.listDisciplineName">{{tag}}</a>
   </div>
-  <div class="type chip" *ngIf="!isShort()">{{article.typeId.name}}</div>
+  <div class="type chip" *ngIf="!isShort() && article.typeId">{{article.typeId.name}}</div>
   <img *ngIf="!isShort() && article.previewImgId && article.previewImgId.length > 0" [src]="getImageUrl()"/>
   <div class="body" *ngIf="!isShort() && !isFull()" [innerHtml]="getPreview()"></div>
   <div class="body" *ngIf="isFull()" [innerHtml]="getText()"></div>
