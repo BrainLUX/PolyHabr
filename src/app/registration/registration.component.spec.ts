@@ -7,6 +7,7 @@ import {ErrorCodes} from "../../data/models/error-codes";
 import {RegexType} from "../../data/models/regex-types";
 import {InputFieldsType} from "../../data/models/input-field-types";
 import {AuthorizationService} from "../core/services/authorization.service";
+import {environment} from "../../environments/environment";
 
 describe("Registration tests",() => {
   let component: RegistrationComponent;
@@ -250,7 +251,7 @@ describe("Registration tests",() => {
       (authorizationService: AuthorizationService, backend: HttpTestingController) => {
         component.nicknameInputElement.nativeElement.value = "admin";
         component.checkFieldValidation(RegexType.LOGIN, component.nicknameInputElement.nativeElement, InputFieldsType.NICKNAME);
-        backend.expectOne({url: "http://194.87.239.1:8733/api/auth/checkFreeLogin?login=admin&"}).flush({}, {status: 400, statusText: "Bad request"});
+        backend.expectOne({url: `${environment.api_url}/api/auth/checkFreeLogin?login=admin&`}).flush({}, {status: 400, statusText: "Bad request"});
         expect(component.registerErrorConfig.nicknameError).toBe(ErrorCodes.TAKEN_NICKNAME);
       })
   ));
@@ -260,7 +261,7 @@ describe("Registration tests",() => {
       (authorizationService: AuthorizationService, backend: HttpTestingController) => {
         component.emailInputElement.nativeElement.value = "admin@mail.ru";
         component.checkFieldValidation(RegexType.EMAIL, component.emailInputElement.nativeElement, InputFieldsType.EMAIL);
-        backend.expectOne({url: "http://194.87.239.1:8733/api/auth/checkFreeEmail?email=admin@mail.ru&"}).flush({}, {status: 400, statusText: "Bad request"});
+        backend.expectOne({url: `${environment.api_url}/api/auth/checkFreeEmail?email=admin@mail.ru&`}).flush({}, {status: 400, statusText: "Bad request"});
         expect(component.registerErrorConfig.emailError).toBe(ErrorCodes.TAKEN_EMAIL);
       })
   ));
