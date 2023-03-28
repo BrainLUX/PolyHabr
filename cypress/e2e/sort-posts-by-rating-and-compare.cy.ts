@@ -12,12 +12,14 @@ it('Sort posts by rating and compare', () => {
   cy.get('poly-sort-bar .bar .options.active .items .chip:nth-child(4)').click();
   cy.get('poly-sort-bar .bar .options.active button').should('exist');
   cy.get('poly-sort-bar .bar .options.active button').click();
-  cy.get('poly-card:nth-of-type(1) article .footer .info .rating span').should('exist');
-  cy.get('poly-card:nth-of-type(2) article .footer .info .rating span').should('exist');
+  cy.wait(500);
+  cy.get('poly-card:nth-of-type(1) article .rating span').should('exist');
+  cy.get('poly-card:nth-of-type(2) article .rating span').should('exist');
   let secondArticleRating = 0;
-  cy.get('poly-card:nth-of-type(2) article .footer .info .rating span').then($rating => {
+  cy.get('poly-card:nth-of-type(2) article .rating span').then($rating => {
     secondArticleRating = Number($rating.get()[0].innerText);
   });
-  cy.get('poly-card:nth-of-type(1) article .footer .info .rating span').invoke('text').then(parseInt).should('be.greaterThan',
-    secondArticleRating)
+  cy.get('poly-card:nth-of-type(1) article .rating span').then($views => {
+    expect(Number($views.get()[0].innerText)).to.be.greaterThan(secondArticleRating);
+  });
 });
