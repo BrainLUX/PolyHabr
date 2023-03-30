@@ -55,8 +55,8 @@ export class UploadComponent implements OnInit {
             this.id = Number(param["id"]);
             this.articlesService.getArticle(this.id!).subscribe(result => {
               this.titleInputComponent.nativeElement.value = result.title;
-              this.selectedType.name = result.typeId.name
-              this.selectedDiscipline.name = result.listDisciplineName[0];
+              this.selectedType = this.types.find(element => element.name == result.typeId.name)!
+              this.selectedDiscipline = this.disciplines.find(element => element.name == result.listDisciplineName[0])!;
               this.previewTextInputComponent.nativeElement.value = result.previewText;
               this.textInputComponent.nativeElement.value = result.text;
               this.tagInputComponent.nativeElement.value = result.listTag.join(",");
@@ -158,24 +158,24 @@ export class UploadComponent implements OnInit {
           onComplete();
         });
       };
-      this.articlesService.update(body, this.id!!).subscribe(result => {
+      this.articlesService.update(body, this.id!!).subscribe(() => {
         if (this.file && this.file.name.length > 0) {
-          uploadFile(result["id"] as string, () => {
+          uploadFile(String(this.id!!) as string, () => {
             if (this.preview && this.preview.name.length > 0) {
-              uploadImage(result["id"] as string, () => {
-                this.toArticle(result["id"] as string);
+              uploadImage(String(this.id!!) as string, () => {
+                this.toArticle(String(this.id!!) as string);
               });
             } else {
-              this.toArticle(result["id"] as string);
+              this.toArticle(String(this.id!!) as string);
             }
           });
         } else {
           if (this.preview && this.preview.name.length > 0) {
-            uploadImage(result["id"] as string, () => {
-              this.toArticle(result["id"] as string);
+            uploadImage(String(this.id!!) as string, () => {
+              this.toArticle(String(this.id!!) as string);
             });
           } else {
-            this.toArticle(result["id"] as string);
+            this.toArticle(String(this.id!!) as string);
           }
         }
       });

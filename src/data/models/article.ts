@@ -15,6 +15,8 @@ export namespace Article {
     viewCount: number = 0;
     isSaveToFavourite: boolean = false;
 
+    filePdf: string = "";
+
 
     constructor(title: string, listTag: string[], listDisciplineName: string[], date: string, previewText: string, fileId: number, previewId: string) {
       this.title = title;

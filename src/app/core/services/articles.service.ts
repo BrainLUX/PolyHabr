@@ -71,6 +71,6 @@ export class ArticlesService {
   }
 
   update(body: Data, id: number): Observable<Data> {
-    return this.apiService.put(`${this.base}update?id=${id}`, new HttpParams());
+    return this.apiService.put(`${this.base}update?id=${id}`, body);
   }
 }
