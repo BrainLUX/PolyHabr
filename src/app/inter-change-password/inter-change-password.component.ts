@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthorizationService} from "../core/services/authorization.service";
 import {ApiService} from "../core/services/api.service";
 import {Destination, NavigationService} from "../core/services/navigation.service";
@@ -17,8 +17,7 @@ export class InterChangePasswordComponent implements OnInit {
   ngOnInit(): void {
     const passwordToken: string = window.location.search.replace("?token=", "");
     StorageHelper.setCookie("password-token", passwordToken);
-    this.authorizationService.changePassword(() => {
-    }, passwordToken).subscribe(() => {
+    this.authorizationService.changePassword(passwordToken).subscribe(() => {
       this.navigationService.navigateTo(Destination.CHANGE_PASSWORD);
     })
   }

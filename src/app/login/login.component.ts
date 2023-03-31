@@ -68,8 +68,7 @@ export class LoginComponent implements OnInit {
         this.registerErrorConfig.passwordError = ErrorCodes.LOGIN_ERROR;
       }, data).subscribe(loginResult => {
         StorageHelper.setCookie("accessToken", loginResult.accessToken);
-        this.usersService.getMe(() => {
-        }).subscribe(result => {
+        this.usersService.getMe().subscribe(result => {
           DataHelper.user = result;
           if (loginResult.isFirst) {
           this.navigationService.navigateTo(Destination.TYPES);
@@ -90,8 +89,8 @@ export class LoginComponent implements OnInit {
     }
     const regex = new RegExp(regexType, 'g');
     const result = parseString.match(regex);
-    if (result == null) {
-      if (parseString.length > 0) {
+    if (parseString.length > 0) {
+      if (result == null) {
         switch (errorField) {
           case InputFieldsType.NICKNAME:
             this.registerErrorConfig.nicknameError = ErrorCodes.NICKNAME_LOGIN;
@@ -103,12 +102,6 @@ export class LoginComponent implements OnInit {
             this.registerErrorConfig.nicknameError = null;
             break;
         }
-      }
-    } else {
-      switch (errorField) {
-        case InputFieldsType.NICKNAME:
-          this.registerErrorConfig.nicknameError = null;
-          break;
       }
     }
   }

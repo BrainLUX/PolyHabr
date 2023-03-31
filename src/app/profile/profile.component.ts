@@ -3,9 +3,10 @@ import {Article} from "../../data/models/article";
 import {ProfileSortState} from "../../data/models/profile-sort-state";
 import {ActivatedRoute} from "@angular/router";
 import {CardComponent} from "../shared/components/card/card.component";
-import User = Article.User;
 import {UsersService} from "../core/services/users.service";
 import {ArticlesService} from "../core/services/articles.service";
+import {NavigationService} from "../core/services/navigation.service";
+import User = Article.User;
 
 @Component({
   selector: 'poly-profile',
@@ -35,12 +36,11 @@ export class ProfileComponent implements OnInit {
   private lastVerticalOffset = -1;
 
   constructor(private route: ActivatedRoute, private usersService: UsersService,
-              private articlesService: ArticlesService) {
+              private articlesService: ArticlesService, private navigationService:NavigationService) {
   }
 
   ngOnInit(): void {
-    this.usersService.getMe(() => {
-    }).subscribe(result => {
+    this.usersService.getMe().subscribe(result => {
       this.user = result;
       this.getArticles();
     });
@@ -63,12 +63,12 @@ export class ProfileComponent implements OnInit {
     this.activeTab = state;
     switch (state) {
       case ProfileSortState.PUBLISHED:
-        window.location.href = "/profile#published";
+        this.navigationService.navigateByUrl("profile#published");
         this.articles = [];
         this.getArticles();
         break;
       case ProfileSortState.FAVOURITES:
-        window.location.href = "/profile#favourites";
+        this.navigationService.navigateByUrl("profile#favourites");
         this.articles = [];
         this.getArticles();
         break;
@@ -103,8 +103,7 @@ export class ProfileComponent implements OnInit {
         this.offset = 0;
       }
       if (this.isTabActive(ProfileSortState.PUBLISHED)) {
-        this.articlesService.getUserArticles(() => {
-        }, this.user.id, this.offset, this.count).subscribe(result => {
+        this.articlesService.getUserArticles(this.user.id, this.offset, this.count).subscribe(result => {
           if (this.queryCount == tmpQuery) {
             if (isScroll) {
               this.articles.push(...result.contents);
@@ -117,8 +116,7 @@ export class ProfileComponent implements OnInit {
           }
         });
       } else {
-        this.articlesService.getFavArticles(() => {
-        }, this.offset, this.count).subscribe(result => {
+        this.articlesService.getFavArticles(this.offset, this.count).subscribe(result => {
           if (this.queryCount == tmpQuery) {
             if (isScroll) {
               this.articles.push(...result.contents);

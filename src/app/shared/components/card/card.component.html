@@ -1,4 +1,4 @@
-<article [ngClass]="{full:isFull(), short: isShort(), last: isLast}" #root>
+<article [ngClass]="{full:isFull(), short: isShort(), last: isLast}" *ngIf="article" #root>
   <div class="head">
     <a href="#" class="name" *ngIf="!isShort()">{{article.user.login}}</a>
     <div class="date">{{article.date}}</div>
@@ -9,7 +9,7 @@
   <div class="tags" *ngIf="!isShort()">
     <a href="#" *ngFor="let tag of article.listDisciplineName">{{tag}}</a>
   </div>
-  <div class="type chip" *ngIf="!isShort()">{{article.typeId.name}}</div>
+  <div class="type chip" *ngIf="!isShort() && article.typeId">{{article.typeId.name}}</div>
   <img *ngIf="!isShort() && article.previewImgId && article.previewImgId.length > 0" [src]="getImageUrl()"/>
   <div class="body" *ngIf="!isShort() && !isFull()" [innerHtml]="getPreview()"></div>
   <div class="body" *ngIf="isFull()" [innerHtml]="getText()"></div>
@@ -31,6 +31,9 @@
        (click)="toUpload($event)">
       <span>Редактировать работу</span>
     </a>
+    <div class="tags actual" style="margin-top: 16px" *ngIf="!isShort()">
+      <a href="#" *ngFor="let tag of article.listTag">{{tag}}</a>
+    </div>
     <div class="info">
       <div class="rating" (click)="likeDislike()">
         <svg height="24" width="24">

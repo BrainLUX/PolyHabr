@@ -79,9 +79,7 @@ export class RegistrationComponent implements OnInit {
         email: this.emailInputElement.nativeElement.value,
         password: this.passwordInputElement.nativeElement.value
       };
-      console.log(data);
-      this.authorizationService.signUp(() => {
-      }, data).subscribe(() => {
+      this.authorizationService.signUp(data).subscribe(() => {
         StorageHelper.setCookie("email", data.email);
         this.navigationService.navigateTo(Destination.EMAIL_CONFIRM);
       });
@@ -97,8 +95,8 @@ export class RegistrationComponent implements OnInit {
     }
     const regex = new RegExp(regexType, 'g');
     const result = parseString.match(regex);
-    if (result == null) {
-      if (parseString.length > 0) {
+    if (parseString.length > 0) {
+      if (result == null) {
         switch (errorField) {
           case InputFieldsType.EMAIL:
             this.registerErrorConfig.emailError = ErrorCodes.INCORRECT_EMAIL;
@@ -149,12 +147,12 @@ export class RegistrationComponent implements OnInit {
       if (this.nicknameInputElement.nativeElement.value.length >= 4 && result == 400) {
         this.registerErrorConfig.nicknameError = ErrorCodes.TAKEN_NICKNAME;
       }
-    }, this.nicknameInputElement.nativeElement.value).subscribe(() => {});
+    }, this.nicknameInputElement.nativeElement.value).subscribe();
     this.authorizationService.checkFreeEmail((result) => {
       if (this.emailInputElement.nativeElement.value.length >= 4 && result == 400) {
         this.registerErrorConfig.emailError = ErrorCodes.TAKEN_EMAIL;
       }
-    }, this.emailInputElement.nativeElement.value).subscribe(() => {});
+    }, this.emailInputElement.nativeElement.value).subscribe();
   }
 
   checkPasswordsIdentical(): boolean {

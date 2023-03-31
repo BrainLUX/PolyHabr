@@ -17,12 +17,11 @@ export class ArticlesService {
   constructor(private apiService: ApiService) {
   }
 
-  getArticles(onError: ApiError,
-              offset: number = 0,
-              size: number = 1,
-              fieldView: boolean | null = null,
-              fieldRating: boolean | null = null,
-              datRange: String | null = null): Observable<ApiResult<Array<Article.Item>>> {
+  getArticles(offset: number,
+              size: number,
+              fieldView: boolean | null,
+              fieldRating: boolean | null,
+              datRange: String | null): Observable<ApiResult<Array<Article.Item>>> {
     let result = `${this.base}?offset=${offset}&size=${size}`;
     let body: Data = {}
     if (fieldView) {
@@ -32,47 +31,46 @@ export class ArticlesService {
       body['fieldRating'] = false;
       body['datRange'] = datRange;
     }
-    return this.apiService.post(result, body, onError);
+    return this.apiService.post(result, body);
   }
 
-  getUserArticles(onError: ApiError, userId: number = 0, offset: number = 0, size: number = 1): Observable<ApiResult<Array<Article.Item>>> {
-    return this.apiService.get(`${this.base}byUser?id=${userId}&offset=${offset}&size=${size}`, new HttpParams(), onError);
+  getUserArticles(userId: number, offset: number, size: number): Observable<ApiResult<Array<Article.Item>>> {
+    return this.apiService.get(`${this.base}byUser?id=${userId}&offset=${offset}&size=${size}`, new HttpParams());
   }
 
-  getFavArticles(onError: ApiError, offset: number = 0, size: number = 1): Observable<ApiResult<Array<Article.Item>>> {
-    return this.apiService.get(`${this.base}getFavArticles?offset=${offset}&size=${size}`, new HttpParams(), onError);
+  getFavArticles(offset: number, size: number): Observable<ApiResult<Array<Article.Item>>> {
+    return this.apiService.get(`${this.base}getFavArticles?offset=${offset}&size=${size}`, new HttpParams());
   }
 
-  getArticle(id: number = 0, onError: ApiError): Observable<Article.Item> {
-    return this.apiService.get(`${this.base}byId?id=${id}`, new HttpParams(), onError);
+  getArticle(id: number): Observable<Article.Item> {
+    return this.apiService.get(`${this.base}byId?id=${id}`, new HttpParams());
   }
 
-  like(articleId: number = 0, onError: ApiError): Observable<void> {
+  like(articleId: number, onError?: ApiError): Observable<void> {
     return this.apiService.post(`${this.base}add_like?articleId=${articleId}`, new HttpParams(), onError);
   }
 
-  disLike(articleId: number = 0, onError: ApiError): Observable<void> {
+  disLike(articleId: number, onError?: ApiError): Observable<void> {
     return this.apiService.post(`${this.base}decrease_like?articleId=${articleId}`, new HttpParams(), onError);
   }
 
-  addFav(articleId: number = 0, onError: ApiError): Observable<void> {
+  addFav(articleId: number, onError?: ApiError): Observable<void> {
     return this.apiService.post(`${this.base}addFavArticles?articleId=${articleId}`, new HttpParams(), onError);
   }
 
-  removeFav(articleId: number = 0, onError: ApiError): Observable<void> {
+  removeFav(articleId: number, onError?: ApiError): Observable<void> {
     return this.apiService.post(`${this.base}removeFromArticles?articleId=${articleId}`, new HttpParams(), onError);
   }
 
-  search(onError: ApiError, prefix: string = "", offset: number = 0, size: number = 1): Observable<ApiResult<Array<Article.Item>>> {
-    return this.apiService.get(`${this.base}searchByTittle?prefix=${prefix}&offset=${offset}&size=${size}`, new HttpParams(), onError);
+  search(prefix: string, offset: number = 0, size: number = 1): Observable<ApiResult<Array<Article.Item>>> {
+    return this.apiService.get(`${this.base}searchByTittle?prefix=${prefix}&offset=${offset}&size=${size}`, new HttpParams());
   }
-  create(onError: ApiError, data: Article.ItemCreate): Observable<any> {
-    return this.apiService.post(`${this.base}create`, data, onError);
+
+  add(body: Data): Observable<Data> {
+    return this.apiService.post(`${this.base}create`, body);
   }
-  add(onError: ApiError, body: Data): Observable<Data> {
-    return this.apiService.post(`${this.base}create`, body, onError);
-  }
-  update(onError: ApiError, body: Data, id: number): Observable<Data> {
-    return this.apiService.put(`${this.base}update?id=${id}`, new HttpParams(), onError);
+
+  update(body: Data, id: number): Observable<Data> {
+    return this.apiService.put(`${this.base}update?id=${id}`, body);
   }
 }

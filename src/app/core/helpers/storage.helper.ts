@@ -35,10 +35,6 @@ export class StorageHelper {
     ));
     return matches ? decodeURIComponent(matches[1]) : undefined;
   }
-
-  static hasCookie(name: string): boolean {
-    return StorageHelper.getCookie(name) !== undefined;
-  }
 }
 
 declare type JsonPrimitive = string | number | boolean | null;

@@ -6,6 +6,7 @@ import {Destination, NavigationService} from "../core/services/navigation.servic
 import {Data} from "../core/types/Data";
 import {DisciplineTypesService} from "../core/services/discipline_types.service";
 import {FilesService} from "../core/services/files.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'poly-upload',
@@ -34,65 +35,62 @@ export class UploadComponent implements OnInit {
   hasPreviewError: boolean = false;
   selectedType!: Article.Type;
   selectedDiscipline!: Article.Type;
+  id: number | undefined = undefined;
 
   constructor(private articleTypesService: ArticleTypesService, private articlesService: ArticlesService,
               private navigationService: NavigationService, private disciplineTypesService: DisciplineTypesService,
-              private filesService: FilesService) {
+              private filesService: FilesService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.articleTypesService.getTypes(() => {
-    }).subscribe(result => {
+    this.articleTypesService.getTypes().subscribe(result => {
       this.types = result.contents;
       this.selectedType = this.types[0];
 
-      this.disciplineTypesService.getTypes(() => {
-      }).subscribe(result => {
+      this.disciplineTypesService.getTypes().subscribe(result => {
         this.disciplines = result.contents;
         this.selectedDiscipline = this.disciplines[0];
+        this.route.params.subscribe(param => {
+          if (param["id"]) {
+            this.id = Number(param["id"]);
+            this.articlesService.getArticle(this.id!).subscribe(result => {
+              this.titleInputComponent.nativeElement.value = result.title;
+              this.selectedType = this.types.find(element => element.name == result.typeId.name)!
+              this.selectedDiscipline = this.disciplines.find(element => element.name == result.listDisciplineName[0])!;
+              this.previewTextInputComponent.nativeElement.value = result.previewText;
+              this.textInputComponent.nativeElement.value = result.text;
+              this.tagInputComponent.nativeElement.value = result.listTag.join(",");
+              if (result.fileId) {
+                this.file = new File([""], "");
+              }
+              if (result.previewImgId) {
+                this.preview = new File([""], "");
+              }
+            })
+          }
+        });
       });
-
-      const id: number | undefined = Number(window.location.pathname.split("/")[2]);
-      if (!isNaN(id)) {
-        this.articlesService.getArticle(id, () => {
-        }).subscribe(result => {
-          this.titleInputComponent.nativeElement.value = result.title;
-          this.selectedType.name = result.typeId.name
-          this.selectedDiscipline.name = result.listDisciplineName[0];
-          this.previewTextInputComponent.nativeElement.value = result.previewText;
-          this.textInputComponent.nativeElement.value = result.text;
-          this.tagInputComponent.nativeElement.value = result.listTag.join(",");
-          if (result.fileId) {
-            this.file = new File([""], "");
-          }
-          if (result.previewImgId) {
-            this.preview = new File([""], "");
-          }
-        })
-      }
     });
   }
 
-  onFileSelected(event: any): void {
-    if (event.target.files.length > 0) {
+  onFileSelected(files: File[]): void {
+    if (files.length > 0) {
       this.hasError = false;
-      if (event.target.files[0].size < 15 * 1024 * 1024) {
-        this.file = event.target.files[0];
+      if (files[0].size < 15 * 1024 * 1024) {
+        this.file = files[0];
       } else {
         this.hasError = true;
-        event.target.value = "";
       }
     }
   }
 
-  onPreviewSelected(event: any): void {
-    if (event.target.files.length > 0) {
+  onPreviewSelected(files: File[]): void {
+    if (files.length > 0) {
       this.hasPreviewError = false;
-      if (event.target.files[0].size < 15 * 1024 * 1024) {
-        this.preview = event.target.files[0];
+      if (files[0].size < 15 * 1024 * 1024) {
+        this.preview = files[0];
       } else {
         this.hasPreviewError = true;
-        event.target.value = "";
       }
     }
   }
@@ -103,8 +101,7 @@ export class UploadComponent implements OnInit {
 
   add(e: Event): void {
     e.preventDefault();
-    const id: number | undefined = Number(window.location.pathname.split("/")[2]);
-    if (isNaN(id)) {
+    if (this.id == undefined) {
       let body: Data = {
         title: this.titleInputComponent.nativeElement.value,
         text: this.textInputComponent.nativeElement.value,
@@ -114,19 +111,16 @@ export class UploadComponent implements OnInit {
         articleType: this.selectedType.name
       };
       let uploadFile = (id: string, onComplete: () => void) => {
-        this.filesService.sendFile(() => {
-        }, this.file!!, id).subscribe(() => {
+        this.filesService.sendFile(this.file!!, id).subscribe(() => {
           onComplete();
         });
       };
       let uploadImage = (id: string, onComplete: () => void) => {
-        this.filesService.sendImage(() => {
-        }, this.preview!!, id).subscribe(() => {
+        this.filesService.sendImage(this.preview!!, id).subscribe(() => {
           onComplete();
         });
       };
-      this.articlesService.add(() => {
-      }, body).subscribe((result) => {
+      this.articlesService.add(body).subscribe((result) => {
         if (this.file && this.file.name.length > 0) {
           uploadFile(result["id"] as string, () => {
             if (this.preview && this.preview.name.length > 0) {
@@ -155,36 +149,33 @@ export class UploadComponent implements OnInit {
         typeName: this.selectedType.name
       }
       let uploadFile = (id: string, onComplete: () => void) => {
-        this.filesService.sendFile(() => {
-        }, this.file!!, id).subscribe(() => {
+        this.filesService.sendFile(this.file!!, id).subscribe(() => {
           onComplete();
         });
       };
       let uploadImage = (id: string, onComplete: () => void) => {
-        this.filesService.sendImage(() => {
-        }, this.preview!!, id).subscribe(() => {
+        this.filesService.sendImage(this.preview!!, id).subscribe(() => {
           onComplete();
         });
       };
-      this.articlesService.update(() => {
-      }, body, id).subscribe(result => {
+      this.articlesService.update(body, this.id!!).subscribe(() => {
         if (this.file && this.file.name.length > 0) {
-          uploadFile(result["id"] as string, () => {
+          uploadFile(String(this.id!!) as string, () => {
             if (this.preview && this.preview.name.length > 0) {
-              uploadImage(result["id"] as string, () => {
-                this.toArticle(result["id"] as string);
+              uploadImage(String(this.id!!) as string, () => {
+                this.toArticle(String(this.id!!) as string);
               });
             } else {
-              this.toArticle(result["id"] as string);
+              this.toArticle(String(this.id!!) as string);
             }
           });
         } else {
           if (this.preview && this.preview.name.length > 0) {
-            uploadImage(result["id"] as string, () => {
-              this.toArticle(result["id"] as string);
+            uploadImage(String(this.id!!) as string, () => {
+              this.toArticle(String(this.id!!) as string);
             });
           } else {
-            this.toArticle(result["id"] as string);
+            this.toArticle(String(this.id!!) as string);
           }
         }
       });
