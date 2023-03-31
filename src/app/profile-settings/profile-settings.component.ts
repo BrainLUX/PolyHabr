@@ -116,10 +116,8 @@ export class ProfileSettingsComponent {
         body["newPassword"] = this.passwordInputElement.nativeElement.value;
         body["password"] = this.passwordOldInputElement.nativeElement.value;
       }
-      this.usersService.update(() => {
-      }, body).subscribe(() => {
-        this.usersService.getMe(() => {
-        }).subscribe(result => DataHelper.user = result);
+      this.usersService.update(body).subscribe(() => {
+        this.usersService.getMe().subscribe(result => DataHelper.user = result);
         this.toProfile();
       });
     }
@@ -182,7 +180,7 @@ export class ProfileSettingsComponent {
       this.profileSettingsErrorConfig.emailError = ErrorCodes.NON_FILLED_FIELD;
       legal = false;
     }
-    if (this.surnameInputElement.nativeElement.value.length == 0) {
+    if (this.nameInputElement.nativeElement.value.length == 0) {
       this.profileSettingsErrorConfig.nameError = ErrorCodes.NON_FILLED_FIELD;
       legal = false;
     }

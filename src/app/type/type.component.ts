@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {Destination, NavigationService} from "../core/services/navigation.service";
 import {DisciplineTypesService} from "../core/services/discipline_types.service";
 import {Article} from "../../data/models/article";
-import {UsersService} from "../core/services/users.service";
 
 @Component({
   selector: 'poly-type',
@@ -15,9 +14,10 @@ export class TypeComponent {
   selectedType!: Article.Type;
   errorText: string | null = null;
 
+  static ErrorText = "Выберите предпочитаемую дисциплину.";
+
   constructor(private navigationService: NavigationService, private disciplineTypesService: DisciplineTypesService) {
-    disciplineTypesService.getTypes(() => {
-    }).subscribe(result => this.types = result.contents);
+    disciplineTypesService.getTypes().subscribe(result => this.types = result.contents);
   }
 
   toFeed(e: Event): void {
@@ -28,15 +28,12 @@ export class TypeComponent {
   chooseDisciplines(e: Event): void {
     e.preventDefault();
     if (this.selectedType == null) {
-      this.errorText = "Выберите предпочитаемую дисциплину.";
+      this.errorText = TypeComponent.ErrorText;
     } else {
       const data = {
         namesDiscipline: [this.selectedType.name]
       };
-      console.log(data);
-      this.disciplineTypesService.updateMyDiscipline(() => {
-      }, data).subscribe(result => {
-        console.log(result);
+      this.disciplineTypesService.updateMyDiscipline(data).subscribe(() => {
         this.navigationService.navigateTo(Destination.FEED);
       });
     }

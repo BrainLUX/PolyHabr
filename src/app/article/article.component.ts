@@ -29,30 +29,26 @@ export class ArticleComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(param => {
       if (param["article"]) {
-        this.articlesService.getArticle(Number(param["article"]), () => {
-        }).subscribe(articleResult => {
+        this.articlesService.getArticle(Number(param["article"])).subscribe(articleResult => {
           this.article = articleResult;
-          this.articlesService.search(() => {
-          }, this.article.listDisciplineName[0]).subscribe(result => {
+          this.articlesService.search(this.article.listDisciplineName[0]).subscribe(result => {
             this.others = result.contents;
+            this.getComments();
             this.isArticleEditable = this.isOwnedArticle(articleResult.user.id);
           });
-          this.getComments();
         });
       }
     });
   }
 
   getComments(): void {
-    this.commentsService.getComments(() => {
-    }, this.article.id).subscribe(result => {
+    this.commentsService.getComments(this.article.id).subscribe(result => {
       this.comments = result.contents;
     });
   }
 
   sendComment(input: HTMLTextAreaElement) {
-    this.commentsService.sendComment(() => {
-    }, input.value, this.article.id).subscribe(() => {
+    this.commentsService.sendComment(input.value, this.article.id).subscribe(() => {
       this.getComments();
       input.value = "";
     })

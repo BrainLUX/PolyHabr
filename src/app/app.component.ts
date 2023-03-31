@@ -11,7 +11,6 @@ export class AppComponent {
   title = 'PolyHabr';
 
   constructor(private usersService: UsersService) {
-    usersService.getMe(() => {
-    }).subscribe(result => DataHelper.user = result);
+    usersService.getMe().subscribe(result => DataHelper.user = result);
   }
 }

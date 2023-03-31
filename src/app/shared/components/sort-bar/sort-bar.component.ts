@@ -57,6 +57,9 @@ export class SortBarComponent {
         this.selectedOption = this.selectedSort.selectedOption;
       }
     }
+    if (this.selectedSort == SortBarComponent.DATE_SORT) {
+      this.confirmSelect();
+    }
   }
 
   isSelected(sortType: Sort.Type): boolean {
@@ -77,7 +80,10 @@ export class SortBarComponent {
 
   confirmSelect(): void {
     this.selectedSort.selectOption(this.selectedOption);
-    this.onOptionSelected.emit({type: this.selectedSort, data: this.selectedOption!!.data});
+    this.onOptionSelected.emit({
+      type: this.selectedSort,
+      data: this.selectedOption?.data ? this.selectedOption?.data : ""
+    });
     this.selectedOption = undefined;
   }
 }

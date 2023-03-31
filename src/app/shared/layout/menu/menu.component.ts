@@ -57,6 +57,6 @@ export class MenuComponent {
 
 }
 
-enum MenuState {
+export enum MenuState {
   HIDDEN, SHOWING, SHOWN
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiService} from "./api.service";
 import {Observable} from "rxjs";
 import {ApiResult} from "../types/api-result";
@@ -17,8 +17,8 @@ export class AuthorizationService {
 
   }
 
-  signUp(onError: ApiError, data: Authorization.SignUp): Observable<ApiResult<any>> {
-    return this.apiService.post(`${this.base}signup`, data, onError);
+  signUp(data: Authorization.SignUp): Observable<ApiResult<any>> {
+    return this.apiService.post(`${this.base}signup`, data);
   }
 
   signIn(onError: ApiError, data: Authorization.SignIn): Observable<Authorization.Login> {
@@ -41,31 +41,31 @@ export class AuthorizationService {
     return this.apiService.get(`${this.base}checkFreeEmail?${configUrl}`, new HttpParams(), onError);
   }
 
-  verify(onError: ApiError, token: string): Observable<ApiResult<any>> {
+  verify(token: string): Observable<ApiResult<any>> {
     let configUrl = "";
     Object.entries({code: token}).map(([key, value]) => {
       configUrl += `${key}=${value}&`;
     });
-    return this.apiService.get(`${this.base}verify?${configUrl}`, new HttpParams(), onError);
+    return this.apiService.get(`${this.base}verify?${configUrl}`, new HttpParams());
   }
 
-  forgotPassword(onError: ApiError, email: string): Observable<ApiResult<any>> {
+  forgotPassword(email: string): Observable<ApiResult<any>> {
     let configUrl = "";
     Object.entries({email: email}).map(([key, value]) => {
       configUrl += `${key}=${value}&`;
     });
-    return this.apiService.post(`${this.base}forgotPassword?${configUrl}`, new HttpParams(), onError);
+    return this.apiService.post(`${this.base}forgotPassword?${configUrl}`, new HttpParams());
   }
 
-  changePassword(onError: ApiError, token: string): Observable<any> {
+  changePassword(token: string): Observable<any> {
     let configUrl = "";
     Object.entries({token: token}).map(([key, value]) => {
       configUrl += `${key}=${value}&`;
     });
-    return this.apiService.get(`${this.base}changePassword?${configUrl}`, new HttpParams(), onError);
+    return this.apiService.get(`${this.base}changePassword?${configUrl}`, new HttpParams());
   }
 
-  savePassword(onError: ApiError, data: Authorization.SavePassword): Observable<any> {
-    return this.apiService.put(`${this.base}savePassword`, data, onError);
+  savePassword(data: Authorization.SavePassword): Observable<any> {
+    return this.apiService.put(`${this.base}savePassword`, data);
   }
 }

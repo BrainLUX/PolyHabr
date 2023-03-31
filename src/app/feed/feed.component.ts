@@ -26,18 +26,26 @@ export class FeedComponent {
 
   articles: Article.Item[] = [];
 
-  private isItemsLoading: boolean = false;
+  private _isItemsLoading: boolean = false;
   private queryCount = 0;
   private count = 5;
   private offset = -1;
   private scrollDelta = -1;
   private lastVerticalOffset = -1;
 
-  private selectedSort: Sort.Type = SortBarComponent.DATE_SORT;
-  private selectedOption: String | null = null;
+  private _selectedSort: Sort.Type = SortBarComponent.DATE_SORT;
+  private _selectedOption: String | null = null;
 
   constructor(private articlesService: ArticlesService) {
     this.getArticles();
+  }
+
+  get selectedSort(): Sort.Type {
+    return this._selectedSort;
+  }
+
+  get selectedOption(): String | null {
+    return this._selectedOption;
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -52,25 +60,24 @@ export class FeedComponent {
   }
 
   selectSort(data: { type: Sort.Type, data: String | null }): void {
-    this.selectedSort = data.type;
-    this.selectedOption = data.data;
+    this._selectedSort = data.type;
+    this._selectedOption = data.data;
     this.getArticles(false);
   }
 
   getArticles(isScroll: boolean = false): void {
-    if ((!this.isItemsLoading && isScroll) || !isScroll) {
+    if ((!this._isItemsLoading && isScroll) || !isScroll) {
       let tmpQuery = ++this.queryCount;
-      this.isItemsLoading = true;
+      this._isItemsLoading = true;
       if (isScroll) {
         this.offset++;
       } else {
         this.offset = 0;
       }
-      this.articlesService.getArticles(() => {
-        }, this.offset, this.count,
-        this.selectedSort == SortBarComponent.VIEW_SORT,
-        this.selectedSort == SortBarComponent.RATING_SORT,
-        this.selectedOption)
+      this.articlesService.getArticles(this.offset, this.count,
+        this._selectedSort == SortBarComponent.VIEW_SORT,
+        this._selectedSort == SortBarComponent.RATING_SORT,
+        this._selectedOption)
         .subscribe(result => {
           if (this.queryCount == tmpQuery) {
             if (isScroll) {
@@ -80,7 +87,7 @@ export class FeedComponent {
             }
           }
           if (result.contents.length > 0) {
-            this.isItemsLoading = false;
+            this._isItemsLoading = false;
           }
         });
     }
