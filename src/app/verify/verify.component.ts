@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Destination, NavigationService} from "../core/services/navigation.service";
 import {AuthorizationService} from "../core/services/authorization.service";
 
