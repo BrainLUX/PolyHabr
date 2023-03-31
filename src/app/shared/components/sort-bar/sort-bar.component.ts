@@ -70,6 +70,10 @@ export class SortBarComponent {
     return this.selectedOption;
   }
 
+  getSelectedSort(): Sort.Type {
+    return this.selectedSort
+  }
+
   isOptionSelected(option: Sort.Option): boolean {
     return this.selectedOption == option;
   }
