@@ -1,13 +1,13 @@
-import {ComponentFixture, fakeAsync, inject, TestBed} from "@angular/core/testing";
+import {ComponentFixture, fakeAsync, inject, TestBed, tick} from "@angular/core/testing";
 import {ArticleComponent} from "./article.component";
 import {Article} from "../../data/models/article";
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import {SharedModule} from "../shared/shared.module";
 import {ArticlesService} from "../core/services/articles.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Params, RouterModule} from "@angular/router";
 import {DataHelper} from "../core/helpers/data.helper";
-import {of} from "rxjs";
 import User = Article.User;
+import {of} from "rxjs";
 
 describe('Article Test', () => {
   let component: ArticleComponent;

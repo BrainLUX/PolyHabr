@@ -5,7 +5,7 @@ export namespace Article {
     user: User = new User("");
     listTag: string[] = [];
     listDisciplineName: string[] = [];
-    typeId: Tag = new Tag("");
+    typeId: Tag = new Tag("Test");
     date: string = "";
     previewText: string = "";
     previewImgId: string = "";
@@ -34,7 +34,7 @@ export namespace Article {
         "API",
         "Микросервисы",
         "Проектирование и рефакторинг",
-      ], ["Перевод"], "сегодня 12:42", "<a href=\"https://habr.com/ru/company/piter/blog/698798/\">\n" +
+      ], ["Test"], "сегодня 12:42", "<a href=\"https://habr.com/ru/company/piter/blog/698798/\">\n" +
         "      <img src=\"https://habrastorage.org/webt/yd/vg/_l/ydvg_lgfrb1nekjmmza0qmbvmoy.jpeg\"\n" +
         "           alt=\"image\">\n" +
         "    </a>\n" +

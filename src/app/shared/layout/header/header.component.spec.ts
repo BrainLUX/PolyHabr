@@ -1,5 +1,9 @@
-import {ComponentFixture, inject, TestBed} from "@angular/core/testing";
+import {ComponentFixture, fakeAsync, inject, TestBed} from "@angular/core/testing";
+import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
+import {Article} from "../../../../data/models/article";
+import {environment} from "../../../../environments/environment";
 import {Router} from "@angular/router";
+import {ArticlesService} from "../../../core/services/articles.service";
 import {HeaderComponent} from "./header.component";
 import {Destination} from "../../../core/services/navigation.service";
 

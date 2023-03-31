@@ -3,10 +3,10 @@ import {Article} from "../../data/models/article";
 import {ProfileSortState} from "../../data/models/profile-sort-state";
 import {ActivatedRoute} from "@angular/router";
 import {CardComponent} from "../shared/components/card/card.component";
+import User = Article.User;
 import {UsersService} from "../core/services/users.service";
 import {ArticlesService} from "../core/services/articles.service";
 import {NavigationService} from "../core/services/navigation.service";
-import User = Article.User;
 
 @Component({
   selector: 'poly-profile',
