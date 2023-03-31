@@ -37,4 +37,12 @@ describe('Sort bar Test', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('.options').classList.contains("active")).toBeTrue();
   });
+
+  it('Test date Sort', () => {
+    component.selectSort(SortBarComponent.DATE_SORT);
+    fixture.detectChanges();
+    component.confirmSelect();
+    fixture.detectChanges();
+    expect(component.getSelectedSort()).toBe(SortBarComponent.DATE_SORT)
+  });
 });
