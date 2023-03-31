@@ -20,8 +20,6 @@ it('Sort posts by date and compare', () => {
   cy.get('poly-card:nth-of-type(2) article .date').then($date => {
     const pattern = /(\d{2})\.(\d{2})\.(\d{4})/;
     secondArticleDate = new Date($date.get()[0].innerText.replace(pattern, '$3-$2-$1'));
-    console.log(secondArticleDate)
-    console.log($date.get()[0].innerText.toString())
   });
   cy.get('poly-card:nth-of-type(1) article .date').then($date => {
     const pattern = /(\d{2})\.(\d{2})\.(\d{4})/;

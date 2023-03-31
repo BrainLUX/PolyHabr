@@ -45,6 +45,7 @@ export class SearchComponent {
     this._filter = text;
     if (text.trim().length < 3) {
       this.articles = [];
+      this.offset = 0;
       this.isItemsLoading = false;
     } else {
       this.articlesService.search(text, this.offset, this.count).subscribe(result => {

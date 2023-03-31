@@ -31,13 +31,16 @@
        (click)="toUpload($event)">
       <span>Редактировать работу</span>
     </a>
+    <div class="tags actual" style="margin-top: 16px" *ngIf="!isShort()">
+      <a href="#" *ngFor="let tag of article.listTag">{{tag}}</a>
+    </div>
     <div class="info">
       <div class="rating" (click)="likeDislike()">
         <svg height="24" width="24">
           <title>Рейтинг</title>
           <use xlink:href="assets/images/icons/icon-set.svg#counter-rating"></use>
         </svg>
-          <span>{{article.likes}}</span>
+        <span>{{article.likes}}</span>
       </div>
       <div class="views">
         <svg height="24" width="24">

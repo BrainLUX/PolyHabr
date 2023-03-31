@@ -25,7 +25,7 @@
         </div>
       </div>
       <div class="input-title required">Наименование работы</div>
-      <input type="text" placeholder="Введите название" #titleInputComponent>
+      <input type="text" class="name-input" placeholder="Введите название" #titleInputComponent>
       <div class="title">Отоборажение в ленте</div>
       <div class="file">
         <div class="preview">
@@ -45,7 +45,7 @@
                (change)="onPreviewSelected($any($event.target).files)"
                #previewInput>
       </div>
-      <textarea placeholder="Введите текст" #previewTextInputComponent></textarea>
+      <textarea placeholder="Введите текст" class="preview-input" #previewTextInputComponent></textarea>
       <div class="title">Файл и описание работы</div>
       <div class="file">
         <div class="preview">
@@ -65,9 +65,9 @@
                (change)="onFileSelected($any($event.target).files)"
                #fileInput>
       </div>
-      <textarea placeholder="Введите текст" #textInputComponent></textarea>
+      <textarea placeholder="Введите текст" class="text-input" #textInputComponent></textarea>
       <div class="input-title required">Теги работы (через запятую)</div>
-      <input type="text" #tagInputComponent>
+      <input type="text" class="tags-input" #tagInputComponent>
     </div>
     <button (click)="add($event)">Отправить</button>
   </div>
