@@ -1,4 +1,4 @@
-import {ComponentFixture, fakeAsync, flush, inject, TestBed, tick} from "@angular/core/testing";
+import {ComponentFixture, fakeAsync, inject, TestBed} from "@angular/core/testing";
 import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DisciplineTypesService} from "../core/services/discipline_types.service";
@@ -8,6 +8,7 @@ import {ArticleTypesService} from "../core/services/article_types.service";
 import {ArticlesService} from "../core/services/articles.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import {of} from "rxjs";
+import {SharedModule} from "../shared/shared.module";
 
 describe('Upload with file Test', () => {
   let component: UploadComponent;
@@ -15,7 +16,7 @@ describe('Upload with file Test', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, ReactiveFormsModule],
+      imports: [HttpClientTestingModule, SharedModule, ReactiveFormsModule],
       declarations: [UploadComponent],
       providers: [ArticleTypesService, ArticlesService, DisciplineTypesService, ArticlesService,
         {
@@ -31,7 +32,7 @@ describe('Upload with file Test', () => {
   beforeEach(fakeAsync(
     inject([DisciplineTypesService, HttpTestingController],
       (articlesService: DisciplineTypesService, backend: HttpTestingController) => {
-        const type = new Article.Type("test");
+        const type = new Article.Type("Test");
         fixture.detectChanges();
         backend.expectOne({}).flush({contents: [type]});
         backend.expectOne({}).flush({contents: [type]});
@@ -100,7 +101,7 @@ describe('Upload with file Test', () => {
         fixture.detectChanges();
         backend.expectOne({}).flush({id: 0});
         expect(router.navigateByUrl).toHaveBeenCalled();
-        expect(router.navigateByUrl).toHaveBeenCalledWith("article/0");
+        expect(router.navigateByUrl).toHaveBeenCalledWith("article/1");
       })));
 
   it('Add with preview test', fakeAsync(
@@ -114,7 +115,7 @@ describe('Upload with file Test', () => {
         backend.expectOne({}).flush({id: 0});
         backend.expectOne({}).flush({id: 0});
         expect(router.navigateByUrl).toHaveBeenCalled();
-        expect(router.navigateByUrl).toHaveBeenCalledWith("article/0");
+        expect(router.navigateByUrl).toHaveBeenCalledWith("article/1");
       })));
 
   it('Add with file test', fakeAsync(
@@ -128,7 +129,7 @@ describe('Upload with file Test', () => {
         backend.expectOne({}).flush({id: 0});
         backend.expectOne({}).flush({id: 0});
         expect(router.navigateByUrl).toHaveBeenCalled();
-        expect(router.navigateByUrl).toHaveBeenCalledWith("article/0");
+        expect(router.navigateByUrl).toHaveBeenCalledWith("article/1");
       })));
 
   it('Add with file and preview test', fakeAsync(
@@ -144,7 +145,7 @@ describe('Upload with file Test', () => {
         backend.expectOne({}).flush({id: 0});
         backend.expectOne({}).flush({id: 0});
         expect(router.navigateByUrl).toHaveBeenCalled();
-        expect(router.navigateByUrl).toHaveBeenCalledWith("article/0");
+        expect(router.navigateByUrl).toHaveBeenCalledWith("article/1");
       })));
 });
 
