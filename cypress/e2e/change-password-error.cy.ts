@@ -1,4 +1,4 @@
-it('Add article', () => {
+it('Change Password Error', () => {
   cy.visit('/login');
   cy.url().should('include', '/login');
   cy.get('.form.nickname input').clear().type('admin');
