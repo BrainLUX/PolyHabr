@@ -14,6 +14,7 @@ import {DataHelper} from "../core/helpers/data.helper";
 export class ArticleComponent implements OnInit {
 
   readonly CardType = CardType;
+  readonly DataHelper = DataHelper;
 
   article!: Article.Item;
   comments: Article.Comment[] = [];
