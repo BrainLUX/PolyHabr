@@ -813,6 +813,10 @@ body {
   padding: 0;
   font-family: "Montserrat", sans-serif;
   background: #F0F0F0;
+  -webkit-font-smoothing: antialiased;
+  color: #333;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 * {
@@ -822,6 +826,7 @@ body {
 .container {
   margin: 0 auto;
   max-width: 1096px;
+  min-height: 16px;
 }
 
 img {
@@ -830,8 +835,70 @@ img {
   object-fit: cover;
 }
 
-.link {
+a, .link {
+  text-decoration: none;
+  color: inherit;
   cursor: pointer;
+}
+a:hover, .link:hover {
+  color: #21a649 !important;
+}
+
+h1, h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+button {
+  background-color: #21a649;
+  color: #fff;
+  cursor: pointer;
+  -webkit-appearance: button;
+  height: 32px;
+  padding: 8px 14px;
+  border-radius: 3px;
+  transition: all 0.3s;
+  outline: none;
+  border: 1px solid #21a649;
+}
+button:hover {
+  background-color: #105d3b;
+  border: 1px solid #105d3b;
+}
+
+input[type=text] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #d5dddf;
+  box-sizing: border-box;
+  color: #333;
+  display: block;
+  margin: 0;
+  outline: 0;
+  padding: 0 14px;
+  transition: border-color 0.2s linear, box-shadow 0.2s linear;
+  width: 100%;
+  min-height: 36px;
+}
+
+.chip {
+  width: fit-content;
+  border: 1px solid #21a649;
+  border-radius: 3px;
+  box-sizing: border-box;
+  margin-right: 8px;
+  padding: 8px 9px;
+  font-size: 12px;
+}
+.chip.selected, .chip.selectable:hover {
+  background-color: #21a649;
+  color: #fff !important;
 }
 
 /*# sourceMappingURL=base.css.map */
