@@ -23,6 +23,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm run test
+      - name: Run Karma Tests
+        uses: ahmedrizwan/angular-karma-test-action@v1.0.0
       - name: Cypress run
         uses: cypress-io/github-action@v5.6.1 # use the explicit version number
         with:
